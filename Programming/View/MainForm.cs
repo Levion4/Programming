@@ -17,12 +17,6 @@ namespace Programming
         {
             InitializeComponent();
             EnumsListBox.SelectedIndex = 0;
-            var allColour = Enum.GetValues(typeof(Colour));
-            var allGenre = Enum.GetValues(typeof(Genre));
-            var allManufactures = Enum.GetValues(typeof(SmartphoneManufactures));
-            var allFormOfStudy = Enum.GetValues(typeof(StudentsFormOfStudy));
-            var allTimeOfYear = Enum.GetValues(typeof(TimeOfYear));
-            var allWeekday = Enum.GetValues(typeof(Weekday));
         }
 
         private void EnumsListBox_SelectedIndexChanged(object sender, EventArgs e) //при изменении варианта в первом ListBox
@@ -35,12 +29,31 @@ namespace Programming
                 case "Colour":
                     enumValues = Enum.GetValues(typeof(Colour));
                     break;
-
+                case "Genre":
+                    enumValues = Enum.GetValues(typeof(Genre));
+                    break;
+                case "SmartphoneManufacturers":
+                    enumValues = Enum.GetValues(typeof(SmartphoneManufactures));
+                    break;
+                case "StudentsFormOfStudy":
+                    enumValues = Enum.GetValues(typeof(StudentsFormOfStudy));
+                    break;
+                case "TimeOfYear":
+                    enumValues = Enum.GetValues(typeof(TimeOfYear));
+                    break;
+                case "Weekday":
+                    enumValues = Enum.GetValues(typeof(Weekday));
+                    break;
             }
             foreach (var colour in enumValues)
             {
                 ValuesListBox.Items.Add(colour);
             }
+        }
+
+        private void ValuesListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            IntValueTextBox.Text = ((int)ValuesListBox.SelectedItem).ToString(); 
         }
     }
 }
