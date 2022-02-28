@@ -55,5 +55,17 @@ namespace Programming
         {
             IntValueTextBox.Text = ((int)ValuesListBox.SelectedItem).ToString(); 
         }
+
+        private void WeekdayParsingButton_Click(object sender, EventArgs e)
+        {
+            if(Enum.TryParse(typeof(Weekday), WeekdayParsingTextBox.Text, out object result))
+            {
+                ResultParseTextBox.Text = $"Это день недели ({result.ToString()} = {(int)result})";
+            }
+            else
+            {
+                ResultParseTextBox.Text = $"Нет такого дня недели";
+            }
+        }
     }
 }

@@ -31,6 +31,7 @@ namespace Programming
         {
             this.EnumsTabPage = new System.Windows.Forms.TabPage();
             this.WeekdayParsingGroupBox = new System.Windows.Forms.GroupBox();
+            this.ResultParseTextBox = new System.Windows.Forms.TextBox();
             this.WeekdayParsingButton = new System.Windows.Forms.Button();
             this.ValueParsingLabel = new System.Windows.Forms.Label();
             this.WeekdayParsingTextBox = new System.Windows.Forms.TextBox();
@@ -63,6 +64,7 @@ namespace Programming
             // 
             // WeekdayParsingGroupBox
             // 
+            this.WeekdayParsingGroupBox.Controls.Add(this.ResultParseTextBox);
             this.WeekdayParsingGroupBox.Controls.Add(this.WeekdayParsingButton);
             this.WeekdayParsingGroupBox.Controls.Add(this.ValueParsingLabel);
             this.WeekdayParsingGroupBox.Controls.Add(this.WeekdayParsingTextBox);
@@ -73,6 +75,16 @@ namespace Programming
             this.WeekdayParsingGroupBox.TabStop = false;
             this.WeekdayParsingGroupBox.Text = "Weekday Parsing";
             // 
+            // ResultParseTextBox
+            // 
+            this.ResultParseTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.ResultParseTextBox.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.ResultParseTextBox.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.ResultParseTextBox.Location = new System.Drawing.Point(35, 105);
+            this.ResultParseTextBox.Name = "ResultParseTextBox";
+            this.ResultParseTextBox.Size = new System.Drawing.Size(315, 20);
+            this.ResultParseTextBox.TabIndex = 3;
+            // 
             // WeekdayParsingButton
             // 
             this.WeekdayParsingButton.FlatAppearance.BorderColor = System.Drawing.Color.Black;
@@ -82,6 +94,7 @@ namespace Programming
             this.WeekdayParsingButton.TabIndex = 2;
             this.WeekdayParsingButton.Text = "Parse";
             this.WeekdayParsingButton.UseVisualStyleBackColor = true;
+            this.WeekdayParsingButton.Click += new System.EventHandler(this.WeekdayParsingButton_Click);
             // 
             // ValueParsingLabel
             // 
@@ -227,6 +240,7 @@ namespace Programming
         private System.Windows.Forms.Label ValueParsingLabel;
         private System.Windows.Forms.TextBox WeekdayParsingTextBox;
         private System.Windows.Forms.Button WeekdayParsingButton;
+        private System.Windows.Forms.TextBox ResultParseTextBox;
     }
 }
 
