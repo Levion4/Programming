@@ -16,7 +16,7 @@ namespace Programming
         public MainForm()
         {
             InitializeComponent();
-            EnumsListBox.SelectedIndex = 0;
+            EnumsListBox.SelectedIndex = 0;          
         }
 
         private void EnumsListBox_SelectedIndexChanged(object sender, EventArgs e) //при изменении варианта в первом ListBox
@@ -45,9 +45,9 @@ namespace Programming
                     enumValues = Enum.GetValues(typeof(Weekday));
                     break;
             }
-            foreach (var colour in enumValues)
+            foreach (var value in enumValues)
             {
-                ValuesListBox.Items.Add(colour);
+                ValuesListBox.Items.Add(value);
             }
         }
 
@@ -60,12 +60,46 @@ namespace Programming
         {
             if(Enum.TryParse(typeof(Weekday), WeekdayParsingTextBox.Text, out object result))
             {
-                ResultParseTextBox.Text = $"Это день недели ({result.ToString()} = {(int)result})";
+                ResultParseTextBox.Text = $"Это день недели ({result} = {(int)result})";
             }
             else
             {
                 ResultParseTextBox.Text = $"Нет такого дня недели";
             }
+        }
+
+        private void SeasonHandleButton_Click(object sender, EventArgs e)
+        {
+            var item = SeasonHandleСomboBox.SelectedItem;
+            var value = (TimeOfYear)item;
+            switch (value)
+            {
+                case TimeOfYear.Winter:
+                    this.BackColor = Color.Blue;
+                    MessageBox.Show($"Зима уже наступила!");
+                    break;
+                case TimeOfYear.Spring:
+                    this.BackColor = Color.Green;
+                    MessageBox.Show($"Зима уже прошла!");
+                    break;
+                case TimeOfYear.Summer:
+                    this.BackColor = Color.Yellow;
+                    MessageBox.Show($"До зимы еще далеко!");
+                    break;
+                case TimeOfYear.Autumn:
+                    this.BackColor = Color.Orange;
+                    MessageBox.Show($"Зима близко!");
+                    break;
+            }
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            foreach (var value in Enum.GetValues(typeof(TimeOfYear)))
+            {
+                SeasonHandleСomboBox.Items.Add(value); 
+            }
+            SeasonHandleСomboBox.SelectedItem = Enum.Parse(typeof(TimeOfYear), "0");
         }
     }
 }
