@@ -19,10 +19,10 @@ namespace Programming.View
             EnumsListBox.SelectedIndex = 0;          
         }
 
-        private void EnumsListBox_SelectedIndexChanged(object sender, EventArgs e) //при изменении варианта в первом ListBox
+        private void EnumsListBox_SelectedIndexChanged(object sender, EventArgs e) 
         {
-            ValuesListBox.Items.Clear(); //очистка значений во втором ListBox
-            var item = EnumsListBox.SelectedItem; //значение в первом ListBox
+            ValuesListBox.Items.Clear(); 
+            var item = EnumsListBox.SelectedItem; 
             Array enumValues = null;
             switch (item)
             {
