@@ -99,9 +99,9 @@ namespace Programming.View
             // 
             // SeasonHandleButton
             // 
-            this.SeasonHandleButton.Location = new System.Drawing.Point(321, 72);
+            this.SeasonHandleButton.Location = new System.Drawing.Point(321, 71);
             this.SeasonHandleButton.Name = "SeasonHandleButton";
-            this.SeasonHandleButton.Size = new System.Drawing.Size(94, 27);
+            this.SeasonHandleButton.Size = new System.Drawing.Size(94, 29);
             this.SeasonHandleButton.TabIndex = 4;
             this.SeasonHandleButton.Text = "Go!";
             this.SeasonHandleButton.UseVisualStyleBackColor = true;
@@ -133,9 +133,9 @@ namespace Programming.View
             // WeekdayParsingButton
             // 
             this.WeekdayParsingButton.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.WeekdayParsingButton.Location = new System.Drawing.Point(317, 72);
+            this.WeekdayParsingButton.Location = new System.Drawing.Point(317, 71);
             this.WeekdayParsingButton.Name = "WeekdayParsingButton";
-            this.WeekdayParsingButton.Size = new System.Drawing.Size(94, 27);
+            this.WeekdayParsingButton.Size = new System.Drawing.Size(94, 29);
             this.WeekdayParsingButton.TabIndex = 2;
             this.WeekdayParsingButton.Text = "Parse";
             this.WeekdayParsingButton.UseVisualStyleBackColor = true;
@@ -259,7 +259,7 @@ namespace Programming.View
             this.Controls.Add(this.EnamsTabControl);
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "MainForm";
-            this.Text = "Form1";
+            this.Text = "Programming";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.EnumsTabPage.ResumeLayout(false);
             this.SeasonHandleGroupBox.ResumeLayout(false);

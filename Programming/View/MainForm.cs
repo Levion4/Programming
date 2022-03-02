@@ -15,8 +15,7 @@ namespace Programming.View
     {
         public MainForm()
         {
-            InitializeComponent();
-            EnumsListBox.SelectedIndex = 0;          
+            InitializeComponent();         
         }
 
         private void EnumsListBox_SelectedIndexChanged(object sender, EventArgs e) 
@@ -99,10 +98,8 @@ namespace Programming.View
             {
                 SeasonHandleСomboBox.Items.Add(value); 
             }
-            if (Enum.TryParse(typeof(TimeOfYear), "0", out object result))
-            {
-                SeasonHandleСomboBox.SelectedItem = result;
-            }
+            SeasonHandleСomboBox.SelectedIndex = 0;
+            EnumsListBox.SelectedIndex = 0;
         }
     }
 }
