@@ -99,7 +99,10 @@ namespace Programming.View
             {
                 SeasonHandleСomboBox.Items.Add(value); 
             }
-            SeasonHandleСomboBox.SelectedItem = Enum.Parse(typeof(TimeOfYear), "0");
+            if (Enum.TryParse(typeof(TimeOfYear), "0", out object result))
+            {
+                SeasonHandleСomboBox.SelectedItem = result;
+            }
         }
     }
 }
