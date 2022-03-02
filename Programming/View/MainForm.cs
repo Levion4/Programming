@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Programming.Model;
 
-
 namespace Programming.View
 {
     public partial class MainForm : Form
