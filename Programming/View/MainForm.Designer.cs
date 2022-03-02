@@ -1,5 +1,5 @@
 ﻿
-namespace Programming
+namespace Programming.View
 {
     partial class MainForm
     {
