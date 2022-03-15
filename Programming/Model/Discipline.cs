@@ -8,11 +8,18 @@ namespace Programming.Model
 {
     class Discipline
     {
-        private string _teacher;
-
         private int _mark;
 
-        private string _name;
+        public Discipline()
+        {
+        }
+
+        public Discipline(string teacher, string name, int mark)
+        {
+            Teacher = teacher;
+            Name = name;
+            Mark = mark;
+        }
 
         public string Teacher { get; set; }
 

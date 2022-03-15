@@ -8,17 +8,29 @@ namespace Programming.Model
 {
     class Film
     {
-        private string _title;
 
         private int _durationInMinutes;
 
         private int _yearOfRelease;
 
-        private string _genre;
-
         private double _rating;
 
+        public Film()
+        {
+        }
+
+        public Film(int durationInMinutes, int yearOfRelease, double rating, string title, string genre) 
+        {
+            DurationInMinutes = durationInMinutes;
+            YearOfRelease = yearOfRelease;
+            Rating = rating;
+            Title = title;
+            Genre = genre;
+        }
+
         public string Title { get; set; }
+
+        public string Genre { get; set; }
 
         public int DurationInMinutes
         {
@@ -53,8 +65,6 @@ namespace Programming.Model
                 _yearOfRelease = value;
             }
         }
-
-        public string Genre { get; set; }
 
         public double Rating
         {

@@ -14,6 +14,17 @@ namespace Programming.Model
 
         private int _seconds;
 
+        public Time()
+        {
+        }
+
+        public Time(int hours, int minutes, int seconds)
+        {
+            Hours = hours;
+            Minutes = minutes;
+            Seconds = seconds;
+        }
+
         public int Hours
         {
             get

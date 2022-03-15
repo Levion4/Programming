@@ -8,11 +8,18 @@ namespace Programming.Model
 {
     class Contact
     {
-        private string _name;
-
         private string _number;
 
-        private string _city;
+        public Contact()
+        {
+        }
+
+        public Contact(string name, string number, string city)
+        {
+            Number = number;
+            Name = name;
+            City = city;
+        }
 
         public string Name { get; set; }
 

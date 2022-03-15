@@ -8,11 +8,18 @@ namespace Programming.Model
 {
     class Song
     {
-        private string _title;
-
         private int _durationInMinutes;
 
-        private string _author;
+        public Song()
+        {
+        }
+
+        public Song(int durationInMinutes, string title, string author)
+        {
+            DurationInMinutes = durationInMinutes;
+            Title = title;
+            Author = author;
+        }
 
         public string Title { get; set; }
 
