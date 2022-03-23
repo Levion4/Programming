@@ -118,6 +118,57 @@ namespace Programming.View
         private void RectanglesListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             _currentRectangle = _rectangles[RectanglesListBox.SelectedIndex];
+            LenghtTextBox.Text = _currentRectangle.Length.ToString();
+            WidthTextBox.Text = _currentRectangle.Width.ToString();
+            ColorTextBox.Text = _currentRectangle.Color;
+        }
+
+        private void LenghtTextBox_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                _currentRectangle.Length = Convert.ToDouble(LenghtTextBox.Text);
+                LenghtTextBox.BackColor = Color.White;
+                ToolTip.SetToolTip(LenghtTextBox, "");
+            }
+            catch(Exception exception)
+            {
+                ToolTip.SetToolTip(LenghtTextBox, exception.Message);
+                LenghtTextBox.BackColor = Color.LightPink;
+                return;
+            }
+        }
+
+        private void WidthTextBox_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                _currentRectangle.Width = Convert.ToDouble(WidthTextBox.Text);
+                WidthTextBox.BackColor = Color.White;
+                ToolTip.SetToolTip(WidthTextBox, "");
+            }
+            catch (Exception exception)
+            {
+                ToolTip.SetToolTip(WidthTextBox, exception.Message);
+                WidthTextBox.BackColor = Color.LightPink;
+                return;
+            }
+        }
+
+        private void ColorTextBox_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                _currentRectangle.Color = ColorTextBox.Text;
+                ColorTextBox.BackColor = Color.White;
+                ToolTip.SetToolTip(ColorTextBox, "");
+            }
+            catch (Exception exception)
+            {
+                ToolTip.SetToolTip(ColorTextBox, exception.Message);
+                ColorTextBox.BackColor = Color.LightPink;
+                return;
+            }
         }
     }
 }

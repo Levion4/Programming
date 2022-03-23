@@ -29,6 +29,7 @@ namespace Programming.View
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.EnumsTabPage = new System.Windows.Forms.TabPage();
             this.SeasonHandleGroupBox = new System.Windows.Forms.GroupBox();
             this.SeasonHandleСomboBox = new System.Windows.Forms.ComboBox();
@@ -57,6 +58,7 @@ namespace Programming.View
             this.LenghtTextBox = new System.Windows.Forms.TextBox();
             this.LenghtLabel = new System.Windows.Forms.Label();
             this.RectanglesListBox = new System.Windows.Forms.ListBox();
+            this.ToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.EnumsTabPage.SuspendLayout();
             this.SeasonHandleGroupBox.SuspendLayout();
             this.WeekdayParsingGroupBox.SuspendLayout();
@@ -327,6 +329,7 @@ namespace Programming.View
             this.ColorTextBox.Name = "ColorTextBox";
             this.ColorTextBox.Size = new System.Drawing.Size(100, 23);
             this.ColorTextBox.TabIndex = 4;
+            this.ColorTextBox.TextChanged += new System.EventHandler(this.ColorTextBox_TextChanged);
             // 
             // WidthTextBox
             // 
@@ -334,6 +337,7 @@ namespace Programming.View
             this.WidthTextBox.Name = "WidthTextBox";
             this.WidthTextBox.Size = new System.Drawing.Size(100, 23);
             this.WidthTextBox.TabIndex = 3;
+            this.WidthTextBox.TextChanged += new System.EventHandler(this.WidthTextBox_TextChanged);
             // 
             // LenghtTextBox
             // 
@@ -341,6 +345,7 @@ namespace Programming.View
             this.LenghtTextBox.Name = "LenghtTextBox";
             this.LenghtTextBox.Size = new System.Drawing.Size(100, 23);
             this.LenghtTextBox.TabIndex = 2;
+            this.LenghtTextBox.TextChanged += new System.EventHandler(this.LenghtTextBox_TextChanged);
             // 
             // LenghtLabel
             // 
@@ -415,6 +420,7 @@ namespace Programming.View
         private System.Windows.Forms.TextBox WidthTextBox;
         private System.Windows.Forms.TextBox LenghtTextBox;
         private System.Windows.Forms.Label LenghtLabel;
+        private System.Windows.Forms.ToolTip ToolTip;
     }
 }
 

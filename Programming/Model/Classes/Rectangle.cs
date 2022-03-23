@@ -35,7 +35,7 @@ namespace Programming.Model.Classes
             {
                 if (value <= 0)
                 {
-                    throw new ArgumentException("The length cannot be negative");
+                    throw new ArgumentException("The length cannot be negative or equal to zero");
                 }
 
                 _length = value;
@@ -52,7 +52,7 @@ namespace Programming.Model.Classes
             {
                 if (value <= 0)
                 {
-                    throw new ArgumentException("The width cannot be negative");
+                    throw new ArgumentException("The width cannot be negative or equal to zero");
                 }
 
                 _width = value;
