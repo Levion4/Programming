@@ -7,15 +7,27 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Programming.Model.Classes;
 using Programming.Model.Enums;
 
 namespace Programming.View
 {
     public partial class MainForm : Form
     {
+        private Model.Classes.Rectangle[] _rectangles;
+
+        private Model.Classes.Rectangle _currentRectangle = new Model.Classes.Rectangle();
+
         public MainForm()
         {
-            InitializeComponent();         
+            InitializeComponent();
+            _rectangles = new Model.Classes.Rectangle[5];
+            Random random = new Random();
+            for (var i = 0; i < 5; i++)
+            {
+                _rectangles[i] = new Model.Classes.Rectangle(random.Next(1,100), random.Next(1,100), "White");
+                RectanglesListBox.Items.Add($"Rectangle {i+1}");
+            }
         }
 
         private void EnumsListBox_SelectedIndexChanged(object sender, EventArgs e) 
@@ -100,6 +112,12 @@ namespace Programming.View
             }
             SeasonHandleСomboBox.SelectedIndex = 0;
             EnumsListBox.SelectedIndex = 0;
+            RectanglesListBox.SelectedIndex = 0;
+        }
+
+        private void RectanglesListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            _currentRectangle = _rectangles[RectanglesListBox.SelectedIndex];
         }
     }
 }

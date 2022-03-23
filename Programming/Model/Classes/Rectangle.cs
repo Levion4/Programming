@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Programming.Model
+namespace Programming.Model.Classes
 {
     class Rectangle
     {
@@ -33,7 +33,7 @@ namespace Programming.Model
             }
             set
             {
-                if (value < 0)
+                if (value <= 0)
                 {
                     throw new ArgumentException("The length cannot be negative");
                 }
@@ -50,7 +50,7 @@ namespace Programming.Model
             }
             set
             {
-                if (value < 0)
+                if (value <= 0)
                 {
                     throw new ArgumentException("The width cannot be negative");
                 }
