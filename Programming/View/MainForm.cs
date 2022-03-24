@@ -18,15 +18,22 @@ namespace Programming.View
 
         private Model.Classes.Rectangle _currentRectangle = new Model.Classes.Rectangle();
 
+        private Film[] _films;
+
+        private Film _currentFilm = new Film();
+
         public MainForm()
         {
             InitializeComponent();
             _rectangles = new Model.Classes.Rectangle[5];
+            _films = new Film[5];
             Random random = new Random();
             for (var i = 0; i < 5; i++)
             {
                 _rectangles[i] = new Model.Classes.Rectangle(random.Next(1,100), random.Next(1,100), "White");
-                RectanglesListBox.Items.Add($"Rectangle {i+1}");
+                RectanglesListBox.Items.Add($"Rectangle {i + 1}");
+                _films[i] = new Film(random.Next(0, 51420), random.Next(1900, DateTime.Now.Year), random.Next(0, 10), "Saw", "Horror");
+                FilmsListBox.Items.Add($"Film {i + 1}");
             }
         }
 
@@ -113,6 +120,7 @@ namespace Programming.View
             SeasonHandleСomboBox.SelectedIndex = 0;
             EnumsListBox.SelectedIndex = 0;
             RectanglesListBox.SelectedIndex = 0;
+            FilmsListBox.SelectedIndex = 0;
         }
 
         private void RectanglesListBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -190,6 +198,117 @@ namespace Programming.View
         private void RectanglesButton_Click(object sender, EventArgs e)
         {
             RectanglesListBox.SelectedIndex = FindRectangleWithMaxWidth(_rectangles);
+        }
+
+        private void TitleTextBox_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                _currentFilm.Title = TitleTextBox.Text;
+                TitleTextBox.BackColor = Color.White;
+                ToolTip.SetToolTip(TitleTextBox, "");
+            }
+            catch (Exception exception)
+            {
+                ToolTip.SetToolTip(TitleTextBox, exception.Message);
+                TitleTextBox.BackColor = Color.LightPink;
+                return;
+            }
+        }
+
+        private void GenreTextBox_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                _currentFilm.Genre = GenreTextBox.Text;
+                GenreTextBox.BackColor = Color.White;
+                ToolTip.SetToolTip(GenreTextBox, "");
+            }
+            catch (Exception exception)
+            {
+                ToolTip.SetToolTip(GenreTextBox, exception.Message);
+                GenreTextBox.BackColor = Color.LightPink;
+                return;
+            }
+        }
+
+        private void DurationInMinutesTextBox_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                _currentFilm.DurationInMinutes = Convert.ToInt32(DurationInMinutesTextBox.Text);
+                DurationInMinutesTextBox.BackColor = Color.White;
+                ToolTip.SetToolTip(DurationInMinutesTextBox, "");
+            }
+            catch (Exception exception)
+            {
+                ToolTip.SetToolTip(DurationInMinutesTextBox, exception.Message);
+                DurationInMinutesTextBox.BackColor = Color.LightPink;
+                return;
+            }
+        }
+
+        private void YearOfReleaseTextBox_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                _currentFilm.YearOfRelease = Convert.ToInt32(YearOfReleaseTextBox.Text);
+                YearOfReleaseTextBox.BackColor = Color.White;
+                ToolTip.SetToolTip(YearOfReleaseTextBox, "");
+            }
+            catch (Exception exception)
+            {
+                ToolTip.SetToolTip(YearOfReleaseTextBox, exception.Message);
+                YearOfReleaseTextBox.BackColor = Color.LightPink;
+                return;
+            }
+        }
+
+        private void RatingTextBox_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                _currentFilm.Rating = Convert.ToDouble(RatingTextBox.Text);
+                RatingTextBox.BackColor = Color.White;
+                ToolTip.SetToolTip(RatingTextBox, "");
+            }
+            catch (Exception exception)
+            {
+                ToolTip.SetToolTip(RatingTextBox, exception.Message);
+                RatingTextBox.BackColor = Color.LightPink;
+                return;
+            }
+        }
+
+        private int FindFilmWithMaxRating(Model.Classes.Film[] films)
+        {
+            var maxIndex = 0;
+            var maxValues = films[maxIndex].Rating;
+            for (var i = 0; i < films.Length; i++)
+            {
+                if (films[i].Rating > maxValues)
+                {
+                    maxValues = films[i].Rating;
+                    maxIndex = i;
+                }
+            }
+
+            return maxIndex;
+        }
+
+        private void FilmsButton_Click(object sender, EventArgs e)
+        {
+            FilmsListBox.SelectedIndex = FindFilmWithMaxRating(_films);
+        }
+
+        private void FilmsListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            _currentFilm = _films[FilmsListBox.SelectedIndex];
+            TitleTextBox.Text = _currentFilm.Title;
+            GenreTextBox.Text = _currentFilm.Genre;
+            DurationInMinutesTextBox.Text = _currentFilm.DurationInMinutes.ToString();
+            YearOfReleaseTextBox.Text = _currentFilm.YearOfRelease.ToString();
+            RatingTextBox.Text = _currentFilm.Rating.ToString();
         }
     }
 }
