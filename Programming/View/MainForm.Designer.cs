@@ -304,6 +304,7 @@ namespace Programming.View
             this.RectanglesButton.TabIndex = 7;
             this.RectanglesButton.Text = "Find";
             this.RectanglesButton.UseVisualStyleBackColor = true;
+            this.RectanglesButton.Click += new System.EventHandler(this.RectanglesButton_Click);
             // 
             // ColorLabel
             // 

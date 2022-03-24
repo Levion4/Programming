@@ -170,5 +170,26 @@ namespace Programming.View
                 return;
             }
         }
+
+        private int FindRectangleWithMaxWidth(Model.Classes.Rectangle[] rectangles)
+        {
+            var maxIndex = 0;
+            var maxValues = rectangles[maxIndex].Width;
+            for(var i=0; i<rectangles.Length; i++)
+            {
+                if (rectangles[i].Width > maxValues)
+                {
+                    maxValues = rectangles[i].Width;
+                    maxIndex = i;
+                }
+            }
+
+            return maxIndex;
+        }
+
+        private void RectanglesButton_Click(object sender, EventArgs e)
+        {
+            RectanglesListBox.SelectedIndex = FindRectangleWithMaxWidth(_rectangles);
+        }
     }
 }
