@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Programming.Model.Classes
 {
-    class Rectangle
+    public class Rectangle
     {
         private double _length;
 
@@ -35,7 +35,9 @@ namespace Programming.Model.Classes
             {
                 if (value <= 0)
                 {
-                    throw new ArgumentException("The length cannot be negative or equal to zero");
+                    throw new ArgumentException(
+                        $"The length cannot be negative or equal to zero, " +
+                        $"but was {value}");
                 }
 
                 _length = value;
@@ -52,7 +54,9 @@ namespace Programming.Model.Classes
             {
                 if (value <= 0)
                 {
-                    throw new ArgumentException("The width cannot be negative or equal to zero");
+                    throw new ArgumentException(
+                        $"The width cannot be negative or equal to zero, " +
+                        $"but was {value}");
                 }
 
                 _width = value;

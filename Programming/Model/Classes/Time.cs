@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Programming.Model.Classes
 {
-    class Time
+    public class Time
     {
         private int _hours;
 
@@ -35,7 +35,9 @@ namespace Programming.Model.Classes
             {
                 if (value < 0 || value > 23)
                 {
-                    throw new ArgumentException("The hours must be in the range from 0 to 23");
+                    throw new ArgumentException(
+                        $"The hours must be in the range from 0 to 23, " +
+                        $"but was {value}");
                 }
 
                 _hours = value;
@@ -52,7 +54,9 @@ namespace Programming.Model.Classes
             {
                 if (value < 0 || value > 59)
                 {
-                    throw new ArgumentException("The minutes must be in the range from 0 to 59");
+                    throw new ArgumentException(
+                        $"The minutes must be in the range from 0 to 59, " +
+                        $"but was {value}");
                 }
 
                 _minutes = value;
@@ -69,7 +73,9 @@ namespace Programming.Model.Classes
             {
                 if (value < 0 || value > 59)
                 {
-                    throw new ArgumentException("The seconds must be in the range from 0 to 59");
+                    throw new ArgumentException(
+                        $"The seconds must be in the range from 0 to 59, " +
+                        $"but was {value}");
                 }
 
                 _seconds = value;

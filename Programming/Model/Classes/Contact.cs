@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Programming.Model.Classes
 {
-    class Contact
+    public class Contact
     {
         private string _number;
 
@@ -35,17 +35,19 @@ namespace Programming.Model.Classes
             {
                 if (value.Length != 11)
                 {
-                    throw new ArgumentException("The number must contain 11 digits");
+                    throw new ArgumentException(
+                        $"The number must contain 11 digits, " +
+                        $"but was {value.Length}");
                 }
 
                 if (!int.TryParse(value, out var x))
                 {
-                    throw new ArgumentException("The number must contain only digits");
+                    throw new ArgumentException(
+                        $"The number must contain only digits");
                 }
 
                 _number = value;
             }
-
         }
     }
 }

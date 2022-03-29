@@ -9,32 +9,88 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Programming.Model.Classes;
 using Programming.Model.Enums;
+using Rectangle = Programming.Model.Classes.Rectangle;
 
 namespace Programming.View
 {
     public partial class MainForm : Form
     {
-        private Model.Classes.Rectangle[] _rectangles;
+        private Rectangle[] _rectangles;
 
-        private Model.Classes.Rectangle _currentRectangle = new Model.Classes.Rectangle();
+        private Rectangle _currentRectangle = new Rectangle();
 
-        private Film[] _films;
+        private Movie[] _movie;
 
-        private Film _currentFilm = new Film();
+        private Movie _currentMovie = new Movie();
+
+        private string[] _movies = new string {"Captain America: The First Avenger",
+            "Captain Marvel", "Iron Man", "Iron Man 2", "The Incredible Hulk",
+            "Thor", "The Avengers", "Shang-Chi and the Legend of the Ten Rings",
+            "Iron Man 3", "Thor: The Dark World", "Captain America: The Winter Soldier",
+            "Guardians of the Galaxy", "Guardians of the Galaxy 2",
+            "Avengers: Age of Ultron", "Ant-Man", "Captain America: Civil War",
+            "Black Widow", "Black Panther", "Spider-Man: Homecoming", "Doctor Strange",
+            "Thor: Ragnarok", "Avengers: Infinity War", "Ant-Man and The Wasp",
+            "Avengers: Endgame", "Spider-Man: Far From Home", "Eternals",
+            "Spider-Man: No Way Home", "Doctor Strange in the Multiverse of Madness",
+            "Thor: Love and Thunder", "Black Panther: Wakanda Forever" };
 
         public MainForm()
         {
             InitializeComponent();
-            _rectangles = new Model.Classes.Rectangle[5];
-            _films = new Film[5];
+            _rectangles = new Rectangle[5];
+            _movie = new Movie[5];
             Random random = new Random();
             for (var i = 0; i < 5; i++)
             {
-                _rectangles[i] = new Model.Classes.Rectangle(random.Next(1,100), random.Next(1,100), "White");
+                _rectangles[i] = new Rectangle(
+                    Math.Round(random.NextDouble() * 100, 1),
+                    Math.Round(random.NextDouble() * 100, 1),
+                    "White");
                 RectanglesListBox.Items.Add($"Rectangle {i + 1}");
-                _films[i] = new Film(random.Next(0, 51420), random.Next(1900, DateTime.Now.Year), random.Next(0, 10), "Saw", "Horror");
+            }
+            for (var i=0; i<5; i++)
+            {
+                _movie[i] = new Movie(
+                    random.Next(0, 421),
+                    random.Next(1900, DateTime.Now.Year),
+                    Math.Round(random.NextDouble()*10, 1),
+                    _movies[random.Next(0,_movies.Lenght)],
+                    "Blockbuster");
                 FilmsListBox.Items.Add($"Film {i + 1}");
             }
+        }
+
+        private int FindFilmWithMaxRating(Model.Classes.Movie[] films)
+        {
+            var maxIndex = 0;
+            var maxValues = films[maxIndex].Rating;
+            for (var i = 0; i < films.Length; i++)
+            {
+                if (films[i].Rating > maxValues)
+                {
+                    maxValues = films[i].Rating;
+                    maxIndex = i;
+                }
+            }
+
+            return maxIndex;
+        }
+
+        private int FindRectangleWithMaxWidth(Model.Classes.Rectangle[] rectangles)
+        {
+            var maxIndex = 0;
+            var maxValues = rectangles[maxIndex].Width;
+            for (var i = 0; i < rectangles.Length; i++)
+            {
+                if (rectangles[i].Width > maxValues)
+                {
+                    maxValues = rectangles[i].Width;
+                    maxIndex = i;
+                }
+            }
+
+            return maxIndex;
         }
 
         private void EnumsListBox_SelectedIndexChanged(object sender, EventArgs e) 
@@ -179,21 +235,7 @@ namespace Programming.View
             }
         }
 
-        private int FindRectangleWithMaxWidth(Model.Classes.Rectangle[] rectangles)
-        {
-            var maxIndex = 0;
-            var maxValues = rectangles[maxIndex].Width;
-            for(var i=0; i<rectangles.Length; i++)
-            {
-                if (rectangles[i].Width > maxValues)
-                {
-                    maxValues = rectangles[i].Width;
-                    maxIndex = i;
-                }
-            }
 
-            return maxIndex;
-        }
 
         private void RectanglesButton_Click(object sender, EventArgs e)
         {
@@ -204,7 +246,7 @@ namespace Programming.View
         {
             try
             {
-                _currentFilm.Title = TitleTextBox.Text;
+                _currentMovie.Title = TitleTextBox.Text;
                 TitleTextBox.BackColor = Color.White;
                 ToolTip.SetToolTip(TitleTextBox, "");
             }
@@ -220,7 +262,7 @@ namespace Programming.View
         {
             try
             {
-                _currentFilm.Genre = GenreTextBox.Text;
+                _currentMovie.Genre = GenreTextBox.Text;
                 GenreTextBox.BackColor = Color.White;
                 ToolTip.SetToolTip(GenreTextBox, "");
             }
@@ -236,7 +278,7 @@ namespace Programming.View
         {
             try
             {
-                _currentFilm.DurationInMinutes = Convert.ToInt32(DurationInMinutesTextBox.Text);
+                _currentMovie.DurationInMinutes = Convert.ToInt32(DurationInMinutesTextBox.Text);
                 DurationInMinutesTextBox.BackColor = Color.White;
                 ToolTip.SetToolTip(DurationInMinutesTextBox, "");
             }
@@ -252,7 +294,7 @@ namespace Programming.View
         {
             try
             {
-                _currentFilm.YearOfRelease = Convert.ToInt32(YearOfReleaseTextBox.Text);
+                _currentMovie.YearOfRelease = Convert.ToInt32(YearOfReleaseTextBox.Text);
                 YearOfReleaseTextBox.BackColor = Color.White;
                 ToolTip.SetToolTip(YearOfReleaseTextBox, "");
             }
@@ -268,7 +310,7 @@ namespace Programming.View
         {
             try
             {
-                _currentFilm.Rating = Convert.ToDouble(RatingTextBox.Text);
+                _currentMovie.Rating = Convert.ToDouble(RatingTextBox.Text);
                 RatingTextBox.BackColor = Color.White;
                 ToolTip.SetToolTip(RatingTextBox, "");
             }
@@ -280,35 +322,19 @@ namespace Programming.View
             }
         }
 
-        private int FindFilmWithMaxRating(Model.Classes.Film[] films)
-        {
-            var maxIndex = 0;
-            var maxValues = films[maxIndex].Rating;
-            for (var i = 0; i < films.Length; i++)
-            {
-                if (films[i].Rating > maxValues)
-                {
-                    maxValues = films[i].Rating;
-                    maxIndex = i;
-                }
-            }
-
-            return maxIndex;
-        }
-
         private void FilmsButton_Click(object sender, EventArgs e)
         {
-            FilmsListBox.SelectedIndex = FindFilmWithMaxRating(_films);
+            FilmsListBox.SelectedIndex = FindFilmWithMaxRating(_movie);
         }
 
         private void FilmsListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            _currentFilm = _films[FilmsListBox.SelectedIndex];
-            TitleTextBox.Text = _currentFilm.Title;
-            GenreTextBox.Text = _currentFilm.Genre;
-            DurationInMinutesTextBox.Text = _currentFilm.DurationInMinutes.ToString();
-            YearOfReleaseTextBox.Text = _currentFilm.YearOfRelease.ToString();
-            RatingTextBox.Text = _currentFilm.Rating.ToString();
+            _currentMovie = _movie[FilmsListBox.SelectedIndex];
+            TitleTextBox.Text = _currentMovie.Title;
+            GenreTextBox.Text = _currentMovie.Genre;
+            DurationInMinutesTextBox.Text = _currentMovie.DurationInMinutes.ToString();
+            YearOfReleaseTextBox.Text = _currentMovie.YearOfRelease.ToString();
+            RatingTextBox.Text = _currentMovie.Rating.ToString();
         }
     }
 }

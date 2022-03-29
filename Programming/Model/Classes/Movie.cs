@@ -6,20 +6,19 @@ using System.Threading.Tasks;
 
 namespace Programming.Model.Classes
 {
-    class Film
+    public class Movie
     {
-
         private int _durationInMinutes;
 
         private int _yearOfRelease;
 
         private double _rating;
 
-        public Film()
+        public Movie()
         {
         }
 
-        public Film(int durationInMinutes, int yearOfRelease, double rating, string title, string genre) 
+        public Movie(int durationInMinutes, int yearOfRelease, double rating, string title, string genre) 
         {
             DurationInMinutes = durationInMinutes;
             YearOfRelease = yearOfRelease;
@@ -42,7 +41,9 @@ namespace Programming.Model.Classes
             {
                 if (value < 0)
                 {
-                    throw new ArgumentException("The duration cannot be negative");
+                    throw new ArgumentException(
+                        $"The duration cannot be negative, " +
+                        $"but was {value}");
                 }
 
                 _durationInMinutes = value;
@@ -59,7 +60,9 @@ namespace Programming.Model.Classes
             {
                 if (value < 1900 || value > DateTime.Now.Year)
                 {
-                    throw new ArgumentException("The year of release of the film should be from 1900 to the current year");
+                    throw new ArgumentException(
+                        $"The year of release of the film " +
+                        $"should be from 1900 to {DateTime.Now.Year}");
                 }
 
                 _yearOfRelease = value;
@@ -76,7 +79,9 @@ namespace Programming.Model.Classes
             {
                 if (value < 0 || value > 10)
                 {
-                    throw new ArgumentException("The rating should be in the range from 0 to 10");
+                    throw new ArgumentException(
+                        $"The rating should be in the range from 0 to 10, " +
+                        $"but was {value}");
                 }
 
                 _rating = value;

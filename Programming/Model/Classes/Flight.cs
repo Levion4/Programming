@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Programming.Model.Classes
 {
-    class Flight
+    public class Flight
     {
         private int _flightTimeInMinutes;
 
@@ -14,14 +14,14 @@ namespace Programming.Model.Classes
         {
         }
 
-        public Flight(int flightTimeInMinutes, string departurePoint, string destination)
+        public Flight(int flightTimeInMinutes, string departure, string destination)
         {
             FlightTimeInMinutes = flightTimeInMinutes;
-            DeparturePoint = departurePoint;
+            Departure = departure;
             Destination = destination;
         }
 
-        public string DeparturePoint { get; set; }
+        public string Departure { get; set; }
 
         public string Destination { get; set; }
 
@@ -35,7 +35,9 @@ namespace Programming.Model.Classes
             {
                 if (value < 0)
                 {
-                    throw new ArgumentException("The flight time cannot be negative");
+                    throw new ArgumentException(
+                        $"The flight time cannot be negative, " +
+                        $"but was {value}");
                 }
 
                 _flightTimeInMinutes = value;

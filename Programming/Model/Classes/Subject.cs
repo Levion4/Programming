@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace Programming.Model.Classes
 {
-    class Discipline
+    public class Subject
     {
         private int _mark;
 
-        public Discipline()
+        public Subject()
         {
         }
 
-        public Discipline(string teacher, string name, int mark)
+        public Subject(string teacher, string name, int mark)
         {
             Teacher = teacher;
             Name = name;
@@ -35,7 +35,9 @@ namespace Programming.Model.Classes
             {
                 if (value < 2 || value > 5)
                 {
-                    throw new ArgumentException("The mark should be in the range from 2 to 5");
+                    throw new ArgumentException(
+                        $"The mark should be in the range from 2 to 5, " +
+                        $"but was {value}");
                 }
 
                 _mark = value;

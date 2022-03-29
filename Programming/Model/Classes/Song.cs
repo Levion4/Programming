@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Programming.Model.Classes
 {
-    class Song
+    public class Song
     {
         private int _durationInMinutes;
 
@@ -35,7 +35,9 @@ namespace Programming.Model.Classes
             {
                 if (value < 0)
                 {
-                    throw new ArgumentException("The duration cannot be negative");
+                    throw new ArgumentException(
+                        $"The duration cannot be negative, " +
+                        $"but was {value}");
                 }
 
                 _durationInMinutes = value;
