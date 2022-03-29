@@ -23,7 +23,7 @@ namespace Programming.View
 
         private Movie _currentMovie = new Movie();
 
-        private string[] _movies = new string {"Captain America: The First Avenger",
+        private string[] _movies = new string[] {"Captain America: The First Avenger",
             "Captain Marvel", "Iron Man", "Iron Man 2", "The Incredible Hulk",
             "Thor", "The Avengers", "Shang-Chi and the Legend of the Ten Rings",
             "Iron Man 3", "Thor: The Dark World", "Captain America: The Winter Soldier",
@@ -55,7 +55,7 @@ namespace Programming.View
                     random.Next(0, 421),
                     random.Next(1900, DateTime.Now.Year),
                     Math.Round(random.NextDouble()*10, 1),
-                    _movies[random.Next(0,_movies.Lenght)],
+                    _movies[random.Next(0,_movies.Length)],
                     "Blockbuster");
                 FilmsListBox.Items.Add($"Film {i + 1}");
             }
