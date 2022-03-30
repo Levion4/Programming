@@ -259,7 +259,7 @@ namespace Programming.View
             this.EnumsListBox.FormattingEnabled = true;
             this.EnumsListBox.ItemHeight = 15;
             this.EnumsListBox.Items.AddRange(new object[] {
-            "Colour",
+            "Color",
             "Genre",
             "SmartphoneManufacturers",
             "StudentsFormOfStudy",

@@ -38,31 +38,55 @@ namespace Programming.View
             "Spider-Man: No Way Home", "Doctor Strange in the Multiverse of Madness",
             "Thor: Love and Thunder", "Black Panther: Wakanda Forever" };
 
-        public MainForm()
+        private void MainForm_Load(object sender, EventArgs e)
         {
-            InitializeComponent();
+            foreach (var value in Enum.GetValues(typeof(TimeOfYear)))
+            {
+                SeasonHandleСomboBox.Items.Add(value);
+            }
+            SeasonHandleСomboBox.SelectedIndex = 0;
+            EnumsListBox.SelectedIndex = 0;
+            RectanglesListBox.SelectedIndex = 0;
+            FilmsListBox.SelectedIndex = 0;
+        }
+
+        private void InitRectangles()
+        {
             _rectangles = new Rectangle[5];
-            _movie = new Movie[5];
             Random random = new Random();
-            int lengthGenre = Enum.GetNames(typeof(Genre)).Length;
+            int lengthColor = Enum.GetNames(typeof(Model.Enums.Color)).Length;
             for (var i = 0; i < 5; i++)
             {
                 _rectangles[i] = new Rectangle(
                     Math.Round(random.NextDouble() * 100, 1),
                     Math.Round(random.NextDouble() * 100, 1),
-                    "White");
+                    ((Model.Enums.Color)random.Next(lengthColor)).ToString());
                 RectanglesListBox.Items.Add($"Rectangle {i + 1}");
             }
-            for (var i=0; i<5; i++)
+        }
+
+        private void InitMovies()
+        {
+            _movie = new Movie[5];
+            Random random = new Random();
+            int lengthGenre = Enum.GetNames(typeof(Genre)).Length;
+            for (var i = 0; i < 5; i++)
             {
                 _movie[i] = new Movie(
                     random.Next(0, 421),
                     random.Next(1900, DateTime.Now.Year),
-                    Math.Round(random.NextDouble()*10, 1),
-                    _movies[random.Next(0,_movies.Length)],
+                    Math.Round(random.NextDouble() * 10, 1),
+                    _movies[random.Next(0, _movies.Length)],
                     ((Genre)random.Next(lengthGenre)).ToString());
                 FilmsListBox.Items.Add($"Film {i + 1}");
             }
+        }
+
+        public MainForm()
+        {
+            InitializeComponent();
+            InitRectangles();
+            InitMovies();
         }
 
         private int FindFilmWithMaxRating(Model.Classes.Movie[] films)
@@ -104,7 +128,7 @@ namespace Programming.View
             Array enumValues = null;
             switch (item)
             {
-                case "Colour":
+                case "Color":
                     enumValues = Enum.GetValues(typeof(Model.Enums.Color));
                     break;
                 case "Genre":
@@ -169,18 +193,6 @@ namespace Programming.View
                     MessageBox.Show($"Зима близко!");
                     break;
             }
-        }
-
-        private void MainForm_Load(object sender, EventArgs e)
-        {
-            foreach (var value in Enum.GetValues(typeof(TimeOfYear)))
-            {
-                SeasonHandleСomboBox.Items.Add(value); 
-            }
-            SeasonHandleСomboBox.SelectedIndex = 0;
-            EnumsListBox.SelectedIndex = 0;
-            RectanglesListBox.SelectedIndex = 0;
-            FilmsListBox.SelectedIndex = 0;
         }
 
         private void RectanglesListBox_SelectedIndexChanged(object sender, EventArgs e)
