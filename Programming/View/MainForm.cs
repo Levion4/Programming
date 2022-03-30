@@ -15,8 +15,8 @@ namespace Programming.View
 {
     public partial class MainForm : Form
     {
-        readonly Color normalColor = Color.White;
-        readonly Color errorColor = Color.LightPink;
+        readonly System.Drawing.Color normalColor = System.Drawing.Color.White;
+        readonly System.Drawing.Color errorColor = System.Drawing.Color.LightPink;
 
         private Rectangle[] _rectangles;
 
@@ -105,7 +105,7 @@ namespace Programming.View
             switch (item)
             {
                 case "Colour":
-                    enumValues = Enum.GetValues(typeof(Colour));
+                    enumValues = Enum.GetValues(typeof(Model.Enums.Color));
                     break;
                 case "Genre":
                     enumValues = Enum.GetValues(typeof(Genre));
@@ -153,19 +153,19 @@ namespace Programming.View
             switch (value)
             {
                 case TimeOfYear.Winter:
-                    this.BackColor = Color.Blue;
+                    this.BackColor = System.Drawing.Color.Blue;
                     MessageBox.Show($"Зима уже наступила!");
                     break;
                 case TimeOfYear.Spring:
-                    this.BackColor = Color.Green;
+                    this.BackColor = System.Drawing.Color.Green;
                     MessageBox.Show($"Зима уже прошла!");
                     break;
                 case TimeOfYear.Summer:
-                    this.BackColor = Color.Yellow;
+                    this.BackColor = System.Drawing.Color.Yellow;
                     MessageBox.Show($"До зимы еще далеко!");
                     break;
                 case TimeOfYear.Autumn:
-                    this.BackColor = Color.Orange;
+                    this.BackColor = System.Drawing.Color.Orange;
                     MessageBox.Show($"Зима близко!");
                     break;
             }
