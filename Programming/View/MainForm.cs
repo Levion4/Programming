@@ -15,6 +15,9 @@ namespace Programming.View
 {
     public partial class MainForm : Form
     {
+        readonly Color normalColor = Color.White;
+        readonly Color errorColor = Color.LightPink;
+
         private Rectangle[] _rectangles;
 
         private Rectangle _currentRectangle = new Rectangle();
@@ -41,6 +44,7 @@ namespace Programming.View
             _rectangles = new Rectangle[5];
             _movie = new Movie[5];
             Random random = new Random();
+            int lengthGenre = Enum.GetNames(typeof(Genre)).Length;
             for (var i = 0; i < 5; i++)
             {
                 _rectangles[i] = new Rectangle(
@@ -56,7 +60,7 @@ namespace Programming.View
                     random.Next(1900, DateTime.Now.Year),
                     Math.Round(random.NextDouble()*10, 1),
                     _movies[random.Next(0,_movies.Length)],
-                    "Blockbuster");
+                    ((Genre)random.Next(lengthGenre)).ToString());
                 FilmsListBox.Items.Add($"Film {i + 1}");
             }
         }
@@ -192,13 +196,13 @@ namespace Programming.View
             try
             {
                 _currentRectangle.Length = Convert.ToDouble(LenghtTextBox.Text);
-                LenghtTextBox.BackColor = Color.White;
+                LenghtTextBox.BackColor = normalColor;
                 ToolTip.SetToolTip(LenghtTextBox, "");
             }
             catch(Exception exception)
             {
                 ToolTip.SetToolTip(LenghtTextBox, exception.Message);
-                LenghtTextBox.BackColor = Color.LightPink;
+                LenghtTextBox.BackColor = errorColor;
                 return;
             }
         }
@@ -208,13 +212,13 @@ namespace Programming.View
             try
             {
                 _currentRectangle.Width = Convert.ToDouble(WidthTextBox.Text);
-                WidthTextBox.BackColor = Color.White;
+                WidthTextBox.BackColor = normalColor;
                 ToolTip.SetToolTip(WidthTextBox, "");
             }
             catch (Exception exception)
             {
                 ToolTip.SetToolTip(WidthTextBox, exception.Message);
-                WidthTextBox.BackColor = Color.LightPink;
+                WidthTextBox.BackColor = errorColor;
                 return;
             }
         }
@@ -224,18 +228,16 @@ namespace Programming.View
             try
             {
                 _currentRectangle.Color = ColorTextBox.Text;
-                ColorTextBox.BackColor = Color.White;
+                ColorTextBox.BackColor = normalColor;
                 ToolTip.SetToolTip(ColorTextBox, "");
             }
             catch (Exception exception)
             {
                 ToolTip.SetToolTip(ColorTextBox, exception.Message);
-                ColorTextBox.BackColor = Color.LightPink;
+                ColorTextBox.BackColor = errorColor;
                 return;
             }
         }
-
-
 
         private void RectanglesButton_Click(object sender, EventArgs e)
         {
@@ -247,13 +249,13 @@ namespace Programming.View
             try
             {
                 _currentMovie.Title = TitleTextBox.Text;
-                TitleTextBox.BackColor = Color.White;
+                TitleTextBox.BackColor = normalColor;
                 ToolTip.SetToolTip(TitleTextBox, "");
             }
             catch (Exception exception)
             {
                 ToolTip.SetToolTip(TitleTextBox, exception.Message);
-                TitleTextBox.BackColor = Color.LightPink;
+                TitleTextBox.BackColor = errorColor;
                 return;
             }
         }
@@ -263,13 +265,13 @@ namespace Programming.View
             try
             {
                 _currentMovie.Genre = GenreTextBox.Text;
-                GenreTextBox.BackColor = Color.White;
+                GenreTextBox.BackColor = normalColor;
                 ToolTip.SetToolTip(GenreTextBox, "");
             }
             catch (Exception exception)
             {
                 ToolTip.SetToolTip(GenreTextBox, exception.Message);
-                GenreTextBox.BackColor = Color.LightPink;
+                GenreTextBox.BackColor = errorColor;
                 return;
             }
         }
@@ -279,13 +281,13 @@ namespace Programming.View
             try
             {
                 _currentMovie.DurationInMinutes = Convert.ToInt32(DurationInMinutesTextBox.Text);
-                DurationInMinutesTextBox.BackColor = Color.White;
+                DurationInMinutesTextBox.BackColor = normalColor;
                 ToolTip.SetToolTip(DurationInMinutesTextBox, "");
             }
             catch (Exception exception)
             {
                 ToolTip.SetToolTip(DurationInMinutesTextBox, exception.Message);
-                DurationInMinutesTextBox.BackColor = Color.LightPink;
+                DurationInMinutesTextBox.BackColor = errorColor;
                 return;
             }
         }
@@ -295,13 +297,13 @@ namespace Programming.View
             try
             {
                 _currentMovie.YearOfRelease = Convert.ToInt32(YearOfReleaseTextBox.Text);
-                YearOfReleaseTextBox.BackColor = Color.White;
+                YearOfReleaseTextBox.BackColor = normalColor;
                 ToolTip.SetToolTip(YearOfReleaseTextBox, "");
             }
             catch (Exception exception)
             {
                 ToolTip.SetToolTip(YearOfReleaseTextBox, exception.Message);
-                YearOfReleaseTextBox.BackColor = Color.LightPink;
+                YearOfReleaseTextBox.BackColor = errorColor;
                 return;
             }
         }
@@ -311,13 +313,13 @@ namespace Programming.View
             try
             {
                 _currentMovie.Rating = Convert.ToDouble(RatingTextBox.Text);
-                RatingTextBox.BackColor = Color.White;
+                RatingTextBox.BackColor = normalColor;
                 ToolTip.SetToolTip(RatingTextBox, "");
             }
             catch (Exception exception)
             {
                 ToolTip.SetToolTip(RatingTextBox, exception.Message);
-                RatingTextBox.BackColor = Color.LightPink;
+                RatingTextBox.BackColor = errorColor;
                 return;
             }
         }

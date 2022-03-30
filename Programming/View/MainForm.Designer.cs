@@ -30,6 +30,7 @@ namespace Programming.View
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.EnumsTabPage = new System.Windows.Forms.TabPage();
             this.SeasonHandleGroupBox = new System.Windows.Forms.GroupBox();
             this.SeasonHandleСomboBox = new System.Windows.Forms.ComboBox();
@@ -104,7 +105,7 @@ namespace Programming.View
             this.SeasonHandleGroupBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.SeasonHandleGroupBox.Name = "SeasonHandleGroupBox";
             this.SeasonHandleGroupBox.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.SeasonHandleGroupBox.Size = new System.Drawing.Size(373, 147);
+            this.SeasonHandleGroupBox.Size = new System.Drawing.Size(371, 139);
             this.SeasonHandleGroupBox.TabIndex = 5;
             this.SeasonHandleGroupBox.TabStop = false;
             this.SeasonHandleGroupBox.Text = "Season Handle ";
@@ -144,11 +145,11 @@ namespace Programming.View
             this.WeekdayParsingGroupBox.Controls.Add(this.WeekdayParsingButton);
             this.WeekdayParsingGroupBox.Controls.Add(this.WeekdayParsingLabel);
             this.WeekdayParsingGroupBox.Controls.Add(this.WeekdayParsingTextBox);
-            this.WeekdayParsingGroupBox.Location = new System.Drawing.Point(7, 297);
+            this.WeekdayParsingGroupBox.Location = new System.Drawing.Point(8, 297);
             this.WeekdayParsingGroupBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.WeekdayParsingGroupBox.Name = "WeekdayParsingGroupBox";
             this.WeekdayParsingGroupBox.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.WeekdayParsingGroupBox.Size = new System.Drawing.Size(373, 147);
+            this.WeekdayParsingGroupBox.Size = new System.Drawing.Size(373, 139);
             this.WeekdayParsingGroupBox.TabIndex = 4;
             this.WeekdayParsingGroupBox.TabStop = false;
             this.WeekdayParsingGroupBox.Text = "Weekday Parsing";
@@ -201,9 +202,9 @@ namespace Programming.View
             this.EnumerationsGroupBox.Controls.Add(this.IntValueTextBox);
             this.EnumerationsGroupBox.Controls.Add(this.ValuesListBox);
             this.EnumerationsGroupBox.Controls.Add(this.EnumsListBox);
-            this.EnumerationsGroupBox.Location = new System.Drawing.Point(7, 3);
+            this.EnumerationsGroupBox.Location = new System.Drawing.Point(8, 6);
             this.EnumerationsGroupBox.Name = "EnumerationsGroupBox";
-            this.EnumerationsGroupBox.Size = new System.Drawing.Size(751, 289);
+            this.EnumerationsGroupBox.Size = new System.Drawing.Size(748, 286);
             this.EnumerationsGroupBox.TabIndex = 3;
             this.EnumerationsGroupBox.TabStop = false;
             this.EnumerationsGroupBox.Text = "Enumerations";
@@ -211,7 +212,7 @@ namespace Programming.View
             // IntValueLabel
             // 
             this.IntValueLabel.AutoSize = true;
-            this.IntValueLabel.Location = new System.Drawing.Point(409, 34);
+            this.IntValueLabel.Location = new System.Drawing.Point(390, 19);
             this.IntValueLabel.Name = "IntValueLabel";
             this.IntValueLabel.Size = new System.Drawing.Size(55, 15);
             this.IntValueLabel.TabIndex = 5;
@@ -220,7 +221,7 @@ namespace Programming.View
             // ValuesLabel
             // 
             this.ValuesLabel.AutoSize = true;
-            this.ValuesLabel.Location = new System.Drawing.Point(219, 34);
+            this.ValuesLabel.Location = new System.Drawing.Point(198, 19);
             this.ValuesLabel.Name = "ValuesLabel";
             this.ValuesLabel.Size = new System.Drawing.Size(81, 15);
             this.ValuesLabel.TabIndex = 4;
@@ -229,7 +230,7 @@ namespace Programming.View
             // EnumsLabel
             // 
             this.EnumsLabel.AutoSize = true;
-            this.EnumsLabel.Location = new System.Drawing.Point(28, 34);
+            this.EnumsLabel.Location = new System.Drawing.Point(6, 19);
             this.EnumsLabel.Name = "EnumsLabel";
             this.EnumsLabel.Size = new System.Drawing.Size(121, 15);
             this.EnumsLabel.TabIndex = 3;
@@ -237,7 +238,7 @@ namespace Programming.View
             // 
             // IntValueTextBox
             // 
-            this.IntValueTextBox.Location = new System.Drawing.Point(410, 52);
+            this.IntValueTextBox.Location = new System.Drawing.Point(390, 37);
             this.IntValueTextBox.Name = "IntValueTextBox";
             this.IntValueTextBox.Size = new System.Drawing.Size(100, 23);
             this.IntValueTextBox.TabIndex = 2;
@@ -246,10 +247,10 @@ namespace Programming.View
             // 
             this.ValuesListBox.FormattingEnabled = true;
             this.ValuesListBox.ItemHeight = 15;
-            this.ValuesListBox.Location = new System.Drawing.Point(219, 52);
+            this.ValuesListBox.Location = new System.Drawing.Point(198, 37);
             this.ValuesListBox.Name = "ValuesListBox";
             this.ValuesListBox.ScrollAlwaysVisible = true;
-            this.ValuesListBox.Size = new System.Drawing.Size(186, 214);
+            this.ValuesListBox.Size = new System.Drawing.Size(186, 229);
             this.ValuesListBox.TabIndex = 1;
             this.ValuesListBox.SelectedIndexChanged += new System.EventHandler(this.ValuesListBox_SelectedIndexChanged);
             // 
@@ -264,10 +265,10 @@ namespace Programming.View
             "StudentsFormOfStudy",
             "TimeOfYear",
             "Weekday"});
-            this.EnumsListBox.Location = new System.Drawing.Point(28, 52);
+            this.EnumsListBox.Location = new System.Drawing.Point(6, 37);
             this.EnumsListBox.Name = "EnumsListBox";
             this.EnumsListBox.ScrollAlwaysVisible = true;
-            this.EnumsListBox.Size = new System.Drawing.Size(186, 214);
+            this.EnumsListBox.Size = new System.Drawing.Size(186, 229);
             this.EnumsListBox.TabIndex = 0;
             this.EnumsListBox.SelectedIndexChanged += new System.EventHandler(this.EnumsListBox_SelectedIndexChanged);
             // 
@@ -310,7 +311,7 @@ namespace Programming.View
             this.FilmsGroupBox.Controls.Add(this.FilmsListBox);
             this.FilmsGroupBox.Location = new System.Drawing.Point(385, 6);
             this.FilmsGroupBox.Name = "FilmsGroupBox";
-            this.FilmsGroupBox.Size = new System.Drawing.Size(373, 429);
+            this.FilmsGroupBox.Size = new System.Drawing.Size(371, 429);
             this.FilmsGroupBox.TabIndex = 1;
             this.FilmsGroupBox.TabStop = false;
             this.FilmsGroupBox.Text = "Films";
@@ -318,7 +319,7 @@ namespace Programming.View
             // RatingLabel
             // 
             this.RatingLabel.AutoSize = true;
-            this.RatingLabel.Location = new System.Drawing.Point(198, 198);
+            this.RatingLabel.Location = new System.Drawing.Point(198, 224);
             this.RatingLabel.Name = "RatingLabel";
             this.RatingLabel.Size = new System.Drawing.Size(44, 15);
             this.RatingLabel.TabIndex = 11;
@@ -326,7 +327,7 @@ namespace Programming.View
             // 
             // RatingTextBox
             // 
-            this.RatingTextBox.Location = new System.Drawing.Point(198, 216);
+            this.RatingTextBox.Location = new System.Drawing.Point(198, 242);
             this.RatingTextBox.Name = "RatingTextBox";
             this.RatingTextBox.Size = new System.Drawing.Size(141, 23);
             this.RatingTextBox.TabIndex = 10;
@@ -335,7 +336,7 @@ namespace Programming.View
             // YearOfReleaseLabel
             // 
             this.YearOfReleaseLabel.AutoSize = true;
-            this.YearOfReleaseLabel.Location = new System.Drawing.Point(198, 154);
+            this.YearOfReleaseLabel.Location = new System.Drawing.Point(198, 180);
             this.YearOfReleaseLabel.Name = "YearOfReleaseLabel";
             this.YearOfReleaseLabel.Size = new System.Drawing.Size(85, 15);
             this.YearOfReleaseLabel.TabIndex = 9;
@@ -343,7 +344,7 @@ namespace Programming.View
             // 
             // YearOfReleaseTextBox
             // 
-            this.YearOfReleaseTextBox.Location = new System.Drawing.Point(198, 172);
+            this.YearOfReleaseTextBox.Location = new System.Drawing.Point(198, 198);
             this.YearOfReleaseTextBox.Name = "YearOfReleaseTextBox";
             this.YearOfReleaseTextBox.Size = new System.Drawing.Size(141, 23);
             this.YearOfReleaseTextBox.TabIndex = 8;
@@ -362,7 +363,7 @@ namespace Programming.View
             // DurationInMinutesLabel
             // 
             this.DurationInMinutesLabel.AutoSize = true;
-            this.DurationInMinutesLabel.Location = new System.Drawing.Point(198, 110);
+            this.DurationInMinutesLabel.Location = new System.Drawing.Point(198, 136);
             this.DurationInMinutesLabel.Name = "DurationInMinutesLabel";
             this.DurationInMinutesLabel.Size = new System.Drawing.Size(115, 15);
             this.DurationInMinutesLabel.TabIndex = 6;
@@ -371,7 +372,7 @@ namespace Programming.View
             // GenreLabel
             // 
             this.GenreLabel.AutoSize = true;
-            this.GenreLabel.Location = new System.Drawing.Point(198, 66);
+            this.GenreLabel.Location = new System.Drawing.Point(198, 92);
             this.GenreLabel.Name = "GenreLabel";
             this.GenreLabel.Size = new System.Drawing.Size(41, 15);
             this.GenreLabel.TabIndex = 5;
@@ -379,7 +380,7 @@ namespace Programming.View
             // 
             // DurationInMinutesTextBox
             // 
-            this.DurationInMinutesTextBox.Location = new System.Drawing.Point(198, 128);
+            this.DurationInMinutesTextBox.Location = new System.Drawing.Point(198, 154);
             this.DurationInMinutesTextBox.Name = "DurationInMinutesTextBox";
             this.DurationInMinutesTextBox.Size = new System.Drawing.Size(141, 23);
             this.DurationInMinutesTextBox.TabIndex = 4;
@@ -387,7 +388,7 @@ namespace Programming.View
             // 
             // GenreTextBox
             // 
-            this.GenreTextBox.Location = new System.Drawing.Point(198, 84);
+            this.GenreTextBox.Location = new System.Drawing.Point(198, 110);
             this.GenreTextBox.Name = "GenreTextBox";
             this.GenreTextBox.Size = new System.Drawing.Size(141, 23);
             this.GenreTextBox.TabIndex = 3;
@@ -396,8 +397,9 @@ namespace Programming.View
             // TitleTextBox
             // 
             this.TitleTextBox.Location = new System.Drawing.Point(198, 40);
+            this.TitleTextBox.Multiline = true;
             this.TitleTextBox.Name = "TitleTextBox";
-            this.TitleTextBox.Size = new System.Drawing.Size(141, 23);
+            this.TitleTextBox.Size = new System.Drawing.Size(141, 46);
             this.TitleTextBox.TabIndex = 2;
             this.TitleTextBox.TextChanged += new System.EventHandler(this.TitleTextBox_TextChanged);
             // 
@@ -430,9 +432,9 @@ namespace Programming.View
             this.RectanglesGroupBox.Controls.Add(this.LenghtTextBox);
             this.RectanglesGroupBox.Controls.Add(this.LenghtLabel);
             this.RectanglesGroupBox.Controls.Add(this.RectanglesListBox);
-            this.RectanglesGroupBox.Location = new System.Drawing.Point(6, 6);
+            this.RectanglesGroupBox.Location = new System.Drawing.Point(8, 6);
             this.RectanglesGroupBox.Name = "RectanglesGroupBox";
-            this.RectanglesGroupBox.Size = new System.Drawing.Size(373, 429);
+            this.RectanglesGroupBox.Size = new System.Drawing.Size(371, 429);
             this.RectanglesGroupBox.TabIndex = 0;
             this.RectanglesGroupBox.TabStop = false;
             this.RectanglesGroupBox.Text = "Rectangles";
@@ -514,6 +516,7 @@ namespace Programming.View
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(772, 471);
             this.Controls.Add(this.EnamsTabControl);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
             this.Text = "Programming";
             this.Load += new System.EventHandler(this.MainForm_Load);
