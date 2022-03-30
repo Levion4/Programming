@@ -38,18 +38,6 @@ namespace Programming.View
             "Spider-Man: No Way Home", "Doctor Strange in the Multiverse of Madness",
             "Thor: Love and Thunder", "Black Panther: Wakanda Forever" };
 
-        private void MainForm_Load(object sender, EventArgs e)
-        {
-            foreach (var value in Enum.GetValues(typeof(TimeOfYear)))
-            {
-                SeasonHandleСomboBox.Items.Add(value);
-            }
-            SeasonHandleСomboBox.SelectedIndex = 0;
-            EnumsListBox.SelectedIndex = 0;
-            RectanglesListBox.SelectedIndex = 0;
-            FilmsListBox.SelectedIndex = 0;
-        }
-
         private void InitRectangles()
         {
             _rectangles = new Rectangle[5];
@@ -80,6 +68,18 @@ namespace Programming.View
                     ((Genre)random.Next(lengthGenre)).ToString());
                 FilmsListBox.Items.Add($"Film {i + 1}");
             }
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            foreach (var value in Enum.GetValues(typeof(TimeOfYear)))
+            {
+                SeasonHandleСomboBox.Items.Add(value);
+            }
+            SeasonHandleСomboBox.SelectedIndex = 0;
+            EnumsListBox.SelectedIndex = 0;
+            RectanglesListBox.SelectedIndex = 0;
+            FilmsListBox.SelectedIndex = 0;
         }
 
         public MainForm()
