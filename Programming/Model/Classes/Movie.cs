@@ -18,7 +18,8 @@ namespace Programming.Model.Classes
         {
         }
 
-        public Movie(int durationInMinutes, int yearOfRelease, double rating, string title, string genre) 
+        public Movie(int durationInMinutes, int yearOfRelease, 
+            double rating, string title, string genre) 
         {
             DurationInMinutes = durationInMinutes;
             YearOfRelease = yearOfRelease;
@@ -61,7 +62,7 @@ namespace Programming.Model.Classes
                 if (value < 1900 || value > DateTime.Now.Year)
                 {
                     throw new ArgumentException(
-                        $"The year of release of the film " +
+                        $"The year of release of the movies " +
                         $"should be from 1900 to {DateTime.Now.Year}");
                 }
 

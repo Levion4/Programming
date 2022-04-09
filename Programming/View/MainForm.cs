@@ -15,8 +15,8 @@ namespace Programming.View
 {
     public partial class MainForm : Form
     {
-        readonly System.Drawing.Color normalColor = System.Drawing.Color.White;
-        readonly System.Drawing.Color errorColor = System.Drawing.Color.LightPink;
+        private readonly System.Drawing.Color _normalColor = System.Drawing.Color.White;
+        private readonly System.Drawing.Color _errorColor = System.Drawing.Color.LightPink;
 
         private Rectangle[] _rectangles;
 
@@ -66,7 +66,7 @@ namespace Programming.View
                     Math.Round(random.NextDouble() * 10, 1),
                     _movies[random.Next(0, _movies.Length)],
                     ((Genre)random.Next(lengthGenre)).ToString());
-                FilmsListBox.Items.Add($"Film {i + 1}");
+                MoviesListBox.Items.Add($"Movie {i + 1}");
             }
         }
 
@@ -79,7 +79,7 @@ namespace Programming.View
             SeasonHandleСomboBox.SelectedIndex = 0;
             EnumsListBox.SelectedIndex = 0;
             RectanglesListBox.SelectedIndex = 0;
-            FilmsListBox.SelectedIndex = 0;
+            MoviesListBox.SelectedIndex = 0;
         }
 
         public MainForm()
@@ -89,15 +89,15 @@ namespace Programming.View
             InitMovies();
         }
 
-        private int FindFilmWithMaxRating(Model.Classes.Movie[] films)
+        private int FindMovieWithMaxRating(Model.Classes.Movie[] movies)
         {
             var maxIndex = 0;
-            var maxValues = films[maxIndex].Rating;
-            for (var i = 0; i < films.Length; i++)
+            var maxValues = movies[maxIndex].Rating;
+            for (var i = 0; i < movies.Length; i++)
             {
-                if (films[i].Rating > maxValues)
+                if (movies[i].Rating > maxValues)
                 {
-                    maxValues = films[i].Rating;
+                    maxValues = movies[i].Rating;
                     maxIndex = i;
                 }
             }
@@ -208,13 +208,13 @@ namespace Programming.View
             try
             {
                 _currentRectangle.Length = Convert.ToDouble(LenghtTextBox.Text);
-                LenghtTextBox.BackColor = normalColor;
+                LenghtTextBox.BackColor = _normalColor;
                 ToolTip.SetToolTip(LenghtTextBox, "");
             }
             catch(Exception exception)
             {
                 ToolTip.SetToolTip(LenghtTextBox, exception.Message);
-                LenghtTextBox.BackColor = errorColor;
+                LenghtTextBox.BackColor = _errorColor;
                 return;
             }
         }
@@ -224,13 +224,13 @@ namespace Programming.View
             try
             {
                 _currentRectangle.Width = Convert.ToDouble(WidthTextBox.Text);
-                WidthTextBox.BackColor = normalColor;
+                WidthTextBox.BackColor = _normalColor;
                 ToolTip.SetToolTip(WidthTextBox, "");
             }
             catch (Exception exception)
             {
                 ToolTip.SetToolTip(WidthTextBox, exception.Message);
-                WidthTextBox.BackColor = errorColor;
+                WidthTextBox.BackColor = _errorColor;
                 return;
             }
         }
@@ -240,13 +240,13 @@ namespace Programming.View
             try
             {
                 _currentRectangle.Color = ColorTextBox.Text;
-                ColorTextBox.BackColor = normalColor;
+                ColorTextBox.BackColor = _normalColor;
                 ToolTip.SetToolTip(ColorTextBox, "");
             }
             catch (Exception exception)
             {
                 ToolTip.SetToolTip(ColorTextBox, exception.Message);
-                ColorTextBox.BackColor = errorColor;
+                ColorTextBox.BackColor = _errorColor;
                 return;
             }
         }
@@ -261,13 +261,13 @@ namespace Programming.View
             try
             {
                 _currentMovie.Title = TitleTextBox.Text;
-                TitleTextBox.BackColor = normalColor;
+                TitleTextBox.BackColor = _normalColor;
                 ToolTip.SetToolTip(TitleTextBox, "");
             }
             catch (Exception exception)
             {
                 ToolTip.SetToolTip(TitleTextBox, exception.Message);
-                TitleTextBox.BackColor = errorColor;
+                TitleTextBox.BackColor = _errorColor;
                 return;
             }
         }
@@ -277,13 +277,13 @@ namespace Programming.View
             try
             {
                 _currentMovie.Genre = GenreTextBox.Text;
-                GenreTextBox.BackColor = normalColor;
+                GenreTextBox.BackColor = _normalColor;
                 ToolTip.SetToolTip(GenreTextBox, "");
             }
             catch (Exception exception)
             {
                 ToolTip.SetToolTip(GenreTextBox, exception.Message);
-                GenreTextBox.BackColor = errorColor;
+                GenreTextBox.BackColor = _errorColor;
                 return;
             }
         }
@@ -293,13 +293,13 @@ namespace Programming.View
             try
             {
                 _currentMovie.DurationInMinutes = Convert.ToInt32(DurationInMinutesTextBox.Text);
-                DurationInMinutesTextBox.BackColor = normalColor;
+                DurationInMinutesTextBox.BackColor = _normalColor;
                 ToolTip.SetToolTip(DurationInMinutesTextBox, "");
             }
             catch (Exception exception)
             {
                 ToolTip.SetToolTip(DurationInMinutesTextBox, exception.Message);
-                DurationInMinutesTextBox.BackColor = errorColor;
+                DurationInMinutesTextBox.BackColor = _errorColor;
                 return;
             }
         }
@@ -309,13 +309,13 @@ namespace Programming.View
             try
             {
                 _currentMovie.YearOfRelease = Convert.ToInt32(YearOfReleaseTextBox.Text);
-                YearOfReleaseTextBox.BackColor = normalColor;
+                YearOfReleaseTextBox.BackColor = _normalColor;
                 ToolTip.SetToolTip(YearOfReleaseTextBox, "");
             }
             catch (Exception exception)
             {
                 ToolTip.SetToolTip(YearOfReleaseTextBox, exception.Message);
-                YearOfReleaseTextBox.BackColor = errorColor;
+                YearOfReleaseTextBox.BackColor = _errorColor;
                 return;
             }
         }
@@ -325,25 +325,25 @@ namespace Programming.View
             try
             {
                 _currentMovie.Rating = Convert.ToDouble(RatingTextBox.Text);
-                RatingTextBox.BackColor = normalColor;
+                RatingTextBox.BackColor = _normalColor;
                 ToolTip.SetToolTip(RatingTextBox, "");
             }
             catch (Exception exception)
             {
                 ToolTip.SetToolTip(RatingTextBox, exception.Message);
-                RatingTextBox.BackColor = errorColor;
+                RatingTextBox.BackColor = _errorColor;
                 return;
             }
         }
 
-        private void FilmsButton_Click(object sender, EventArgs e)
+        private void MoviesButton_Click(object sender, EventArgs e)
         {
-            FilmsListBox.SelectedIndex = FindFilmWithMaxRating(_movie);
+            MoviesListBox.SelectedIndex = FindMovieWithMaxRating(_movie);
         }
 
-        private void FilmsListBox_SelectedIndexChanged(object sender, EventArgs e)
+        private void MoviesListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            _currentMovie = _movie[FilmsListBox.SelectedIndex];
+            _currentMovie = _movie[MoviesListBox.SelectedIndex];
             TitleTextBox.Text = _currentMovie.Title;
             GenreTextBox.Text = _currentMovie.Genre;
             DurationInMinutesTextBox.Text = _currentMovie.DurationInMinutes.ToString();
