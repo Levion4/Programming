@@ -36,7 +36,7 @@ namespace Programming.Model.Classes
             }
             set
             {
-                AssertStringContainsOnlyLetters(value, nameof(Name));
+                Validator.AssertStringContainsOnlyLetters(value, nameof(Name));
                 _name = value;
             } 
         }
@@ -49,7 +49,7 @@ namespace Programming.Model.Classes
             }
             set
             {
-                AssertStringContainsOnlyLetters(value, nameof(Surname));
+                Validator.AssertStringContainsOnlyLetters(value, nameof(Surname));
                 _surname = value;
             }
         }
@@ -76,16 +76,6 @@ namespace Programming.Model.Classes
                 }
 
                 _number = value;
-            }
-        }
-        private void AssertStringContainsOnlyLetters(string value, string propertyName)
-        { 
-            for (var i = 0; i < value.Length; i++)
-            {
-                if (!char.IsLetter(value[i]))
-                {
-                    throw new ArgumentException($"{propertyName} must contains letters only");
-                }
             }
         }
     }

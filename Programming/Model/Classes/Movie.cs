@@ -40,13 +40,7 @@ namespace Programming.Model.Classes
             }
             set
             {
-                if (value < 0)
-                {
-                    throw new ArgumentException(
-                        $"The duration cannot be negative, " +
-                        $"but was {value}");
-                }
-
+                Validator.AssertOnPositiveValue(value, nameof(DurationInMinutes));
                 _durationInMinutes = value;
             }
         }
@@ -59,13 +53,7 @@ namespace Programming.Model.Classes
             }
             set
             {
-                if (value < 1900 || value > DateTime.Now.Year)
-                {
-                    throw new ArgumentException(
-                        $"The year of release of the movies " +
-                        $"should be from 1900 to {DateTime.Now.Year}");
-                }
-
+                Validator.AssertValueInRange(value, 1900, DateTime.Now.Year, nameof(YearOfRelease));
                 _yearOfRelease = value;
             }
         }
@@ -78,13 +66,7 @@ namespace Programming.Model.Classes
             }
             set
             {
-                if (value < 0 || value > 10)
-                {
-                    throw new ArgumentException(
-                        $"The rating should be in the range from 0 to 10, " +
-                        $"but was {value}");
-                }
-
+                Validator.AssertValueInRange(value, 0, 10, nameof(Rating));
                 _rating = value;
             }
         }

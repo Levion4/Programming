@@ -33,13 +33,7 @@ namespace Programming.Model.Classes
             }
             set
             {
-                if (value < 2 || value > 5)
-                {
-                    throw new ArgumentException(
-                        $"The mark should be in the range from 2 to 5, " +
-                        $"but was {value}");
-                }
-
+                Validator.AssertValueInRange(value, 2, 5, nameof(Mark));
                 _mark = value;
             }
         }

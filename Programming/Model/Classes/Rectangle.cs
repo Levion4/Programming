@@ -33,13 +33,7 @@ namespace Programming.Model.Classes
             }
             set
             {
-                if (value <= 0)
-                {
-                    throw new ArgumentException(
-                        $"The length cannot be negative or equal to zero, " +
-                        $"but was {value}");
-                }
-
+                Validator.AssertOnPositiveValue(value, nameof(Length));
                 _length = value;
             }
         }
@@ -52,13 +46,7 @@ namespace Programming.Model.Classes
             }
             set
             {
-                if (value <= 0)
-                {
-                    throw new ArgumentException(
-                        $"The width cannot be negative or equal to zero, " +
-                        $"but was {value}");
-                }
-
+                Validator.AssertOnPositiveValue(value, nameof(Width));
                 _width = value;
             }
         }
