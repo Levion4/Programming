@@ -10,20 +10,49 @@ namespace Programming.Model.Classes
     {
         private string _number;
 
+        private string _name;
+
+        private string _surname;
+
         public Contact()
         {
         }
 
-        public Contact(string name, string number, string city)
+        public Contact(string name, string surname, string number, string city)
         {
             Number = number;
             Name = name;
+            Surname = surname;
             City = city;
         }
 
-        public string Name { get; set; }
-
         public string City { get; set; }
+
+        public string Name 
+        {
+            get
+            {
+                return _name;
+            }
+            set
+            {
+                AssertStringContainsOnlyLetters(value, nameof(Name));
+                _name = value;
+            } 
+        }
+
+        public string Surname
+        {
+            get
+            {
+                return _surname;
+            }
+            set
+            {
+                AssertStringContainsOnlyLetters(value, nameof(Surname));
+                _surname = value;
+            }
+        }
 
         public string Number
         {
@@ -47,6 +76,16 @@ namespace Programming.Model.Classes
                 }
 
                 _number = value;
+            }
+        }
+        private void AssertStringContainsOnlyLetters(string value, string propertyName)
+        { 
+            for (var i = 0; i < value.Length; i++)
+            {
+                if (!char.IsLetter(value[i]))
+                {
+                    throw new ArgumentException($"{propertyName} must contains letters only");
+                }
             }
         }
     }
