@@ -48,7 +48,9 @@ namespace Programming.View
                 _rectangles[i] = new Rectangle(
                     Math.Round(random.NextDouble() * 100, 1),
                     Math.Round(random.NextDouble() * 100, 1),
-                    ((Model.Enums.Color)random.Next(lengthColor)).ToString());
+                    ((Model.Enums.Color)random.Next(lengthColor)).ToString(),
+                    new Point2D(Math.Round(random.NextDouble() * 100, 1),
+                    Math.Round(random.NextDouble() * 100, 1)));
                 RectanglesListBox.Items.Add($"Rectangle {i + 1}");
             }
         }
@@ -201,6 +203,8 @@ namespace Programming.View
             LenghtTextBox.Text = _currentRectangle.Length.ToString();
             WidthTextBox.Text = _currentRectangle.Width.ToString();
             ColorTextBox.Text = _currentRectangle.Color;
+            CenterXTextBox.Text = _currentRectangle.Center.X.ToString();
+            CenterYTextBox.Text = _currentRectangle.Center.Y.ToString();
         }
 
         private void LenghtTextBox_TextChanged(object sender, EventArgs e)
@@ -211,7 +215,7 @@ namespace Programming.View
                 LenghtTextBox.BackColor = _normalColor;
                 ToolTip.SetToolTip(LenghtTextBox, "");
             }
-            catch(Exception exception)
+            catch (Exception exception)
             {
                 ToolTip.SetToolTip(LenghtTextBox, exception.Message);
                 LenghtTextBox.BackColor = _errorColor;

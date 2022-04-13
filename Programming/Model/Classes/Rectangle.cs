@@ -16,14 +16,17 @@ namespace Programming.Model.Classes
         {
         }
 
-        public Rectangle(double length, double width, string color)
+        public Rectangle(double length, double width, string color, Point2D center)
         {
             Color = color;
             Width = width;
             Length = length;
+            Center = center;
         }
 
         public string Color { get; set; }
+
+        public Point2D Center { get; set; }
 
         public double Length
         {

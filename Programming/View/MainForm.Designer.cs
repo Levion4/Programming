@@ -64,6 +64,10 @@ namespace Programming.View
             this.TitleLabel = new System.Windows.Forms.Label();
             this.MoviesListBox = new System.Windows.Forms.ListBox();
             this.RectanglesGroupBox = new System.Windows.Forms.GroupBox();
+            this.CenterYLabel = new System.Windows.Forms.Label();
+            this.CenterYTextBox = new System.Windows.Forms.TextBox();
+            this.CenterXTextBox = new System.Windows.Forms.TextBox();
+            this.CenterXLabel = new System.Windows.Forms.Label();
             this.RectanglesButton = new System.Windows.Forms.Button();
             this.ColorLabel = new System.Windows.Forms.Label();
             this.WidthLabel = new System.Windows.Forms.Label();
@@ -424,6 +428,10 @@ namespace Programming.View
             // 
             // RectanglesGroupBox
             // 
+            this.RectanglesGroupBox.Controls.Add(this.CenterYLabel);
+            this.RectanglesGroupBox.Controls.Add(this.CenterYTextBox);
+            this.RectanglesGroupBox.Controls.Add(this.CenterXTextBox);
+            this.RectanglesGroupBox.Controls.Add(this.CenterXLabel);
             this.RectanglesGroupBox.Controls.Add(this.RectanglesButton);
             this.RectanglesGroupBox.Controls.Add(this.ColorLabel);
             this.RectanglesGroupBox.Controls.Add(this.WidthLabel);
@@ -439,6 +447,40 @@ namespace Programming.View
             this.RectanglesGroupBox.TabStop = false;
             this.RectanglesGroupBox.Text = "Rectangles";
             // 
+            // CenterYLabel
+            // 
+            this.CenterYLabel.AutoSize = true;
+            this.CenterYLabel.Location = new System.Drawing.Point(197, 198);
+            this.CenterYLabel.Name = "CenterYLabel";
+            this.CenterYLabel.Size = new System.Drawing.Size(167, 15);
+            this.CenterYLabel.TabIndex = 11;
+            this.CenterYLabel.Text = "Coordinates of the center by Y";
+            // 
+            // CenterYTextBox
+            // 
+            this.CenterYTextBox.Location = new System.Drawing.Point(197, 216);
+            this.CenterYTextBox.Name = "CenterYTextBox";
+            this.CenterYTextBox.ReadOnly = true;
+            this.CenterYTextBox.Size = new System.Drawing.Size(142, 23);
+            this.CenterYTextBox.TabIndex = 10;
+            // 
+            // CenterXTextBox
+            // 
+            this.CenterXTextBox.Location = new System.Drawing.Point(197, 172);
+            this.CenterXTextBox.Name = "CenterXTextBox";
+            this.CenterXTextBox.ReadOnly = true;
+            this.CenterXTextBox.Size = new System.Drawing.Size(142, 23);
+            this.CenterXTextBox.TabIndex = 9;
+            // 
+            // CenterXLabel
+            // 
+            this.CenterXLabel.AutoSize = true;
+            this.CenterXLabel.Location = new System.Drawing.Point(197, 154);
+            this.CenterXLabel.Name = "CenterXLabel";
+            this.CenterXLabel.Size = new System.Drawing.Size(167, 15);
+            this.CenterXLabel.TabIndex = 8;
+            this.CenterXLabel.Text = "Coordinates of the center by X";
+            // 
             // RectanglesButton
             // 
             this.RectanglesButton.Location = new System.Drawing.Point(198, 393);
@@ -452,7 +494,7 @@ namespace Programming.View
             // ColorLabel
             // 
             this.ColorLabel.AutoSize = true;
-            this.ColorLabel.Location = new System.Drawing.Point(198, 110);
+            this.ColorLabel.Location = new System.Drawing.Point(197, 110);
             this.ColorLabel.Name = "ColorLabel";
             this.ColorLabel.Size = new System.Drawing.Size(39, 15);
             this.ColorLabel.TabIndex = 6;
@@ -581,6 +623,10 @@ namespace Programming.View
         private System.Windows.Forms.TextBox YearOfReleaseTextBox;
         private System.Windows.Forms.Label RatingLabel;
         private System.Windows.Forms.TextBox RatingTextBox;
+        private System.Windows.Forms.Label CenterYLabel;
+        private System.Windows.Forms.TextBox CenterYTextBox;
+        private System.Windows.Forms.TextBox CenterXTextBox;
+        private System.Windows.Forms.Label CenterXLabel;
     }
 }
 
