@@ -77,6 +77,8 @@ namespace Programming.View
             this.LenghtLabel = new System.Windows.Forms.Label();
             this.RectanglesListBox = new System.Windows.Forms.ListBox();
             this.ToolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.IdTextBox = new System.Windows.Forms.TextBox();
+            this.IdLabel = new System.Windows.Forms.Label();
             this.EnumsTabPage.SuspendLayout();
             this.SeasonHandleGroupBox.SuspendLayout();
             this.WeekdayParsingGroupBox.SuspendLayout();
@@ -428,6 +430,8 @@ namespace Programming.View
             // 
             // RectanglesGroupBox
             // 
+            this.RectanglesGroupBox.Controls.Add(this.IdLabel);
+            this.RectanglesGroupBox.Controls.Add(this.IdTextBox);
             this.RectanglesGroupBox.Controls.Add(this.CenterYLabel);
             this.RectanglesGroupBox.Controls.Add(this.CenterYTextBox);
             this.RectanglesGroupBox.Controls.Add(this.CenterXTextBox);
@@ -450,15 +454,15 @@ namespace Programming.View
             // CenterYLabel
             // 
             this.CenterYLabel.AutoSize = true;
-            this.CenterYLabel.Location = new System.Drawing.Point(197, 198);
+            this.CenterYLabel.Location = new System.Drawing.Point(198, 198);
             this.CenterYLabel.Name = "CenterYLabel";
-            this.CenterYLabel.Size = new System.Drawing.Size(167, 15);
+            this.CenterYLabel.Size = new System.Drawing.Size(170, 15);
             this.CenterYLabel.TabIndex = 11;
-            this.CenterYLabel.Text = "Coordinates of the center by Y";
+            this.CenterYLabel.Text = "Coordinates of the center by Y:";
             // 
             // CenterYTextBox
             // 
-            this.CenterYTextBox.Location = new System.Drawing.Point(197, 216);
+            this.CenterYTextBox.Location = new System.Drawing.Point(198, 216);
             this.CenterYTextBox.Name = "CenterYTextBox";
             this.CenterYTextBox.ReadOnly = true;
             this.CenterYTextBox.Size = new System.Drawing.Size(142, 23);
@@ -466,7 +470,7 @@ namespace Programming.View
             // 
             // CenterXTextBox
             // 
-            this.CenterXTextBox.Location = new System.Drawing.Point(197, 172);
+            this.CenterXTextBox.Location = new System.Drawing.Point(198, 172);
             this.CenterXTextBox.Name = "CenterXTextBox";
             this.CenterXTextBox.ReadOnly = true;
             this.CenterXTextBox.Size = new System.Drawing.Size(142, 23);
@@ -475,11 +479,11 @@ namespace Programming.View
             // CenterXLabel
             // 
             this.CenterXLabel.AutoSize = true;
-            this.CenterXLabel.Location = new System.Drawing.Point(197, 154);
+            this.CenterXLabel.Location = new System.Drawing.Point(198, 154);
             this.CenterXLabel.Name = "CenterXLabel";
-            this.CenterXLabel.Size = new System.Drawing.Size(167, 15);
+            this.CenterXLabel.Size = new System.Drawing.Size(170, 15);
             this.CenterXLabel.TabIndex = 8;
-            this.CenterXLabel.Text = "Coordinates of the center by X";
+            this.CenterXLabel.Text = "Coordinates of the center by X:";
             // 
             // RectanglesButton
             // 
@@ -494,7 +498,7 @@ namespace Programming.View
             // ColorLabel
             // 
             this.ColorLabel.AutoSize = true;
-            this.ColorLabel.Location = new System.Drawing.Point(197, 110);
+            this.ColorLabel.Location = new System.Drawing.Point(198, 110);
             this.ColorLabel.Name = "ColorLabel";
             this.ColorLabel.Size = new System.Drawing.Size(39, 15);
             this.ColorLabel.TabIndex = 6;
@@ -551,6 +555,23 @@ namespace Programming.View
             this.RectanglesListBox.Size = new System.Drawing.Size(186, 394);
             this.RectanglesListBox.TabIndex = 0;
             this.RectanglesListBox.SelectedIndexChanged += new System.EventHandler(this.RectanglesListBox_SelectedIndexChanged);
+            // 
+            // IdTextBox
+            // 
+            this.IdTextBox.Location = new System.Drawing.Point(198, 260);
+            this.IdTextBox.Name = "IdTextBox";
+            this.IdTextBox.ReadOnly = true;
+            this.IdTextBox.Size = new System.Drawing.Size(141, 23);
+            this.IdTextBox.TabIndex = 12;
+            // 
+            // IdLabel
+            // 
+            this.IdLabel.AutoSize = true;
+            this.IdLabel.Location = new System.Drawing.Point(198, 242);
+            this.IdLabel.Name = "IdLabel";
+            this.IdLabel.Size = new System.Drawing.Size(20, 15);
+            this.IdLabel.TabIndex = 13;
+            this.IdLabel.Text = "Id:";
             // 
             // MainForm
             // 
@@ -627,6 +648,8 @@ namespace Programming.View
         private System.Windows.Forms.TextBox CenterYTextBox;
         private System.Windows.Forms.TextBox CenterXTextBox;
         private System.Windows.Forms.Label CenterXLabel;
+        private System.Windows.Forms.Label IdLabel;
+        private System.Windows.Forms.TextBox IdTextBox;
     }
 }
 

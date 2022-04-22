@@ -205,6 +205,7 @@ namespace Programming.View
             ColorTextBox.Text = _currentRectangle.Color;
             CenterXTextBox.Text = _currentRectangle.Center.X.ToString();
             CenterYTextBox.Text = _currentRectangle.Center.Y.ToString();
+            IdTextBox.Text = _currentRectangle.Id.ToString();
         }
 
         private void LenghtTextBox_TextChanged(object sender, EventArgs e)
