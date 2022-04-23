@@ -16,6 +16,7 @@ namespace Programming.View
     public partial class MainForm : Form
     {
         private readonly System.Drawing.Color _normalColor = System.Drawing.Color.White;
+
         private readonly System.Drawing.Color _errorColor = System.Drawing.Color.LightPink;
 
         private Rectangle[] _rectangles;
