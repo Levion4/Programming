@@ -19,7 +19,7 @@ namespace Programming.View
 
         private readonly System.Drawing.Color _errorColor = System.Drawing.Color.LightPink;
 
-        private Rectangle[] _rectangles;
+        private List<Rectangle> _rectangles = new List<Rectangle>();
 
         private Rectangle _currentRectangle = new Rectangle();
 
@@ -41,18 +41,21 @@ namespace Programming.View
 
         private void InitRectangles()
         {
-            _rectangles = new Rectangle[5];
             Random random = new Random();
             int lengthColor = Enum.GetNames(typeof(Model.Enums.Color)).Length;
             for (var i = 0; i < 5; i++)
             {
-                _rectangles[i] = new Rectangle(
+                var rectangle = new Rectangle(
                     Math.Round(random.NextDouble() * 100, 1),
                     Math.Round(random.NextDouble() * 100, 1),
                     ((Model.Enums.Color)random.Next(lengthColor)).ToString(),
                     new Point2D(Math.Round(random.NextDouble() * 100, 1),
                     Math.Round(random.NextDouble() * 100, 1)));
+                _rectangles.Add(rectangle);
                 RectanglesListBox.Items.Add($"Rectangle {i + 1}");
+                RectanglesPanelListBox.Items.Add($"{rectangle.Id}: " +
+                    $"(X= {rectangle.Center.X}; Y= {rectangle.Center.Y};" +
+                    $"W= {rectangle.Width}; H= {rectangle.Length})");
             }
         }
 
@@ -83,6 +86,7 @@ namespace Programming.View
             EnumsListBox.SelectedIndex = 0;
             RectanglesListBox.SelectedIndex = 0;
             MoviesListBox.SelectedIndex = 0;
+            RectanglesPanelListBox.SelectedIndex = 0;
         }
 
         public MainForm()
@@ -108,11 +112,11 @@ namespace Programming.View
             return maxIndex;
         }
 
-        private int FindRectangleWithMaxWidth(Model.Classes.Rectangle[] rectangles)
+        private int FindRectangleWithMaxWidth(List<Rectangle> rectangles)
         {
             var maxIndex = 0;
             var maxValues = rectangles[maxIndex].Width;
-            for (var i = 0; i < rectangles.Length; i++)
+            for (var i = 0; i < rectangles.Count; i++)
             {
                 if (rectangles[i].Width > maxValues)
                 {
@@ -355,6 +359,32 @@ namespace Programming.View
             DurationInMinutesTextBox.Text = _currentMovie.DurationInMinutes.ToString();
             YearOfReleaseTextBox.Text = _currentMovie.YearOfRelease.ToString();
             RatingTextBox.Text = _currentMovie.Rating.ToString();
+        }
+
+        private void AddRectanglesButton_Click(object sender, EventArgs e)
+        {
+            Random random = new Random();
+            int lengthColor = Enum.GetNames(typeof(Model.Enums.Color)).Length;
+            var rectangle = new Rectangle(
+                Math.Round(random.NextDouble() * 100, 1),
+                Math.Round(random.NextDouble() * 100, 1),
+                ((Model.Enums.Color)random.Next(lengthColor)).ToString(),
+                new Point2D(Math.Round(random.NextDouble() * 100, 1),
+                Math.Round(random.NextDouble() * 100, 1)));
+            _rectangles.Add(rectangle);
+            RectanglesPanelListBox.Items.Add($"{rectangle.Id}: " +
+                $"(X= {rectangle.Center.X}; Y= {rectangle.Center.Y};" +
+                $"W= {rectangle.Width}; H= {rectangle.Length})");
+        }
+
+        private void RectanglesPanelListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            _currentRectangle = _rectangles[RectanglesPanelListBox.SelectedIndex];
+            IdRectanglePanelTextBox.Text = _currentRectangle.Id.ToString();
+            XRectanglePanelTextBox.Text = _currentRectangle.Center.X.ToString();
+            YRectanglePanelTextBox.Text = _currentRectangle.Center.Y.ToString();
+            WidthRectanglePanelTextBox.Text = _currentRectangle.Width.ToString();
+            HeightRectanglePanelTextBox.Text = _currentRectangle.Length.ToString();
         }
     }
 }
