@@ -19,7 +19,9 @@ namespace Programming.View
 
         private readonly System.Drawing.Color _errorColor = System.Drawing.Color.LightPink;
 
-        private List<Rectangle> _rectangles = new List<Rectangle>();
+        private List<Rectangle> _rectanglesPanel = new List<Rectangle>();
+
+        private Rectangle[] _rectangles;
 
         private Rectangle _currentRectangle = new Rectangle();
 
@@ -41,21 +43,20 @@ namespace Programming.View
 
         private void InitRectangles()
         {
+            _rectangles = new Rectangle[5];
             Random random = new Random();
             int lengthColor = Enum.GetNames(typeof(Model.Enums.Color)).Length;
             for (var i = 0; i < 5; i++)
             {
-                var rectangle = new Rectangle(
+                _rectangles[i] = new Rectangle(
                     Math.Round(random.NextDouble() * 100, 1),
                     Math.Round(random.NextDouble() * 100, 1),
                     ((Model.Enums.Color)random.Next(lengthColor)).ToString(),
                     new Point2D(Math.Round(random.NextDouble() * 100, 1),
                     Math.Round(random.NextDouble() * 100, 1)));
-                _rectangles.Add(rectangle);
                 RectanglesListBox.Items.Add($"Rectangle {i + 1}");
-                RectanglesPanelListBox.Items.Add($"{rectangle.Id}: " +
-                    $"(X= {rectangle.Center.X}; Y= {rectangle.Center.Y};" +
-                    $"W= {rectangle.Width}; H= {rectangle.Length})");
+                _rectanglesPanel.Add(_rectangles[i]);
+                ItemAddRectanglesPanelListBox(_rectangles[i]);
             }
         }
 
@@ -86,7 +87,6 @@ namespace Programming.View
             EnumsListBox.SelectedIndex = 0;
             RectanglesListBox.SelectedIndex = 0;
             MoviesListBox.SelectedIndex = 0;
-            RectanglesPanelListBox.SelectedIndex = 0;
         }
 
         public MainForm()
@@ -112,11 +112,11 @@ namespace Programming.View
             return maxIndex;
         }
 
-        private int FindRectangleWithMaxWidth(List<Rectangle> rectangles)
+        private int FindRectangleWithMaxWidth(Model.Classes.Rectangle[] rectangles)
         {
             var maxIndex = 0;
             var maxValues = rectangles[maxIndex].Width;
-            for (var i = 0; i < rectangles.Count; i++)
+            for (var i = 0; i < rectangles.Length; i++)
             {
                 if (rectangles[i].Width > maxValues)
                 {
@@ -126,6 +126,21 @@ namespace Programming.View
             }
 
             return maxIndex;
+        }
+
+        private void ItemUpdateRectanglesPanelListBox(Rectangle rectangle)
+        {
+            RectanglesPanelListBox.Items[RectanglesPanelListBox.SelectedIndex] =
+                    $"{rectangle.Id}: (X= {rectangle.Center.X}; " +
+                    $"Y= {rectangle.Center.Y}; W= {rectangle.Width}; " +
+                    $"H= {rectangle.Length})";
+        }
+
+        private void ItemAddRectanglesPanelListBox(Rectangle rectangle)
+        {
+            RectanglesPanelListBox.Items.Add($"{rectangle.Id}: " +
+                $"(X= {rectangle.Center.X}; Y= {rectangle.Center.Y}; " +
+                $"W= {rectangle.Width}; H= {rectangle.Length})");
         }
 
         private void EnumsListBox_SelectedIndexChanged(object sender, EventArgs e) 
@@ -371,20 +386,117 @@ namespace Programming.View
                 ((Model.Enums.Color)random.Next(lengthColor)).ToString(),
                 new Point2D(Math.Round(random.NextDouble() * 100, 1),
                 Math.Round(random.NextDouble() * 100, 1)));
-            _rectangles.Add(rectangle);
-            RectanglesPanelListBox.Items.Add($"{rectangle.Id}: " +
-                $"(X= {rectangle.Center.X}; Y= {rectangle.Center.Y};" +
-                $"W= {rectangle.Width}; H= {rectangle.Length})");
+            _rectanglesPanel.Add(rectangle);
+            ItemAddRectanglesPanelListBox(rectangle);
+            RectanglesPanelListBox.SelectedIndex = _rectanglesPanel.Count - 1 ;
         }
 
         private void RectanglesPanelListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            _currentRectangle = _rectangles[RectanglesPanelListBox.SelectedIndex];
-            IdRectanglePanelTextBox.Text = _currentRectangle.Id.ToString();
-            XRectanglePanelTextBox.Text = _currentRectangle.Center.X.ToString();
-            YRectanglePanelTextBox.Text = _currentRectangle.Center.Y.ToString();
-            WidthRectanglePanelTextBox.Text = _currentRectangle.Width.ToString();
-            HeightRectanglePanelTextBox.Text = _currentRectangle.Length.ToString();
+            if (RectanglesPanelListBox.SelectedIndex != -1)
+            {
+                _currentRectangle = _rectanglesPanel[RectanglesPanelListBox.SelectedIndex];
+                IdRectanglePanelTextBox.Text = _currentRectangle.Id.ToString();
+                XRectanglePanelTextBox.Text = _currentRectangle.Center.X.ToString();
+                YRectanglePanelTextBox.Text = _currentRectangle.Center.Y.ToString();
+                WidthRectanglePanelTextBox.Text = _currentRectangle.Width.ToString();
+                HeightRectanglePanelTextBox.Text = _currentRectangle.Length.ToString();
+            }
+        }
+
+        private void RemoveRectanglesButton_Click(object sender, EventArgs e)
+        {
+            if (RectanglesPanelListBox.SelectedIndex != -1)
+            {
+                int selectedIndex = RectanglesPanelListBox.SelectedIndex;
+                _rectanglesPanel.RemoveAt(selectedIndex);
+                RectanglesPanelListBox.Items.RemoveAt(selectedIndex);
+                IdRectanglePanelTextBox.Clear();
+                XRectanglePanelTextBox.Clear();
+                YRectanglePanelTextBox.Clear();
+                WidthRectanglePanelTextBox.Clear();
+                HeightRectanglePanelTextBox.Clear();
+                XRectanglePanelTextBox.BackColor = _normalColor;
+                YRectanglePanelTextBox.BackColor = _normalColor;
+                WidthRectanglePanelTextBox.BackColor = _normalColor;
+                HeightRectanglePanelTextBox.BackColor = _normalColor;
+            }
+        }
+
+        private void XRectanglePanelTextBox_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                _currentRectangle.Center.X = Convert.ToDouble
+                    (XRectanglePanelTextBox.Text);
+                XRectanglePanelTextBox.BackColor = _normalColor;
+                ToolTip.SetToolTip(XRectanglePanelTextBox, "");
+                ItemUpdateRectanglesPanelListBox(_currentRectangle);
+            }
+            catch (Exception exception)
+            {
+                ToolTip.SetToolTip(XRectanglePanelTextBox,
+                    exception.Message);
+                XRectanglePanelTextBox.BackColor = _errorColor;
+                return;
+            }
+        }
+
+        private void YRectanglePanelTextBox_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                _currentRectangle.Center.Y = Convert.ToDouble
+                    (YRectanglePanelTextBox.Text);
+                YRectanglePanelTextBox.BackColor = _normalColor;
+                ToolTip.SetToolTip(YRectanglePanelTextBox, "");
+                ItemUpdateRectanglesPanelListBox(_currentRectangle);
+            }
+            catch (Exception exception)
+            {
+                ToolTip.SetToolTip(YRectanglePanelTextBox,
+                    exception.Message);
+                YRectanglePanelTextBox.BackColor = _errorColor;
+                return;
+            }
+        }
+
+        private void WidthRectanglePanelTextBox_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                _currentRectangle.Width = Convert.ToDouble
+                    (WidthRectanglePanelTextBox.Text);
+                WidthRectanglePanelTextBox.BackColor = _normalColor;
+                ToolTip.SetToolTip(WidthRectanglePanelTextBox, "");
+                ItemUpdateRectanglesPanelListBox(_currentRectangle);
+            }
+            catch (Exception exception)
+            {
+                ToolTip.SetToolTip(WidthRectanglePanelTextBox,
+                    exception.Message);
+                WidthRectanglePanelTextBox.BackColor = _errorColor;
+                return;
+            }
+        }
+
+        private void HeightRectanglePanelTextBox_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                _currentRectangle.Length = Convert.ToDouble
+                    (HeightRectanglePanelTextBox.Text);
+                HeightRectanglePanelTextBox.BackColor = _normalColor;
+                ToolTip.SetToolTip(HeightRectanglePanelTextBox, "");
+                ItemUpdateRectanglesPanelListBox(_currentRectangle);
+            }
+            catch (Exception exception)
+            {
+                ToolTip.SetToolTip(HeightRectanglePanelTextBox,
+                    exception.Message);
+                HeightRectanglePanelTextBox.BackColor = _errorColor;
+                return;
+            }
         }
     }
 }

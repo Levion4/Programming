@@ -635,6 +635,7 @@ namespace Programming.View
             this.HeightRectanglePanelTextBox.Name = "HeightRectanglePanelTextBox";
             this.HeightRectanglePanelTextBox.Size = new System.Drawing.Size(100, 23);
             this.HeightRectanglePanelTextBox.TabIndex = 14;
+            this.HeightRectanglePanelTextBox.TextChanged += new System.EventHandler(this.HeightRectanglePanelTextBox_TextChanged);
             // 
             // WidthRectanglePanelTextBox
             // 
@@ -642,6 +643,7 @@ namespace Programming.View
             this.WidthRectanglePanelTextBox.Name = "WidthRectanglePanelTextBox";
             this.WidthRectanglePanelTextBox.Size = new System.Drawing.Size(100, 23);
             this.WidthRectanglePanelTextBox.TabIndex = 13;
+            this.WidthRectanglePanelTextBox.TextChanged += new System.EventHandler(this.WidthRectanglePanelTextBox_TextChanged);
             // 
             // YRectanglePanelTextBox
             // 
@@ -649,6 +651,7 @@ namespace Programming.View
             this.YRectanglePanelTextBox.Name = "YRectanglePanelTextBox";
             this.YRectanglePanelTextBox.Size = new System.Drawing.Size(100, 23);
             this.YRectanglePanelTextBox.TabIndex = 12;
+            this.YRectanglePanelTextBox.TextChanged += new System.EventHandler(this.YRectanglePanelTextBox_TextChanged);
             // 
             // XRectanglePanelTextBox
             // 
@@ -656,11 +659,13 @@ namespace Programming.View
             this.XRectanglePanelTextBox.Name = "XRectanglePanelTextBox";
             this.XRectanglePanelTextBox.Size = new System.Drawing.Size(100, 23);
             this.XRectanglePanelTextBox.TabIndex = 11;
+            this.XRectanglePanelTextBox.TextChanged += new System.EventHandler(this.XRectanglePanelTextBox_TextChanged);
             // 
             // IdRectanglePanelTextBox
             // 
             this.IdRectanglePanelTextBox.Location = new System.Drawing.Point(63, 266);
             this.IdRectanglePanelTextBox.Name = "IdRectanglePanelTextBox";
+            this.IdRectanglePanelTextBox.ReadOnly = true;
             this.IdRectanglePanelTextBox.Size = new System.Drawing.Size(100, 23);
             this.IdRectanglePanelTextBox.TabIndex = 10;
             // 
@@ -728,6 +733,7 @@ namespace Programming.View
             this.RemoveRectanglesButton.Size = new System.Drawing.Size(28, 28);
             this.RemoveRectanglesButton.TabIndex = 3;
             this.RemoveRectanglesButton.UseVisualStyleBackColor = true;
+            this.RemoveRectanglesButton.Click += new System.EventHandler(this.RemoveRectanglesButton_Click);
             // 
             // AddRectanglesButton
             // 
