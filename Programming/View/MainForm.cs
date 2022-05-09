@@ -25,6 +25,8 @@ namespace Programming.View
 
         private Rectangle _currentRectangle = new Rectangle();
 
+        private List<Panel> _rectanglePanels = new List<Panel>();
+
         private Movie[] _movie;
 
         private Movie _currentMovie = new Movie();
@@ -44,19 +46,12 @@ namespace Programming.View
         private void InitRectangles()
         {
             _rectangles = new Rectangle[5];
-            Random random = new Random();
-            int lengthColor = Enum.GetNames(typeof(Model.Enums.Color)).Length;
             for (var i = 0; i < 5; i++)
             {
-                _rectangles[i] = new Rectangle(
-                    Math.Round(random.NextDouble() * 100, 1),
-                    Math.Round(random.NextDouble() * 100, 1),
-                    ((Model.Enums.Color)random.Next(lengthColor)).ToString(),
-                    new Point2D(Math.Round(random.NextDouble() * 100, 1),
-                    Math.Round(random.NextDouble() * 100, 1)));
+                _rectangles[i] = AddRectangles();
                 RectanglesListBox.Items.Add($"Rectangle {i + 1}");
-                _rectanglesPanel.Add(_rectangles[i]);
                 ItemAddRectanglesPanelListBox(_rectangles[i]);
+                AddRectanglePanel(_rectangles[i]);
             }
         }
 
@@ -141,6 +136,33 @@ namespace Programming.View
             RectanglesPanelListBox.Items.Add($"{rectangle.Id}: " +
                 $"(X= {rectangle.Center.X}; Y= {rectangle.Center.Y}; " +
                 $"W= {rectangle.Width}; H= {rectangle.Length})");
+        }
+
+        private Rectangle AddRectangles()
+        {
+            Random random = new Random();
+            int lengthColor = Enum.GetNames(typeof(Model.Enums.Color)).Length;
+            var x = random.Next(1, RectanglesPanel.Width - 1);
+            var y = random.Next(1, RectanglesPanel.Height - 1);
+            var color = ((Model.Enums.Color)random.Next(lengthColor)).ToString();
+            var height = random.Next(1, RectanglesPanel.Height - y);
+            var width = random.Next(1, RectanglesPanel.Width - x);
+            var rectangle = new Rectangle(height, width, color, new Point2D(x, y));
+            _rectanglesPanel.Add(rectangle);
+            return rectangle;
+        }
+
+        private void AddRectanglePanel(Rectangle rectangle)
+        {
+            var rectanglePanel = new Panel
+            {
+                Location = new Point(rectangle.Center.X, rectangle.Center.Y),
+                Width = rectangle.Width,
+                Height = rectangle.Length,
+                BackColor = System.Drawing.Color.FromArgb(127, 127, 255, 127)
+            };
+            RectanglesPanel.Controls.Add(rectanglePanel);
+            _rectanglePanels.Add(rectanglePanel);
         }
 
         private void EnumsListBox_SelectedIndexChanged(object sender, EventArgs e) 
@@ -232,7 +254,7 @@ namespace Programming.View
         {
             try
             {
-                _currentRectangle.Length = Convert.ToDouble(LenghtTextBox.Text);
+                _currentRectangle.Length = Convert.ToInt32(LenghtTextBox.Text);
                 LenghtTextBox.BackColor = _normalColor;
                 ToolTip.SetToolTip(LenghtTextBox, "");
             }
@@ -248,7 +270,7 @@ namespace Programming.View
         {
             try
             {
-                _currentRectangle.Width = Convert.ToDouble(WidthTextBox.Text);
+                _currentRectangle.Width = Convert.ToInt32(WidthTextBox.Text);
                 WidthTextBox.BackColor = _normalColor;
                 ToolTip.SetToolTip(WidthTextBox, "");
             }
@@ -378,17 +400,9 @@ namespace Programming.View
 
         private void AddRectanglesButton_Click(object sender, EventArgs e)
         {
-            Random random = new Random();
-            int lengthColor = Enum.GetNames(typeof(Model.Enums.Color)).Length;
-            var rectangle = new Rectangle(
-                Math.Round(random.NextDouble() * 100, 1),
-                Math.Round(random.NextDouble() * 100, 1),
-                ((Model.Enums.Color)random.Next(lengthColor)).ToString(),
-                new Point2D(Math.Round(random.NextDouble() * 100, 1),
-                Math.Round(random.NextDouble() * 100, 1)));
-            _rectanglesPanel.Add(rectangle);
+            var rectangle = AddRectangles();
             ItemAddRectanglesPanelListBox(rectangle);
-            RectanglesPanelListBox.SelectedIndex = _rectanglesPanel.Count - 1 ;
+            AddRectanglePanel(rectangle);
         }
 
         private void RectanglesPanelListBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -420,6 +434,8 @@ namespace Programming.View
                 YRectanglePanelTextBox.BackColor = _normalColor;
                 WidthRectanglePanelTextBox.BackColor = _normalColor;
                 HeightRectanglePanelTextBox.BackColor = _normalColor;
+                _rectanglePanels.RemoveAt(selectedIndex);
+                RectanglesPanel.Controls.RemoveAt(selectedIndex);
             }
         }
 
@@ -427,7 +443,7 @@ namespace Programming.View
         {
             try
             {
-                _currentRectangle.Center.X = Convert.ToDouble
+                _currentRectangle.Center.X = Convert.ToInt32
                     (XRectanglePanelTextBox.Text);
                 XRectanglePanelTextBox.BackColor = _normalColor;
                 ToolTip.SetToolTip(XRectanglePanelTextBox, "");
@@ -446,7 +462,7 @@ namespace Programming.View
         {
             try
             {
-                _currentRectangle.Center.Y = Convert.ToDouble
+                _currentRectangle.Center.Y = Convert.ToInt32
                     (YRectanglePanelTextBox.Text);
                 YRectanglePanelTextBox.BackColor = _normalColor;
                 ToolTip.SetToolTip(YRectanglePanelTextBox, "");
@@ -465,7 +481,7 @@ namespace Programming.View
         {
             try
             {
-                _currentRectangle.Width = Convert.ToDouble
+                _currentRectangle.Width = Convert.ToInt32
                     (WidthRectanglePanelTextBox.Text);
                 WidthRectanglePanelTextBox.BackColor = _normalColor;
                 ToolTip.SetToolTip(WidthRectanglePanelTextBox, "");
@@ -484,7 +500,7 @@ namespace Programming.View
         {
             try
             {
-                _currentRectangle.Length = Convert.ToDouble
+                _currentRectangle.Length = Convert.ToInt32
                     (HeightRectanglePanelTextBox.Text);
                 HeightRectanglePanelTextBox.BackColor = _normalColor;
                 ToolTip.SetToolTip(HeightRectanglePanelTextBox, "");

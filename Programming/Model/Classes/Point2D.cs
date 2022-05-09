@@ -8,21 +8,21 @@ namespace Programming.Model.Classes
 {
     public class Point2D
     {
-        private double _x;
+        private int _x;
 
-        private double _y;
+        private int _y;
 
         public Point2D()
         {
         }
 
-        public Point2D(double x, double y)
+        public Point2D(int x, int y)
         {
             X = x;
             Y = y;
         }
 
-        public double X
+        public int X
         {
             get
             {
@@ -35,7 +35,7 @@ namespace Programming.Model.Classes
             }
         }
 
-        public double Y
+        public int Y
         {
             get
             {

@@ -10,9 +10,9 @@ namespace Programming.Model.Classes
     {
         private static int _allRectanglesCount;
 
-        private double _length;
+        private int _length;
 
-        private double _width;
+        private int _width;
 
         private int _id;
 
@@ -20,7 +20,7 @@ namespace Programming.Model.Classes
         {
         }
 
-        public Rectangle(double length, double width, string color, Point2D center)
+        public Rectangle(int length, int width, string color, Point2D center)
         {
             Color = color;
             Width = width;
@@ -46,7 +46,7 @@ namespace Programming.Model.Classes
             }
         }
 
-        public double Length
+        public int Length
         {
             get
             {
@@ -59,7 +59,7 @@ namespace Programming.Model.Classes
             }
         }
 
-        public double Width
+        public int Width
         {
             get
             {
