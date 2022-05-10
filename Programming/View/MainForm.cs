@@ -53,6 +53,7 @@ namespace Programming.View
                 ItemAddRectanglesPanelListBox(_rectangles[i]);
                 AddRectanglePanel(_rectangles[i]);
             }
+            FindCollisions();
         }
 
         private void InitMovies()
@@ -127,15 +128,15 @@ namespace Programming.View
         {
             RectanglesPanelListBox.Items[RectanglesPanelListBox.SelectedIndex] =
                     $"{rectangle.Id}: (X= {rectangle.Center.X}; " +
-                    $"Y= {rectangle.Center.Y}; W= {rectangle.Width}; " +
-                    $"H= {rectangle.Length})";
+                    $"Y= {rectangle.Center.Y}; W= {rectangle.Length}; " +
+                    $"H= {rectangle.Width})";
         }
 
         private void ItemAddRectanglesPanelListBox(Rectangle rectangle)
         {
             RectanglesPanelListBox.Items.Add($"{rectangle.Id}: " +
                 $"(X= {rectangle.Center.X}; Y= {rectangle.Center.Y}; " +
-                $"W= {rectangle.Width}; H= {rectangle.Length})");
+                $"W= {rectangle.Length}; H= {rectangle.Width})");
         }
 
         private Rectangle AddRectangles()
@@ -145,9 +146,9 @@ namespace Programming.View
             var x = random.Next(1, RectanglesPanel.Width - 1);
             var y = random.Next(1, RectanglesPanel.Height - 1);
             var color = ((Model.Enums.Color)random.Next(lengthColor)).ToString();
-            var height = random.Next(1, RectanglesPanel.Height - y);
-            var width = random.Next(1, RectanglesPanel.Width - x);
-            var rectangle = new Rectangle(height, width, color, new Point2D(x, y));
+            var length = random.Next(1, RectanglesPanel.Width - x);
+            var width = random.Next(1, RectanglesPanel.Height - y);
+            var rectangle = new Rectangle(length, width, color, new Point2D(x, y));
             _rectanglesPanel.Add(rectangle);
             return rectangle;
         }
@@ -157,14 +158,33 @@ namespace Programming.View
             var rectanglePanel = new Panel
             {
                 Location = new Point(rectangle.Center.X, rectangle.Center.Y),
-                Width = rectangle.Width,
-                Height = rectangle.Length,
+                Height = rectangle.Width,
+                Width = rectangle.Length,
                 BackColor = System.Drawing.Color.FromArgb(127, 127, 255, 127)
             };
             RectanglesPanel.Controls.Add(rectanglePanel);
             _rectanglePanels.Add(rectanglePanel);
         }
 
+        private void FindCollisions()
+        {
+            for (int i = 0; i < _rectanglePanels.Count; i++)
+            {
+                _rectanglePanels[i].BackColor = System.Drawing.Color.FromArgb(127, 127, 255, 127);
+            }
+            for (int i = 0; i < _rectanglesPanel.Count; i++)
+            {
+                for (int j = i + 1; j < _rectanglesPanel.Count; j++)
+                {
+                    if (CollisionManager.IsCollision(_rectanglesPanel[i], _rectanglesPanel[j]))
+                    {
+                        _rectanglePanels[i].BackColor = System.Drawing.Color.FromArgb(127, 255, 127, 127);
+                        _rectanglePanels[j].BackColor = System.Drawing.Color.FromArgb(127, 255, 127, 127);
+                    }
+                }
+            }
+        }
+        
         private void EnumsListBox_SelectedIndexChanged(object sender, EventArgs e) 
         {
             ValuesListBox.Items.Clear(); 
@@ -403,6 +423,7 @@ namespace Programming.View
             var rectangle = AddRectangles();
             ItemAddRectanglesPanelListBox(rectangle);
             AddRectanglePanel(rectangle);
+            FindCollisions();
         }
 
         private void RectanglesPanelListBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -413,8 +434,8 @@ namespace Programming.View
                 IdRectanglePanelTextBox.Text = _currentRectangle.Id.ToString();
                 XRectanglePanelTextBox.Text = _currentRectangle.Center.X.ToString();
                 YRectanglePanelTextBox.Text = _currentRectangle.Center.Y.ToString();
-                WidthRectanglePanelTextBox.Text = _currentRectangle.Width.ToString();
-                HeightRectanglePanelTextBox.Text = _currentRectangle.Length.ToString();
+                WidthRectanglePanelTextBox.Text = _currentRectangle.Length.ToString();
+                HeightRectanglePanelTextBox.Text = _currentRectangle.Width.ToString();
             }
         }
 
@@ -436,6 +457,7 @@ namespace Programming.View
                 HeightRectanglePanelTextBox.BackColor = _normalColor;
                 _rectanglePanels.RemoveAt(selectedIndex);
                 RectanglesPanel.Controls.RemoveAt(selectedIndex);
+                FindCollisions();
             }
         }
 
@@ -481,7 +503,7 @@ namespace Programming.View
         {
             try
             {
-                _currentRectangle.Width = Convert.ToInt32
+                _currentRectangle.Length = Convert.ToInt32
                     (WidthRectanglePanelTextBox.Text);
                 WidthRectanglePanelTextBox.BackColor = _normalColor;
                 ToolTip.SetToolTip(WidthRectanglePanelTextBox, "");
@@ -500,7 +522,7 @@ namespace Programming.View
         {
             try
             {
-                _currentRectangle.Length = Convert.ToInt32
+                _currentRectangle.Width = Convert.ToInt32
                     (HeightRectanglePanelTextBox.Text);
                 HeightRectanglePanelTextBox.BackColor = _normalColor;
                 ToolTip.SetToolTip(HeightRectanglePanelTextBox, "");
