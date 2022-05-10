@@ -124,7 +124,7 @@ namespace Programming.View
             return maxIndex;
         }
 
-        private void ItemUpdateRectanglesPanelListBox(Rectangle rectangle)
+        private void ItemEditRectanglesPanelListBox(Rectangle rectangle)
         {
             RectanglesPanelListBox.Items[RectanglesPanelListBox.SelectedIndex] =
                     $"{rectangle.Id}: (X= {rectangle.Center.X}; " +
@@ -164,6 +164,22 @@ namespace Programming.View
             };
             RectanglesPanel.Controls.Add(rectanglePanel);
             _rectanglePanels.Add(rectanglePanel);
+        }
+
+        private void EditRectanglePanel(Rectangle rectangle)
+        {
+            var rectanglePanel = new Panel
+            {
+                Location = new Point(rectangle.Center.X, rectangle.Center.Y),
+                Height = rectangle.Width,
+                Width = rectangle.Length,
+                BackColor = System.Drawing.Color.FromArgb(127, 127, 255, 127)
+            };
+            int selectedIndex = RectanglesPanelListBox.SelectedIndex;
+            RectanglesPanel.Controls.Add(rectanglePanel);
+            RectanglesPanel.Controls.Remove(_rectanglePanels[selectedIndex]);
+            _rectanglePanels[selectedIndex] = rectanglePanel;
+            FindCollisions();
         }
 
         private void FindCollisions()
@@ -469,7 +485,8 @@ namespace Programming.View
                     (XRectanglePanelTextBox.Text);
                 XRectanglePanelTextBox.BackColor = _normalColor;
                 ToolTip.SetToolTip(XRectanglePanelTextBox, "");
-                ItemUpdateRectanglesPanelListBox(_currentRectangle);
+                ItemEditRectanglesPanelListBox(_currentRectangle);
+                EditRectanglePanel(_currentRectangle);
             }
             catch (Exception exception)
             {
@@ -488,7 +505,8 @@ namespace Programming.View
                     (YRectanglePanelTextBox.Text);
                 YRectanglePanelTextBox.BackColor = _normalColor;
                 ToolTip.SetToolTip(YRectanglePanelTextBox, "");
-                ItemUpdateRectanglesPanelListBox(_currentRectangle);
+                ItemEditRectanglesPanelListBox(_currentRectangle);
+                EditRectanglePanel(_currentRectangle);
             }
             catch (Exception exception)
             {
@@ -507,7 +525,8 @@ namespace Programming.View
                     (WidthRectanglePanelTextBox.Text);
                 WidthRectanglePanelTextBox.BackColor = _normalColor;
                 ToolTip.SetToolTip(WidthRectanglePanelTextBox, "");
-                ItemUpdateRectanglesPanelListBox(_currentRectangle);
+                ItemEditRectanglesPanelListBox(_currentRectangle);
+                EditRectanglePanel(_currentRectangle);
             }
             catch (Exception exception)
             {
@@ -526,7 +545,8 @@ namespace Programming.View
                     (HeightRectanglePanelTextBox.Text);
                 HeightRectanglePanelTextBox.BackColor = _normalColor;
                 ToolTip.SetToolTip(HeightRectanglePanelTextBox, "");
-                ItemUpdateRectanglesPanelListBox(_currentRectangle);
+                ItemEditRectanglesPanelListBox(_currentRectangle);
+                EditRectanglePanel(_currentRectangle);
             }
             catch (Exception exception)
             {
