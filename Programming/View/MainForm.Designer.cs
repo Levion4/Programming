@@ -75,8 +75,8 @@ namespace Programming.View
             this.WidthLabel = new System.Windows.Forms.Label();
             this.ColorTextBox = new System.Windows.Forms.TextBox();
             this.WidthTextBox = new System.Windows.Forms.TextBox();
-            this.LenghtTextBox = new System.Windows.Forms.TextBox();
-            this.LenghtLabel = new System.Windows.Forms.Label();
+            this.LengthTextBox = new System.Windows.Forms.TextBox();
+            this.LengthLabel = new System.Windows.Forms.Label();
             this.RectanglesListBox = new System.Windows.Forms.ListBox();
             this.RectanglesTabPage = new System.Windows.Forms.TabPage();
             this.RectanglesPanel = new System.Windows.Forms.Panel();
@@ -460,8 +460,8 @@ namespace Programming.View
             this.RectanglesGroupBox.Controls.Add(this.WidthLabel);
             this.RectanglesGroupBox.Controls.Add(this.ColorTextBox);
             this.RectanglesGroupBox.Controls.Add(this.WidthTextBox);
-            this.RectanglesGroupBox.Controls.Add(this.LenghtTextBox);
-            this.RectanglesGroupBox.Controls.Add(this.LenghtLabel);
+            this.RectanglesGroupBox.Controls.Add(this.LengthTextBox);
+            this.RectanglesGroupBox.Controls.Add(this.LengthLabel);
             this.RectanglesGroupBox.Controls.Add(this.RectanglesListBox);
             this.RectanglesGroupBox.Location = new System.Drawing.Point(8, 6);
             this.RectanglesGroupBox.Name = "RectanglesGroupBox";
@@ -565,22 +565,22 @@ namespace Programming.View
             this.WidthTextBox.TabIndex = 3;
             this.WidthTextBox.TextChanged += new System.EventHandler(this.WidthTextBox_TextChanged);
             // 
-            // LenghtTextBox
+            // LengthTextBox
             // 
-            this.LenghtTextBox.Location = new System.Drawing.Point(198, 40);
-            this.LenghtTextBox.Name = "LenghtTextBox";
-            this.LenghtTextBox.Size = new System.Drawing.Size(141, 23);
-            this.LenghtTextBox.TabIndex = 2;
-            this.LenghtTextBox.TextChanged += new System.EventHandler(this.LenghtTextBox_TextChanged);
+            this.LengthTextBox.Location = new System.Drawing.Point(198, 40);
+            this.LengthTextBox.Name = "LengthTextBox";
+            this.LengthTextBox.Size = new System.Drawing.Size(141, 23);
+            this.LengthTextBox.TabIndex = 2;
+            this.LengthTextBox.TextChanged += new System.EventHandler(this.LengthTextBox_TextChanged);
             // 
-            // LenghtLabel
+            // LengthLabel
             // 
-            this.LenghtLabel.AutoSize = true;
-            this.LenghtLabel.Location = new System.Drawing.Point(198, 22);
-            this.LenghtLabel.Name = "LenghtLabel";
-            this.LenghtLabel.Size = new System.Drawing.Size(47, 15);
-            this.LenghtLabel.TabIndex = 1;
-            this.LenghtLabel.Text = "Length:";
+            this.LengthLabel.AutoSize = true;
+            this.LengthLabel.Location = new System.Drawing.Point(198, 22);
+            this.LengthLabel.Name = "LengthLabel";
+            this.LengthLabel.Size = new System.Drawing.Size(47, 15);
+            this.LengthLabel.TabIndex = 1;
+            this.LengthLabel.Text = "Length:";
             // 
             // RectanglesListBox
             // 
@@ -823,8 +823,8 @@ namespace Programming.View
         private System.Windows.Forms.Label WidthLabel;
         private System.Windows.Forms.TextBox ColorTextBox;
         private System.Windows.Forms.TextBox WidthTextBox;
-        private System.Windows.Forms.TextBox LenghtTextBox;
-        private System.Windows.Forms.Label LenghtLabel;
+        private System.Windows.Forms.TextBox LengthTextBox;
+        private System.Windows.Forms.Label LengthLabel;
         private System.Windows.Forms.ToolTip ToolTip;
         private System.Windows.Forms.GroupBox MoviesGroupBox;
         private System.Windows.Forms.Button MoviesButton;
