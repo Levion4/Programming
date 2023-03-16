@@ -16,76 +16,19 @@ namespace View.Model
     public class Contact
     {
         /// <summary>
-        /// Ограничение на количество символов в имяни контакта.
-        /// </summary>
-        private readonly int _characterLimit = 150;
-
-        /// <summary>
-        /// Имя контакта.
-        /// </summary>
-        private string _name;
-
-        /// <summary>
-        /// Номер телефона контакта.
-        /// </summary>
-        private string _phone;
-
-        /// <summary>
-        /// Почта контакта.
-        /// </summary>
-        private string _email;
-
-        /// <summary>
         /// Возвращает и задает имя контакта.
-        /// Должно состоять только из букв. Длина не более 150 символов.
         /// </summary>
-        public string Name
-        {
-            get
-            {
-                return _name;
-            }
-            set
-            {
-                Validator.AssertStringContainsOnlyLetters(value, nameof(Name));
-                Validator.AssertValueInRange(value.Length, _characterLimit, nameof(Name));
-                _name = value;
-            }
-        }
+        public string Name { get; set; }
 
         /// <summary>
         /// Возвращает и задает номер телефона контакта.
-        /// Должен начинаться с "+" и содержать 11 цифр.
         /// </summary>
-        public string Phone
-        {
-            get
-            {
-                return _phone;
-            }
-            set
-            {
-                Validator.IsPhoneValid(value, nameof(Phone));
-                _phone = value;
-            }
-        }
+        public string PhoneNumber { get; set; }
 
         /// <summary>
         /// Возвращает и задает почту контакта.
-        /// Должен быть корректным.
         /// </summary>
-        public string Email
-        {
-            get
-            {
-                return _email;
-            }
-            set
-            {
-                Validator.IsEmailValid(value, nameof(Email));                
-                _email = value;
-            }
-        }
+        public string Email { get; set; }
 
         /// <summary>
         /// Создает экземпляр класса <see cref="Contact"/>.
@@ -98,13 +41,13 @@ namespace View.Model
         /// Создает экземпляр класса <see cref="Contact"/>.
         /// </summary>
         /// <param name="name">Имя.</param>
-        /// <param name="phone">Номер телефона.</param>
+        /// <param name="phoneNumber">Номер телефона.</param>
         /// <param name="email">Почта.</param>
         [JsonConstructor]
-        public Contact(string name, string phone, string email)
+        public Contact(string name, string phoneNumber, string email)
         {
             Name = name;
-            Phone = phone;
+            PhoneNumber = phoneNumber;
             Email = email;
         }
     }

@@ -3,48 +3,45 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:View"
+        xmlns:local="clr-namespace:View.ViewModel" d:DataContext="{d:DesignInstance Type=local:MainVM}"
         mc:Ignorable="d"
         Title="Contacts" Height="450" Width="600" 
-        Icon="/icons8-contact-100.png" x:Name="ContactsWindow">
-    <Grid x:Name="ContactsGrid" Margin="15">
+        Icon="/icons8-contact-100.png">
+    <Grid Margin="15">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <GroupBox x:Name="EditContactGroupBox" Header="Edit Contact"
+        <GroupBox Header="Edit Contact"
                   Margin="3" Grid.Row="0" Grid.Column="0">
-            <StackPanel x:Name="EditContactStackPanel" Orientation="Vertical">
-                <TextBlock x:Name="EditNameTextBlock"
-                           Text="Name:" Margin="3"/>
-                <TextBox x:Name="EditNameTextBox" Margin="3"/>
-                <TextBlock x:Name="EditPhoneTextBlock"
-                           Text="Phone Number:" Margin="3"/>
-                <TextBox x:Name="EditPhoneTextBox" Margin="3"/>
-                <TextBlock x:Name="EditEmailTextBlock"
-                           Text="Email:" Margin="3"/>
-                <TextBox x:Name="EditEmailTextBox" Margin="3"/>
+            <StackPanel Orientation="Vertical">
+                <TextBlock Text="Name:" Margin="3"/>
+                <TextBox Margin="3" Text="{Binding Contact.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock Text="Phone Number:" Margin="3"/>
+                <TextBox Margin="3" Text="{Binding Contact.PhoneNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock Text="Email:" Margin="3"/>
+                <TextBox Margin="3" Text="{Binding Contact.Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>
         </GroupBox>
-        <GroupBox x:Name="ReadContactGroupBox" Header="Read Contact"
+        <GroupBox Header="Read Contact"
                   Margin="3" Grid.Row="0" Grid.Column="1">
-            <StackPanel x:Name="ReadContactStackPanel" Orientation="Vertical">
-                <TextBlock x:Name="ReadNameTextBlock" Text="Name:" Margin="3"/>
-                <TextBlock x:Name="ReadNameContactTextBlock" Margin="3" FontWeight="Bold"/>
-                <TextBlock x:Name="ReadPhoneTextBlock" Text="Phone Number:" Margin="3"/>
-                <TextBlock x:Name="ReadPhoneContactTextBlock" Margin="3" FontWeight="Bold"/>
-                <TextBlock x:Name="ReadEmailTextBlock" Text="Email:" Margin="3"/>
-                <TextBlock x:Name="ReadEmailContactTextBlock" Margin="3" FontWeight="Bold"/>
+            <StackPanel Orientation="Vertical">
+                <TextBlock Text="Name:" Margin="3"/>
+                <TextBlock Margin="3" FontWeight="Bold" Text="{Binding Contact.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock Text="Phone Number:" Margin="3"/>
+                <TextBlock Margin="3" FontWeight="Bold" Text="{Binding Contact.PhoneNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock Text="Email:" Margin="3"/>
+                <TextBlock Margin="3" FontWeight="Bold" Text="{Binding Contact.Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>
         </GroupBox>
-        <StackPanel x:Name="ButtonsStackPanel"  Grid.Row="1" Grid.Column="1"
-                    HorizontalAlignment="Right" Orientation="Horizontal">
-            <Button x:Name="SaveButton" Content="Save" Height="25" Width="75" Margin="3"/>
-            <Button x:Name="LoadButton" Content="Load" Height="25" Width="75" Margin="3"/>
+        <StackPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right"
+                    Orientation="Horizontal" Grid.ColumnSpan="2">
+            <Button Content="Save" Height="25" Width="75" Margin="3" Command="{Binding SaveCommand}" CommandParameter="{Binding Contact}"/>
+            <Button Content="Load" Height="25" Width="75" Margin="3" Command="{Binding LoadCommand}"/>
         </StackPanel>
     </Grid>
 </Window>

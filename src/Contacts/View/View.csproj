@@ -8,12 +8,16 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="icons8-contact-100.png" />
+    <None Remove="Icon_MainWindow.png" />
     <None Remove="rectangle_remove_24x24.png" />
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="icons8-contact-100.png" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Icon_MainWindow.png" />
   </ItemGroup>
 
 </Project>
