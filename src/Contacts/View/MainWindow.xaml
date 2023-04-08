@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:View.ViewModel" d:DataContext="{d:DesignInstance Type=local:MainVM}"
         mc:Ignorable="d"
         Title="Contacts" Height="450" Width="600" 
-        Icon="/icons8-contact-100.png">
+        Icon="/Icon_MainWindow.png">
     <Grid Margin="15">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
