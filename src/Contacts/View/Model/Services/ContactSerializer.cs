@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -44,10 +45,10 @@ namespace View.Model.Services
         /// <summary>
         /// Сохраняет данные о товарах в файл.
         /// </summary>
-        /// <param name="contact">Данные о контакте, которые нужно сохранить.</param>
+        /// <param name="contacts">Данные о контактах, которые нужно сохранить.</param>
         /// <exception cref="Exception">Возникает, 
         /// если произошла ошибка при сохранении.</exception>
-        public static void SaveToFile(Contact contact)
+        public static void SaveToFile(ObservableCollection<Contact> contacts)
         {
             try
             {
@@ -61,7 +62,7 @@ namespace View.Model.Services
                 using (StreamWriter sw = new StreamWriter(Filename))
                 using (JsonWriter writer = new JsonTextWriter(sw))
                 {
-                    serializer.Serialize(writer, contact);
+                    serializer.Serialize(writer, contacts);
                 }
             }
             catch
@@ -74,9 +75,9 @@ namespace View.Model.Services
         /// Загружает данные из файла и передает их в список.
         /// </summary>
         /// <returns>Возвращает текущий контакт.</returns>
-        public static Contact LoadFromFile()
+        public static ObservableCollection<Contact> LoadFromFile()
         {
-            Contact contact = null;
+            ObservableCollection<Contact> contacts = null;
 
             try
             {
@@ -90,15 +91,15 @@ namespace View.Model.Services
                 using (StreamReader sr = new StreamReader(Filename))
                 using (JsonReader reader = new JsonTextReader(sr))
                 {
-                    contact = serializer.Deserialize<Contact>(reader);
+                    contacts = serializer.Deserialize<ObservableCollection<Contact>>(reader);
                 }
             }
             catch
             {
-                return new Contact();
+                return new ObservableCollection<Contact>();
             }
 
-            return contact;
+            return contacts;
         }
     }
 }
