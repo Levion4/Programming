@@ -39,7 +39,7 @@
                     <RowDefinition Height="17*"/>
                     <RowDefinition Height="322*"/>
                 </Grid.RowDefinitions>
-                <ListBox x:Name="ContactsListBox" Margin="3" ItemsSource="{Binding Contacts}"
+                <ListBox Margin="3" ItemsSource="{Binding Contacts}"
                          SelectedItem="{Binding CurrentContact}" DisplayMemberPath="Name" Grid.RowSpan="2"/>
             </Grid>
             <Grid Grid.Row="2" Margin="8,0,8,8">
@@ -49,11 +49,11 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Button Content="Add" Grid.Column="0" Height="25" Width="Auto" Margin="3"
-                        Command="{Binding AddCommand}" IsEnabled="{Binding IsActivated, Converter={StaticResource ReverseBoolConverter}}"/>
+                        Command="{Binding AddCommand}" IsEnabled="{Binding IsAvailable, Converter={StaticResource ReverseBoolConverter}}"/>
                 <Button Content="Edit" Grid.Column="1" Height="25" Width="Auto" Margin="3"
-                        Command="{Binding EditCommand}" IsEnabled="{Binding IsActivatedButtons, Converter={StaticResource ReverseBoolConverter}}"/>
+                        Command="{Binding EditCommand}" IsEnabled="{Binding IsAvailable, Converter={StaticResource ReverseBoolConverter}}"/>
                 <Button Content="Remove" Grid.Column="2" Height="25" Width="Auto" Margin="3"
-                        Command="{Binding RemoveCommand}" IsEnabled="{Binding IsActivatedButtons, Converter={StaticResource ReverseBoolConverter}}"/>
+                        Command="{Binding RemoveCommand}" IsEnabled="{Binding IsAvailable, Converter={StaticResource ReverseBoolConverter}}"/>
             </Grid>
         </Grid>
         <Grid Grid.Column="2" Margin="8">
@@ -63,16 +63,16 @@
             </Grid.ColumnDefinitions>
             <StackPanel Grid.Column="1" Orientation="Vertical">
                 <TextBlock Text="Name:" Margin="3"/>
-                <TextBox Margin="3" IsReadOnly="{Binding IsActivated, Converter={StaticResource ReverseBoolConverter}}"
+                <TextBox Margin="3" IsReadOnly="{Binding IsAvailable, Converter={StaticResource ReverseBoolConverter}}"
                          Text="{Binding CurrentContact.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 <TextBlock Text="Phone Number:" Margin="3"/>
-                <TextBox Margin="3" IsReadOnly="{Binding IsActivated, Converter={StaticResource ReverseBoolConverter}}"
+                <TextBox Margin="3" IsReadOnly="{Binding IsAvailable, Converter={StaticResource ReverseBoolConverter}}"
                          Text="{Binding CurrentContact.PhoneNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 <TextBlock Text="Email:" Margin="3"/>
-                <TextBox Margin="3" IsReadOnly="{Binding IsActivated, Converter={StaticResource ReverseBoolConverter}}"
+                <TextBox Margin="3" IsReadOnly="{Binding IsAvailable, Converter={StaticResource ReverseBoolConverter}}"
                          Text="{Binding CurrentContact.Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 <Button Content="Apply" Height="25" Width="75" HorizontalAlignment="Left" Margin="3,50,3,3"
-                        Visibility="{Binding IsActivated, Converter={StaticResource BoolConverter}}" Command="{Binding ApplyCommand}"/>
+                        Visibility="{Binding IsAvailable, Converter={StaticResource BoolConverter}}" Command="{Binding ApplyCommand}"/>
             </StackPanel>
             <StackPanel Grid.Column="0">
                 <Image Source="/Resources/photo_placeholder_100x100.png" Width="100" Height="100" Margin="3, 25, 3, 3"/>

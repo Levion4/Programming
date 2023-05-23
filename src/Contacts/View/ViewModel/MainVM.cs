@@ -26,7 +26,7 @@ namespace View.ViewModel
         /// <summary>
         /// Текущий контакт.
         /// </summary>
-        private Contact _currentContact = new Contact();
+        private Contact _currentContact;
 
         /// <summary>
         /// Клон контакта.
@@ -39,14 +39,9 @@ namespace View.ViewModel
         private Contact _initialContact;
 
         /// <summary/>
-        /// Отвечает за активацию элементов.
+        /// Отвечает за доступность элементов.
         /// </summary>
-        private bool _isActivated = false;
-
-        /// <summary>
-        /// Отвечает за активацию кнопок удаления и изменения.
-        /// </summary>
-        private bool _isActivatedButtons = true;
+        private bool _isAvailable = false;
 
         /// <summary>
         /// Команда добавления контакта.
@@ -75,37 +70,19 @@ namespace View.ViewModel
         public event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>
-        /// Возвращает и задает нужно ли активировать элементы. 
+        /// Возвращает и задает доступность элементов. 
         /// Задается только во время инициализации.
         /// </summary>
-        public bool IsActivated
+        public bool IsAvailable
         {
             get 
             { 
-                return _isActivated; 
+                return _isAvailable; 
             }
             private set
             {
-                _isActivated = value;
-                OnPropertyChanged(nameof(IsActivated));
-            }
-        }
-
-        /// <summary>
-        /// Возвращает и задает нужно ли активировать
-        /// кнопки удаления и изменения. 
-        /// Задается только во время инициализации.
-        /// </summary>
-        public bool IsActivatedButtons
-        {
-            get
-            {
-                return _isActivatedButtons;
-            }
-            private set
-            {
-                _isActivatedButtons = value;
-                OnPropertyChanged(nameof(IsActivatedButtons));
+                _isAvailable = value;
+                OnPropertyChanged(nameof(IsAvailable));
             }
         }
 
@@ -121,8 +98,7 @@ namespace View.ViewModel
                     {
                         CurrentContact = null;
                         CurrentContact = new Contact();
-                        IsActivated = true;
-                        IsActivatedButtons = true;
+                        IsAvailable = true;
                     }));
             }
         }
@@ -137,8 +113,7 @@ namespace View.ViewModel
                 return _applyCommand ??
                     (_applyCommand = new RelayCommand(obj =>
                     {
-                        IsActivated = false;
-                        IsActivatedButtons = false;
+                        IsAvailable = false;
 
                         if (_cloneContact != null)
                         {
@@ -175,8 +150,7 @@ namespace View.ViewModel
 
                         if(CurrentContact != null && Contacts.Count > 0)
                         {
-                            IsActivated = true;
-                            IsActivatedButtons = true;
+                            IsAvailable = true;
                         }        
                     },
                     (obj) => CurrentContact != null));
@@ -251,8 +225,7 @@ namespace View.ViewModel
                 {
                     _currentContact = value;
                     OnPropertyChanged(nameof(CurrentContact));
-                    IsActivated = false;
-                    IsActivatedButtons = false;
+                    IsAvailable = false;
                 }
             }
         }
@@ -278,9 +251,9 @@ namespace View.ViewModel
         /// </summary>
         /// <param name="prop">Название свойства,
         /// для которого зажигается событие.</param>
-        public void OnPropertyChanged([CallerMemberName] string prop = "")
+        public void OnPropertyChanged([CallerMemberName] string property = "")
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
         }
     }
 }

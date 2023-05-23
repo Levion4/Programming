@@ -50,24 +50,17 @@ namespace View.Model.Services
         /// если произошла ошибка при сохранении.</exception>
         public static void SaveToFile(ObservableCollection<Contact> contacts)
         {
-            try
+            CreateDirectory();
+            var settings = new JsonSerializerSettings
             {
-                CreateDirectory();
-                var settings = new JsonSerializerSettings
-                {
-                    TypeNameHandling = TypeNameHandling.All
-                };
-                JsonSerializer serializer = new JsonSerializer();
-                serializer = JsonSerializer.Create(settings);
-                using (StreamWriter sw = new StreamWriter(Filename))
-                using (JsonWriter writer = new JsonTextWriter(sw))
-                {
-                    serializer.Serialize(writer, contacts);
-                }
-            }
-            catch
+                TypeNameHandling = TypeNameHandling.All
+            };
+            JsonSerializer serializer = new JsonSerializer();
+            serializer = JsonSerializer.Create(settings);
+            using (StreamWriter sw = new StreamWriter(Filename))
+            using (JsonWriter writer = new JsonTextWriter(sw))
             {
-                throw new Exception($"An error occurred while saving data to a file.");
+                serializer.Serialize(writer, contacts);
             }
         }
 
@@ -92,6 +85,11 @@ namespace View.Model.Services
                 using (JsonReader reader = new JsonTextReader(sr))
                 {
                     contacts = serializer.Deserialize<ObservableCollection<Contact>>(reader);
+
+                    if(contacts == null)
+                    {
+                        return new ObservableCollection<Contact>();
+                    }
                 }
             }
             catch
