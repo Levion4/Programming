@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -44,29 +45,22 @@ namespace View.Model.Services
         /// <summary>
         /// Сохраняет данные о товарах в файл.
         /// </summary>
-        /// <param name="contact">Данные о контакте, которые нужно сохранить.</param>
+        /// <param name="contacts">Данные о контактах, которые нужно сохранить.</param>
         /// <exception cref="Exception">Возникает, 
         /// если произошла ошибка при сохранении.</exception>
-        public static void SaveToFile(Contact contact)
+        public static void SaveToFile(ObservableCollection<Contact> contacts)
         {
-            try
+            CreateDirectory();
+            var settings = new JsonSerializerSettings
             {
-                CreateDirectory();
-                var settings = new JsonSerializerSettings
-                {
-                    TypeNameHandling = TypeNameHandling.All
-                };
-                JsonSerializer serializer = new JsonSerializer();
-                serializer = JsonSerializer.Create(settings);
-                using (StreamWriter sw = new StreamWriter(Filename))
-                using (JsonWriter writer = new JsonTextWriter(sw))
-                {
-                    serializer.Serialize(writer, contact);
-                }
-            }
-            catch
+                TypeNameHandling = TypeNameHandling.All
+            };
+            JsonSerializer serializer = new JsonSerializer();
+            serializer = JsonSerializer.Create(settings);
+            using (StreamWriter sw = new StreamWriter(Filename))
+            using (JsonWriter writer = new JsonTextWriter(sw))
             {
-                throw new Exception($"An error occurred while saving data to a file.");
+                serializer.Serialize(writer, contacts);
             }
         }
 
@@ -74,9 +68,9 @@ namespace View.Model.Services
         /// Загружает данные из файла и передает их в список.
         /// </summary>
         /// <returns>Возвращает текущий контакт.</returns>
-        public static Contact LoadFromFile()
+        public static ObservableCollection<Contact> LoadFromFile()
         {
-            Contact contact = null;
+            ObservableCollection<Contact> contacts = null;
 
             try
             {
@@ -90,15 +84,20 @@ namespace View.Model.Services
                 using (StreamReader sr = new StreamReader(Filename))
                 using (JsonReader reader = new JsonTextReader(sr))
                 {
-                    contact = serializer.Deserialize<Contact>(reader);
+                    contacts = serializer.Deserialize<ObservableCollection<Contact>>(reader);
+
+                    if(contacts == null)
+                    {
+                        return new ObservableCollection<Contact>();
+                    }
                 }
             }
             catch
             {
-                return new Contact();
+                return new ObservableCollection<Contact>();
             }
 
-            return contact;
+            return contacts;
         }
     }
 }

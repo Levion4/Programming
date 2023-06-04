@@ -42,8 +42,8 @@ namespace View.ViewModel
         /// возможности выполнения команды.</param>
         public RelayCommand(Action<object> execute, Func<object, bool> canExecute = null)
         {
-            this._execute = execute;
-            this._canExecute = canExecute;
+            _execute = execute;
+            _canExecute = canExecute;
         }
 
         /// <summary>
@@ -53,7 +53,12 @@ namespace View.ViewModel
         /// <returns></returns>
         public bool CanExecute(object parameter)
         {
-            return true;
+            if(_canExecute == null)
+            {
+                return true;
+            }
+            
+            return _canExecute.Invoke(parameter);
         }
 
         /// <summary>
@@ -62,7 +67,7 @@ namespace View.ViewModel
         /// <param name="parameter"></param>
         public void Execute(object parameter)
         {
-            this._execute(parameter);
+            _execute(parameter);
         }
     }
 }

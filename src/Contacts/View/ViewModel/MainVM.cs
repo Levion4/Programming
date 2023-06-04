@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using View.Model;
 using View.Model.Services;
 
@@ -16,19 +18,50 @@ namespace View.ViewModel
     public class MainVM: INotifyPropertyChanged
     {
         /// <summary>
-        /// Контакт.
+        /// Коллекция контактов.
         /// </summary>
-        private Contact _contact = new Contact();
+        private ObservableCollection<Contact> _contacts =
+            new ObservableCollection<Contact>();
 
         /// <summary>
-        /// Команда сохранения контакта.
+        /// Текущий контакт.
         /// </summary>
-        private RelayCommand _saveCommand;
+        private Contact _currentContact;
 
         /// <summary>
-        /// Команда загрузки контакта.
+        /// Клон контакта.
         /// </summary>
-        private RelayCommand _loadCommand;
+        private Contact _cloneContact;
+
+        /// <summary>
+        /// Изначальный контакт.
+        /// </summary>
+        private Contact _initialContact;
+
+        /// <summary/>
+        /// Отвечает за доступность элементов.
+        /// </summary>
+        private bool _isAvailable = false;
+
+        /// <summary>
+        /// Команда добавления контакта.
+        /// </summary>
+        private RelayCommand _addCommand;
+
+        /// <summary>
+        /// Команда применения контакта.
+        /// </summary>
+        private RelayCommand _applyCommand;
+
+        /// <summary>
+        /// Команда удаления контакта.
+        /// </summary>
+        private RelayCommand _removeCommand;
+
+        /// <summary>
+        /// Команда изменения контакта.
+        /// </summary>
+        private RelayCommand _editCommand;
 
         /// <summary>
         /// Хранит событие на изменение.
@@ -37,109 +70,180 @@ namespace View.ViewModel
         public event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>
-        /// Команда на выполнение сохранения данных.
+        /// Возвращает и задает доступность элементов. 
+        /// Задается только во время инициализации.
         /// </summary>
-        public RelayCommand SaveCommand
+        public bool IsAvailable
+        {
+            get 
+            { 
+                return _isAvailable; 
+            }
+            private set
+            {
+                _isAvailable = value;
+                OnPropertyChanged(nameof(IsAvailable));
+            }
+        }
+
+        /// <summary>
+        /// Команда на выполнение добавления контакта.
+        /// </summary>
+        public RelayCommand AddCommand
         {
             get
             {
-                return _saveCommand ??
-                    (_saveCommand = new RelayCommand(obj =>
+                return _addCommand ??
+                    (_addCommand = new RelayCommand(obj =>
                     {
-                        ContactSerializer.SaveToFile(_contact);
+                        CurrentContact = null;
+                        CurrentContact = new Contact();
+                        IsAvailable = true;
                     }));
             }
         }
 
         /// <summary>
-        /// Команда на выполнение загрузки данных.
+        /// Команда на выполнение применения контакта.
         /// </summary>
-        public RelayCommand LoadCommand
+        public RelayCommand ApplyCommand
         {
             get
             {
-                return _loadCommand ??
-                    (_loadCommand = new RelayCommand(obj =>
+                return _applyCommand ??
+                    (_applyCommand = new RelayCommand(obj =>
                     {
-                        Contact = ContactSerializer.LoadFromFile();
+                        IsAvailable = false;
+
+                        if (_cloneContact != null)
+                        {
+                            int index = Contacts.IndexOf(_initialContact);
+                            Contacts[index] = _cloneContact;
+                            _cloneContact = null;
+                            CurrentContact = Contacts[index];
+
+                            return;
+                        }
+
+                        if (!Contacts.Contains(CurrentContact))
+                        {
+                            Contacts.Add(CurrentContact);
+                            return;
+                        }
                     }));
             }
         }
 
         /// <summary>
-        /// Возвращает и задает имя контакта.
+        /// Команда на выполнение редактирования контакта.
         /// </summary>
-        public string Name
+        public RelayCommand EditCommand
         {
             get
             {
-                return _contact.Name;
+                return _editCommand ??
+                    (_editCommand = new RelayCommand(obj =>
+                    {
+                        _cloneContact = (Contact)CurrentContact.Clone();
+                        _initialContact = CurrentContact;
+                        CurrentContact = _cloneContact;
+
+                        if(CurrentContact != null && Contacts.Count > 0)
+                        {
+                            IsAvailable = true;
+                        }        
+                    },
+                    (obj) => CurrentContact != null));
+            }
+        }
+
+        /// <summary>
+        /// Команда на выполнение удаления контакта.
+        /// </summary>
+        public RelayCommand RemoveCommand
+        {
+            get
+            {
+                return _removeCommand ??
+                    (_removeCommand = new RelayCommand(obj =>
+                    {
+                        if (Contacts.Count > 1)
+                        {
+                            int index = Contacts.IndexOf(CurrentContact);
+
+                            if (index == 0)
+                            {
+                                CurrentContact = Contacts[index + 1];
+                            }
+                            else
+                            {
+                                CurrentContact = Contacts[index - 1];
+                            }
+
+                            Contacts.RemoveAt(index);
+                        }
+                        else
+                        {
+                            Contacts.Remove(CurrentContact);
+                        }
+                    },
+                    (obj) => CurrentContact != null));
+            }
+        }
+
+        /// <summary>
+        /// Возвращает и задает коллекцию контактов.
+        /// </summary>
+        public ObservableCollection<Contact> Contacts
+        {
+            get
+            {
+                return _contacts;
             }
             set
             {
-                if (value != _contact.Name)
+                if (value != _contacts)
                 {
-                    _contact.Name = value;
-                    OnPropertyChanged(nameof(Name));
+                    _contacts = value;
+                    OnPropertyChanged(nameof(Contacts));
                 }
             }
         }
 
         /// <summary>
-        /// Возвращает и задает номер телефона контакта.
+        /// Возвращает и задает текущий контакт.
         /// </summary>
-        public string PhoneNumber
+        public Contact CurrentContact
         {
             get
             {
-                return _contact.PhoneNumber;
+                return _currentContact;
             }
             set
             {
-                if (value != _contact.PhoneNumber)
+                if (value != _currentContact)
                 {
-                    _contact.PhoneNumber = value;
-                    OnPropertyChanged(nameof(PhoneNumber));
+                    _currentContact = value;
+                    OnPropertyChanged(nameof(CurrentContact));
+                    IsAvailable = false;
                 }
             }
         }
 
         /// <summary>
-        /// Возвращает и задает почту контакта.
+        /// Сохраняет данные.
         /// </summary>
-        public string Email
+        public void Save()
         {
-            get
-            {
-                return _contact.Email;
-            }
-            set
-            {
-                if (value != _contact.Email)
-                {
-                    _contact.Email = value;
-                    OnPropertyChanged(nameof(Email));
-                }
-            }
+            ContactSerializer.SaveToFile(Contacts);
         }
 
         /// <summary>
-        /// Возвращает и задает контакт.
+        /// Загружает данные.
         /// </summary>
-        public Contact Contact
-        {
-            get
-            {
-                return _contact;
-            }
-            set
-            {
-                if (value != _contact)
-                {
-                    _contact = value;
-                    OnPropertyChanged(nameof(Contact));
-                }
-            }
+        public void Load()
+        {         
+            Contacts = ContactSerializer.LoadFromFile();
         }
 
         /// <summary>
@@ -147,9 +251,9 @@ namespace View.ViewModel
         /// </summary>
         /// <param name="prop">Название свойства,
         /// для которого зажигается событие.</param>
-        public void OnPropertyChanged([CallerMemberName] string prop = "")
+        public void OnPropertyChanged([CallerMemberName] string property = "")
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
         }
     }
 }

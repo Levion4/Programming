@@ -4,44 +4,79 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:View.ViewModel" d:DataContext="{d:DesignInstance Type=local:MainVM}"
+        xmlns:calc="clr-namespace:CalcBinding;assembly=CalcBinding"
         mc:Ignorable="d"
         Title="Contacts" Height="450" Width="600" 
-        Icon="/Icon_MainWindow.png">
-    <Grid Margin="15">
+        Icon="/Resources/Icon_MainWindow.png" Closed="Window_Closed" Loaded="Window_Loaded">
+    <Window.Resources>
+        <local:BoolToVisibilityConverter x:Key="BoolConverter"></local:BoolToVisibilityConverter>
+        <local:ReverseBoolConverter x:Key="ReverseBoolConverter"></local:ReverseBoolConverter>
+    </Window.Resources>
+    <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="0.5*"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-        <GroupBox Header="Edit Contact"
-                  Margin="3" Grid.Row="0" Grid.Column="0">
-            <StackPanel Orientation="Vertical">
+        <GridSplitter Grid.Column="1" ShowsPreview="False" Width="3" HorizontalAlignment="Center"
+                      VerticalAlignment="Stretch" Background="White"/>
+        <Grid Background="#f8f8f8" Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0" Margin="8,8,8,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Margin="3" Text="Find:"/>
+                <TextBox Grid.Column="1" Margin="3" Text=""/>
+            </Grid>
+            <Grid Grid.Row="1" Margin="8,0,8,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="17*"/>
+                    <RowDefinition Height="322*"/>
+                </Grid.RowDefinitions>
+                <ListBox Margin="3" ItemsSource="{Binding Contacts}"
+                         SelectedItem="{Binding CurrentContact}" DisplayMemberPath="Name" Grid.RowSpan="2"/>
+            </Grid>
+            <Grid Grid.Row="2" Margin="8,0,8,8">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/> 
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Button Content="Add" Grid.Column="0" Height="25" Width="Auto" Margin="3"
+                        Command="{Binding AddCommand}" IsEnabled="{Binding IsAvailable, Converter={StaticResource ReverseBoolConverter}}"/>
+                <Button Content="Edit" Grid.Column="1" Height="25" Width="Auto" Margin="3"
+                        Command="{Binding EditCommand}" IsEnabled="{Binding IsAvailable, Converter={StaticResource ReverseBoolConverter}}"/>
+                <Button Content="Remove" Grid.Column="2" Height="25" Width="Auto" Margin="3"
+                        Command="{Binding RemoveCommand}" IsEnabled="{Binding IsAvailable, Converter={StaticResource ReverseBoolConverter}}"/>
+            </Grid>
+        </Grid>
+        <Grid Grid.Column="2" Margin="8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="1" Orientation="Vertical">
                 <TextBlock Text="Name:" Margin="3"/>
-                <TextBox Margin="3" Text="{Binding Contact.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBox Margin="3" IsReadOnly="{Binding IsAvailable, Converter={StaticResource ReverseBoolConverter}}"
+                         Text="{Binding CurrentContact.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 <TextBlock Text="Phone Number:" Margin="3"/>
-                <TextBox Margin="3" Text="{Binding Contact.PhoneNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBox Margin="3" IsReadOnly="{Binding IsAvailable, Converter={StaticResource ReverseBoolConverter}}"
+                         Text="{Binding CurrentContact.PhoneNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 <TextBlock Text="Email:" Margin="3"/>
-                <TextBox Margin="3" Text="{Binding Contact.Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBox Margin="3" IsReadOnly="{Binding IsAvailable, Converter={StaticResource ReverseBoolConverter}}"
+                         Text="{Binding CurrentContact.Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <Button Content="Apply" Height="25" Width="75" HorizontalAlignment="Left" Margin="3,50,3,3"
+                        Visibility="{Binding IsAvailable, Converter={StaticResource BoolConverter}}" Command="{Binding ApplyCommand}"/>
             </StackPanel>
-        </GroupBox>
-        <GroupBox Header="Read Contact"
-                  Margin="3" Grid.Row="0" Grid.Column="1">
-            <StackPanel Orientation="Vertical">
-                <TextBlock Text="Name:" Margin="3"/>
-                <TextBlock Margin="3" FontWeight="Bold" Text="{Binding Contact.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                <TextBlock Text="Phone Number:" Margin="3"/>
-                <TextBlock Margin="3" FontWeight="Bold" Text="{Binding Contact.PhoneNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                <TextBlock Text="Email:" Margin="3"/>
-                <TextBlock Margin="3" FontWeight="Bold" Text="{Binding Contact.Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <StackPanel Grid.Column="0">
+                <Image Source="/Resources/photo_placeholder_100x100.png" Width="100" Height="100" Margin="3, 25, 3, 3"/>
             </StackPanel>
-        </GroupBox>
-        <StackPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right"
-                    Orientation="Horizontal" Grid.ColumnSpan="2">
-            <Button Content="Save" Height="25" Width="75" Margin="3" Command="{Binding SaveCommand}" CommandParameter="{Binding Contact}"/>
-            <Button Content="Load" Height="25" Width="75" Margin="3" Command="{Binding LoadCommand}"/>
-        </StackPanel>
+        </Grid>
     </Grid>
 </Window>
