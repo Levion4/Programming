@@ -33,15 +33,16 @@
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Column="1" Orientation="Vertical">
             <TextBlock Text="Name:" Margin="3"/>
-            <TextBox Margin="3" IsReadOnly="{Binding IsAvailable, Converter={StaticResource ReverseBoolConverter}}" 
+            <TextBox x:Name="NameTextBox" Margin="3" IsReadOnly="{Binding IsAvailable, Converter={StaticResource ReverseBoolConverter}}" 
                      Text="{Binding CurrentContact.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                      Style="{StaticResource errorTextStyle}" Validation.ErrorTemplate="{StaticResource validationFailed}"/>
             <TextBlock Text="Phone Number:" Margin="3"/>
-            <TextBox Margin="3" IsReadOnly="{Binding IsAvailable, Converter={StaticResource ReverseBoolConverter}}"
+            <TextBox x:Name="PhoneNumberTextBox" Margin="3" IsReadOnly="{Binding IsAvailable, Converter={StaticResource ReverseBoolConverter}}"
                      Text="{Binding CurrentContact.PhoneNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
-                     Style="{StaticResource errorTextStyle}" Validation.ErrorTemplate="{StaticResource validationFailed}"/>
+                     Style="{StaticResource errorTextStyle}" Validation.ErrorTemplate="{StaticResource validationFailed}"
+                     PreviewTextInput="PhoneNumberTextBox_PreviewTextInput" DataObject.Pasting="PhoneNumberTextBox_Pasting"/>
             <TextBlock Text="Email:" Margin="3"/>
-            <TextBox Margin="3" IsReadOnly="{Binding IsAvailable, Converter={StaticResource ReverseBoolConverter}}"
+            <TextBox x:Name="EmailTextBox" Margin="3" IsReadOnly="{Binding IsAvailable, Converter={StaticResource ReverseBoolConverter}}"
                      Text="{Binding CurrentContact.Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                      Style="{StaticResource errorTextStyle}" Validation.ErrorTemplate="{StaticResource validationFailed}"/>
         </StackPanel>

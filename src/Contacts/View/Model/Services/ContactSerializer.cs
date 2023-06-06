@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using View.ViewModel;
 
 namespace View.Model.Services
 {
@@ -48,7 +49,7 @@ namespace View.Model.Services
         /// <param name="contacts">Данные о контактах, которые нужно сохранить.</param>
         /// <exception cref="Exception">Возникает, 
         /// если произошла ошибка при сохранении.</exception>
-        public static void SaveToFile(ObservableCollection<Contact> contacts)
+        public static void SaveToFile(ObservableCollection<ContactVM> contacts)
         {
             CreateDirectory();
             var settings = new JsonSerializerSettings
@@ -68,9 +69,9 @@ namespace View.Model.Services
         /// Загружает данные из файла и передает их в список.
         /// </summary>
         /// <returns>Возвращает текущий контакт.</returns>
-        public static ObservableCollection<Contact> LoadFromFile()
+        public static ObservableCollection<ContactVM> LoadFromFile()
         {
-            ObservableCollection<Contact> contacts = null;
+            ObservableCollection<ContactVM> contacts = null;
 
             try
             {
@@ -84,17 +85,18 @@ namespace View.Model.Services
                 using (StreamReader sr = new StreamReader(Filename))
                 using (JsonReader reader = new JsonTextReader(sr))
                 {
-                    contacts = serializer.Deserialize<ObservableCollection<Contact>>(reader);
+                    contacts = serializer.Deserialize
+                        <ObservableCollection<ContactVM>>(reader);
 
                     if(contacts == null)
                     {
-                        return new ObservableCollection<Contact>();
+                        return new ObservableCollection<ContactVM>();
                     }
                 }
             }
             catch
             {
-                return new ObservableCollection<Contact>();
+                return new ObservableCollection<ContactVM>();
             }
 
             return contacts;

@@ -21,23 +21,23 @@ namespace View.ViewModel
         /// <summary>
         /// Коллекция контактов.
         /// </summary>
-        private ObservableCollection<Contact> _contacts =
-            new ObservableCollection<Contact>();
+        private ObservableCollection<ContactVM> _contacts =
+            new ObservableCollection<ContactVM>();
 
         /// <summary>
         /// Текущий контакт.
         /// </summary>
-        private Contact _currentContact;
+        private ContactVM _currentContact;
 
         /// <summary>
         /// Клон контакта.
         /// </summary>
-        private Contact _cloneContact;
+        private ContactVM _cloneContact;
 
         /// <summary>
         /// Изначальный контакт.
         /// </summary>
-        private Contact _initialContact;
+        private ContactVM _initialContact;
 
         /// <summary/>
         /// Отвечает за доступность элементов.
@@ -98,7 +98,7 @@ namespace View.ViewModel
                     (_addCommand = new RelayCommand(obj =>
                     {
                         CurrentContact = null;
-                        CurrentContact = new Contact();
+                        CurrentContact = new ContactVM(new Contact());
                         IsAvailable = true;
                     }));
             }
@@ -145,7 +145,7 @@ namespace View.ViewModel
                 return _editCommand ??
                     (_editCommand = new RelayCommand(obj =>
                     {
-                        _cloneContact = (Contact)CurrentContact.Clone();
+                        _cloneContact = (ContactVM)CurrentContact.Clone();
                         _initialContact = CurrentContact;
                         CurrentContact = _cloneContact;
 
@@ -195,7 +195,7 @@ namespace View.ViewModel
         /// <summary>
         /// Возвращает и задает коллекцию контактов.
         /// </summary>
-        public ObservableCollection<Contact> Contacts
+        public ObservableCollection<ContactVM> Contacts
         {
             get
             {
@@ -214,7 +214,7 @@ namespace View.ViewModel
         /// <summary>
         /// Возвращает и задает текущий контакт.
         /// </summary>
-        public Contact CurrentContact
+        public ContactVM CurrentContact
         {
             get
             {
@@ -250,7 +250,7 @@ namespace View.ViewModel
         /// <summary>
         /// Зажигает событие.
         /// </summary>
-        /// <param name="prop">Название свойства,
+        /// <param name="property">Название свойства,
         /// для которого зажигается событие.</param>
         public void OnPropertyChanged([CallerMemberName] string property = "")
         {
