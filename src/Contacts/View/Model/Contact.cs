@@ -8,6 +8,7 @@ using System.Net.Mail;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.Json.Serialization;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
 
@@ -16,7 +17,7 @@ namespace View.Model
     /// <summary>
     /// Хранит данные о контакте.
     /// </summary>
-    public class Contact : INotifyPropertyChanged, ICloneable
+    public class Contact : INotifyPropertyChanged, ICloneable, IDataErrorInfo
     {
         /// <summary>
         /// Имя контакта.
@@ -42,6 +43,10 @@ namespace View.Model
         /// <summary>
         /// Возвращает и задает имя контакта.
         /// </summary>
+        [StringLength(100, ErrorMessage =
+            $"{nameof(Name)} must be no longer than 100 characters.")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = 
+            $"{nameof(Name)} cannot be empty.")]
         public string Name 
         { 
             get
@@ -61,6 +66,13 @@ namespace View.Model
         /// <summary>
         /// Возвращает и задает номер телефона контакта.
         /// </summary>
+        [StringLength(100, ErrorMessage =
+            $"{nameof(PhoneNumber)} must be no longer than 100 characters.")]
+        [Phone(ErrorMessage = 
+            $"{nameof(PhoneNumber)} can only contain numbers or the" +
+            $" characters '+ - ( )'. Example: +7 (999) 111-22-33.")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = 
+            $"{nameof(PhoneNumber)} cannot be empty.")]
         public string PhoneNumber
         {
             get
@@ -80,6 +92,12 @@ namespace View.Model
         /// <summary>
         /// Возвращает и задает почту контакта.
         /// </summary>
+        [StringLength(100, ErrorMessage =
+            $"{nameof(Email)} must be no longer than 100 characters.")]
+        [EmailAddress(ErrorMessage =
+            $"{nameof(Email)} must contain the character @.")]
+        [Required(AllowEmptyStrings = false, ErrorMessage =
+            $"{nameof(Email)} cannot be empty.")]
         public string Email
         {
             get
@@ -93,6 +111,24 @@ namespace View.Model
                     _email = value;
                     OnPropertyChanged(nameof(Email));
                 }
+            }
+        }
+
+        /// <inheritdoc/>
+        string IDataErrorInfo.this[string propertyName]
+        {
+            get
+            {
+                return Validate(propertyName);
+            }
+        }
+
+        /// <inheritdoc/>
+        public string Error
+        {
+            get
+            {
+                return null;
             }
         }
 
@@ -124,6 +160,32 @@ namespace View.Model
         public object Clone()
         {
             return new Contact(Name, PhoneNumber, Email);
+        }
+
+        /// <summary>
+        /// Проверяет полученные данные.
+        /// </summary>
+        /// <param name="propertyName">Данные,
+        /// которые нужно проверить.</param>
+        /// <returns></returns>
+        private string Validate(string propertyName)
+        {
+            var value = GetType().GetProperty(propertyName).GetValue(
+                this, null);
+            var results = new List<ValidationResult>();
+
+            var context = new ValidationContext(this, null, null)
+            {
+                MemberName = propertyName
+            };
+
+            if (!Validator.TryValidateProperty(value, context, results))
+            {
+
+                return results.First().ErrorMessage;
+            }
+
+            return string.Empty;
         }
 
         /// <summary>

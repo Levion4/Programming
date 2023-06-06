@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -7,13 +8,13 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
 
-namespace View.ViewModel
+namespace View.Converters
 {
     /// <summary>
     /// Конвертер значений, который преобразовывает
-    /// значение типа bool к элементу перечисления Visibility.
+    /// значение типа bool к обратному.
     /// </summary>
-    public class BoolToVisibilityConverter: IValueConverter
+    public class ReverseBoolConverter : IValueConverter
     {
         /// <summary>
         /// Преобразует пришедшее от привязки значение в тот
@@ -28,12 +29,7 @@ namespace View.ViewModel
         public object Convert(object value, Type targetType,
             object parameter, CultureInfo culture)
         {
-            if ((bool)value)
-            {
-                return Visibility.Visible;
-            }
-
-            return Visibility.Hidden;
+            return !(bool)value;
         }
 
         /// <summary>

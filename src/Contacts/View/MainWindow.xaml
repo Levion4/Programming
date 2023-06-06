@@ -5,12 +5,35 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:View.ViewModel" d:DataContext="{d:DesignInstance Type=local:MainVM}"
         xmlns:calc="clr-namespace:CalcBinding;assembly=CalcBinding"
+        xmlns:control="clr-namespace:View.Controls"
+        xmlns:converter="clr-namespace:View.Converters"
         mc:Ignorable="d"
         Title="Contacts" Height="450" Width="600" 
         Icon="/Resources/Icon_MainWindow.png" Closed="Window_Closed" Loaded="Window_Loaded">
     <Window.Resources>
-        <local:BoolToVisibilityConverter x:Key="BoolConverter"></local:BoolToVisibilityConverter>
-        <local:ReverseBoolConverter x:Key="ReverseBoolConverter"></local:ReverseBoolConverter>
+        <converter:BoolToVisibilityConverter x:Key="BoolConverter"/>
+        <converter:ReverseBoolConverter x:Key="ReverseBoolConverter"/>
+        <DataTemplate x:Key="contactTemplate">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0">
+                    <Image Source="/Resources/photo_placeholder_100x100.png"
+                           Width="30" Height="30" Margin="3, 3, 3, 3"/>
+                </StackPanel>
+                <StackPanel Margin="3" Grid.Column="1">
+                    <TextBlock
+                        FontSize="12"
+                        FontWeight="SemiBold"
+                        Text="{Binding Name}"/>
+                    <TextBlock
+                        FontSize="10"
+                        Text="{Binding PhoneNumber}"/>
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
     </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -39,8 +62,8 @@
                     <RowDefinition Height="17*"/>
                     <RowDefinition Height="322*"/>
                 </Grid.RowDefinitions>
-                <ListBox Margin="3" ItemsSource="{Binding Contacts}"
-                         SelectedItem="{Binding CurrentContact}" DisplayMemberPath="Name" Grid.RowSpan="2"/>
+                <ListBox Margin="3" ItemsSource="{Binding Contacts}" ItemTemplate="{StaticResource contactTemplate}"
+                         SelectedItem="{Binding CurrentContact}" Grid.RowSpan="2"/>
             </Grid>
             <Grid Grid.Row="2" Margin="8,0,8,8">
                 <Grid.ColumnDefinitions>
@@ -57,26 +80,13 @@
             </Grid>
         </Grid>
         <Grid Grid.Column="2" Margin="8">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <StackPanel Grid.Column="1" Orientation="Vertical">
-                <TextBlock Text="Name:" Margin="3"/>
-                <TextBox Margin="3" IsReadOnly="{Binding IsAvailable, Converter={StaticResource ReverseBoolConverter}}"
-                         Text="{Binding CurrentContact.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                <TextBlock Text="Phone Number:" Margin="3"/>
-                <TextBox Margin="3" IsReadOnly="{Binding IsAvailable, Converter={StaticResource ReverseBoolConverter}}"
-                         Text="{Binding CurrentContact.PhoneNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                <TextBlock Text="Email:" Margin="3"/>
-                <TextBox Margin="3" IsReadOnly="{Binding IsAvailable, Converter={StaticResource ReverseBoolConverter}}"
-                         Text="{Binding CurrentContact.Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                <Button Content="Apply" Height="25" Width="75" HorizontalAlignment="Left" Margin="3,50,3,3"
-                        Visibility="{Binding IsAvailable, Converter={StaticResource BoolConverter}}" Command="{Binding ApplyCommand}"/>
-            </StackPanel>
-            <StackPanel Grid.Column="0">
-                <Image Source="/Resources/photo_placeholder_100x100.png" Width="100" Height="100" Margin="3, 25, 3, 3"/>
-            </StackPanel>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <control:ContactControl Grid.Row="0"/>
+            <Button Content="Apply" Height="25" Width="75" HorizontalAlignment="Left" Margin="109,25,3,3" Grid.Row="1"
+                    Visibility="{Binding IsAvailable, Converter={StaticResource BoolConverter}}" Command="{Binding ApplyCommand}"/>
         </Grid>
     </Grid>
 </Window>
