@@ -12,7 +12,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
 
-namespace View.Model
+namespace Model
 {
     /// <summary>
     /// Хранит данные о контакте.
@@ -63,6 +63,5 @@ namespace View.Model
         {
             return new Contact(Name, PhoneNumber, Email);
         }
-
     }
 }

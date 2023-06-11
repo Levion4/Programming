@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:View.ViewModel" 
+        xmlns:local="clr-namespace:ViewModel;assembly=ViewModel" 
         d:DataContext="{d:DesignInstance Type=local:MainVM}"
         xmlns:calc="clr-namespace:CalcBinding;assembly=CalcBinding"
         xmlns:control="clr-namespace:View.Controls"
@@ -21,8 +21,11 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <StackPanel Grid.Column="0">
-                    <Image Source="/Resources/photo_placeholder_100x100.png"
-                           Width="30" Height="30" Margin="3, 3, 3, 3"/>
+                    <Ellipse Width="30" Height="30" Margin="3, 3, 3, 3">
+                        <Ellipse.Fill>
+                            <ImageBrush ImageSource="/Resources/photo_placeholder_100x100.png"/>
+                        </Ellipse.Fill>
+                    </Ellipse>
                 </StackPanel>
                 <StackPanel Margin="3" Grid.Column="1">
                     <TextBlock
@@ -87,23 +90,8 @@
             </Grid.RowDefinitions>
             <control:ContactControl Grid.Row="0"/>
             <Button Content="Apply" Height="25" Width="75" HorizontalAlignment="Left" Margin="109,25,3,3" Grid.Row="1"
-                    Visibility="{Binding IsAvailable, Converter={StaticResource BoolConverter}}" Command="{Binding ApplyCommand}">
-                <Button.Style>
-                    <Style TargetType="Button">
-                        <Setter Property="IsEnabled" Value="True"/>
-                        <Style.Triggers>
-                            <MultiDataTrigger>
-                                <MultiDataTrigger.Conditions>
-                                    <Condition Binding="{Binding Path=(Validation.HasError), ElementName=NameTextBox}" Value="True"/>
-                                    <Condition Binding="{Binding Path=(Validation.HasError), ElementName=PhoneNumberTextBox}" Value="True"/>
-                                    <Condition Binding="{Binding Path=(Validation.HasError), ElementName=EmailTextBox}" Value="True"/>
-                                </MultiDataTrigger.Conditions>
-                                <Setter Property="IsEnabled" Value="True"/>
-                            </MultiDataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-            </Button>
+                    Visibility="{Binding IsAvailable, Converter={StaticResource BoolConverter}}" Command="{Binding ApplyCommand}"
+                    IsEnabled="{Binding CurrentContact.HasError, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
         </Grid>
     </Grid>
 </Window>

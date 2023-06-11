@@ -22,6 +22,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ViewModal\ViewModel.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="Icon_MainWindow.png" />
     <Resource Include="Resources\Icon_MainWindow.png" />
     <Resource Include="Resources\photo_placeholder_100x100.png" />

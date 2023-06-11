@@ -6,15 +6,18 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
-using View.Model;
+using CommunityToolkit.Mvvm.ComponentModel;
+using Model;
+using System.Collections;
 
-namespace View.ViewModel
+namespace ViewModel
 {
-    public class ContactVM : INotifyPropertyChanged, ICloneable, IDataErrorInfo
+    public partial class ContactVM : ObservableObject, ICloneable, IDataErrorInfo
     {
         /// <summary>
         /// Контакт.
         /// </summary>
+        [ObservableProperty]
         private Contact _contact;
 
         /// <summary>
@@ -28,8 +31,6 @@ namespace View.ViewModel
         /// </summary>
         [StringLength(100, ErrorMessage =
             $"{nameof(Name)} must be no longer than 100 characters.")]
-        [Required(AllowEmptyStrings = false, ErrorMessage =
-            $"{nameof(Name)} cannot be empty.")]
         public string Name
         {
             get
@@ -54,8 +55,6 @@ namespace View.ViewModel
         [Phone(ErrorMessage =
             $"{nameof(PhoneNumber)} can only contain numbers or the" +
             $" characters '+ - ( )'. Example: +7 (999) 111-22-33.")]
-        [Required(AllowEmptyStrings = false, ErrorMessage =
-            $"{nameof(PhoneNumber)} cannot be empty.")]
         public string PhoneNumber
         {
             get
@@ -79,8 +78,6 @@ namespace View.ViewModel
             $"{nameof(Email)} must be no longer than 100 characters.")]
         [EmailAddress(ErrorMessage =
             $"{nameof(Email)} must contain the character @.")]
-        [Required(AllowEmptyStrings = false, ErrorMessage =
-            $"{nameof(Email)} cannot be empty.")]
         public string Email
         {
             get
@@ -100,21 +97,6 @@ namespace View.ViewModel
         /// <summary>
         /// Возвращает и задает контакт.
         /// </summary>
-        public Contact Contact
-        {
-            get
-            {
-                return _contact;
-            }
-            set
-            {
-                if (value != _contact)
-                {
-                    _contact = value;
-                    OnPropertyChanged(nameof(Contact));
-                }
-            }
-        }
 
         /// <inheritdoc/>
         string IDataErrorInfo.this[string propertyName]
@@ -131,6 +113,28 @@ namespace View.ViewModel
             get
             {
                 return null;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private bool _hasError = false;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool HasError
+        {
+            get
+            {
+                return _hasError;
+            }
+
+            set
+            {
+                _hasError = value;
+                OnPropertyChanged(nameof(HasError));
             }
         }
 
@@ -170,9 +174,11 @@ namespace View.ViewModel
 
             if (!Validator.TryValidateProperty(value, context, results))
             {
+                HasError = true;
                 return results.First().ErrorMessage;
             }
 
+            HasError = false;
             return string.Empty;
         }
 

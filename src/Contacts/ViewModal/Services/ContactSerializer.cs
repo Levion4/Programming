@@ -6,9 +6,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using View.ViewModel;
+using ViewModel;
 
-namespace View.Model.Services
+
+namespace ViewModel.Services
 {
     /// <summary>
     /// Предоставляет методы для сериализации данных о контакте.
