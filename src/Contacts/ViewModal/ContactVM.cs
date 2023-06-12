@@ -25,6 +25,7 @@ namespace ViewModel
         /// Зажигается при изменении данных контакта.
         /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
+        //public event EventHandler<DataErrorsChangedEventArgs>? ErrorsChanged;
 
         /// <summary>
         /// Возвращает и задает имя контакта.
@@ -94,10 +95,6 @@ namespace ViewModel
             }
         }
 
-        /// <summary>
-        /// Возвращает и задает контакт.
-        /// </summary>
-
         /// <inheritdoc/>
         string IDataErrorInfo.this[string propertyName]
         {
@@ -108,35 +105,29 @@ namespace ViewModel
         }
 
         /// <inheritdoc/>
-        public string Error
-        {
-            get
-            {
-                return null;
-            }
-        }
+        public string Error { get; }
 
         /// <summary>
         /// 
         /// </summary>
-        private bool _hasError = false;
+        //private bool _hasErrors = false;
 
         /// <summary>
         /// 
         /// </summary>
-        public bool HasError
-        {
-            get
-            {
-                return _hasError;
-            }
+        //public bool HasErrors
+        //{
+        //    get
+        //    {
+        //        return _hasErrors;
+        //    }
 
-            set
-            {
-                _hasError = value;
-                OnPropertyChanged(nameof(HasError));
-            }
-        }
+        //    set
+        //    {
+        //        _hasErrors = value;
+        //        OnPropertyChanged(nameof(HasErrors));
+        //    }
+        //}
 
         /// <summary>
         /// Создает экземпляр класса <see cref="ContactVM"/>.
@@ -174,11 +165,11 @@ namespace ViewModel
 
             if (!Validator.TryValidateProperty(value, context, results))
             {
-                HasError = true;
+                //HasErrors = true;
                 return results.First().ErrorMessage;
             }
 
-            HasError = false;
+            //HasErrors = false;
             return string.Empty;
         }
 
@@ -191,5 +182,10 @@ namespace ViewModel
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }
+
+        //public IEnumerable GetErrors(string? propertyName)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }

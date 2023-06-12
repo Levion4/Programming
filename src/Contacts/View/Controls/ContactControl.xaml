@@ -33,18 +33,21 @@
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Column="1" Orientation="Vertical">
             <TextBlock Text="Name:" Margin="3"/>
-            <TextBox x:Name="NameTextBox" Margin="3" IsReadOnly="{Binding IsAvailable, Converter={StaticResource ReverseBoolConverter}}" 
-                     Text="{Binding CurrentContact.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
-                     Style="{StaticResource errorTextStyle}" Validation.ErrorTemplate="{StaticResource validationFailed}"/>
+            <TextBox Margin="3" IsReadOnly="{Binding IsEdit, RelativeSource={RelativeSource AncestorType=local:ContactControl},
+                     Converter={StaticResource ReverseBoolConverter}}" Text="{Binding Name, Mode=TwoWay,
+                     UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Style="{StaticResource errorTextStyle}"
+                     Validation.ErrorTemplate="{StaticResource validationFailed}"/>
             <TextBlock Text="Phone Number:" Margin="3"/>
-            <TextBox x:Name="PhoneNumberTextBox" Margin="3" IsReadOnly="{Binding IsAvailable, Converter={StaticResource ReverseBoolConverter}}"
-                     Text="{Binding CurrentContact.PhoneNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
-                     Style="{StaticResource errorTextStyle}" Validation.ErrorTemplate="{StaticResource validationFailed}"
+            <TextBox Margin="3" IsReadOnly="{Binding IsEdit, RelativeSource={RelativeSource AncestorType=local:ContactControl},
+                     Converter={StaticResource ReverseBoolConverter}}" Text="{Binding PhoneNumber, Mode=TwoWay,
+                     UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Style="{StaticResource errorTextStyle}"
+                     Validation.ErrorTemplate="{StaticResource validationFailed}"
                      PreviewTextInput="PhoneNumberTextBox_PreviewTextInput" DataObject.Pasting="PhoneNumberTextBox_Pasting"/>
             <TextBlock Text="Email:" Margin="3"/>
-            <TextBox x:Name="EmailTextBox" Margin="3" IsReadOnly="{Binding IsAvailable, Converter={StaticResource ReverseBoolConverter}}"
-                     Text="{Binding CurrentContact.Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
-                     Style="{StaticResource errorTextStyle}" Validation.ErrorTemplate="{StaticResource validationFailed}"/>
+            <TextBox Margin="3" IsReadOnly="{Binding IsEdit, RelativeSource={RelativeSource AncestorType=local:ContactControl},
+                     Converter={StaticResource ReverseBoolConverter}}" Text="{Binding Email, Mode=TwoWay,
+                     UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Style="{StaticResource errorTextStyle}"
+                     Validation.ErrorTemplate="{StaticResource validationFailed}"/>
         </StackPanel>
         <StackPanel Grid.Column="0">
             <Image Source="/Resources/photo_placeholder_100x100.png" Width="100" Height="100" Margin="3, 25, 3, 3"/>

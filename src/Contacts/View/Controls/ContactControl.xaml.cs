@@ -23,10 +23,37 @@ namespace View.Controls
     /// </summary>
     public partial class ContactControl : UserControl
     {
+        /// <summary>
+        /// Хранит свойство зависимости возможности редактирования.
+        /// </summary>
+        public static readonly DependencyProperty IsEditProperty = 
+            DependencyProperty.Register(nameof(IsEdit), typeof(bool),
+                typeof(ContactControl));
+
+        /// <summary>
+        /// Возвращает и задает возможность редактирования.
+        /// </summary>
+        public bool IsEdit
+        {
+            get => (bool)GetValue(IsEditProperty);
+            set => SetValue(IsEditProperty, value);
+        }
+
         public ContactControl()
         {
             InitializeComponent();
+            //var indei = DataContext as INotifyDataErrorInfo;
+            //if (indei != null)
+            //{
+            //    indei.ErrorsChanged += Indei_ErrorsChanged;
+            //}
         }
+
+        //private void Indei_ErrorsChanged(object? sender, DataErrorsChangedEventArgs e)
+        //{
+        //    var indei = DataContext as INotifyDataErrorInfo;
+        //    IsValidate = !indei.HasErrors;
+        //}
 
         private void PhoneNumberTextBox_PreviewTextInput(
             object sender, TextCompositionEventArgs e)

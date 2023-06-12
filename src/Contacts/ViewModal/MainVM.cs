@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using Model;
 using ViewModel.Services;
+using System.Xml.Linq;
 
 namespace ViewModel
 {
@@ -30,9 +31,6 @@ namespace ViewModel
         /// <summary>
         /// Текущий контакт.
         /// </summary>
-        [ObservableProperty]
-        [NotifyCanExecuteChangedFor(nameof(RemoveCommand))]
-        [NotifyCanExecuteChangedFor(nameof(EditCommand))]
         private ContactVM _currentContact;
 
         /// <summary>
@@ -67,6 +65,23 @@ namespace ViewModel
             }
         }
 
+        public ContactVM CurrentContact
+        {
+            get => _currentContact;
+            set
+            {
+                if (SetProperty(ref _currentContact, value))
+                {
+                    IsAvailable = false;
+                    RemoveCommand.NotifyCanExecuteChanged();
+                    EditCommand.NotifyCanExecuteChanged();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Команда на добавление контакта.
+        /// </summary>
         [RelayCommand]
         private void Add()
         {
@@ -75,6 +90,9 @@ namespace ViewModel
             IsAvailable = true;
         }
 
+        /// <summary>
+        /// Команда на применение изменений в контакт.
+        /// </summary>
         [RelayCommand]
         private void Apply()
         {
@@ -97,6 +115,9 @@ namespace ViewModel
             }
         }
 
+        /// <summary>
+        /// Команда на удаление контакта.
+        /// </summary>
         [RelayCommand(CanExecute = nameof(CheckingCurrentContactForNull))]
         private void Remove()
         {
@@ -121,6 +142,9 @@ namespace ViewModel
             }
         }
 
+        /// <summary>
+        /// Команда на изменение контакта.
+        /// </summary>
         [RelayCommand(CanExecute = nameof(CheckingCurrentContactForNull))]
         private void Edit()
         {
