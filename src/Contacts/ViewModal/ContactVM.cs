@@ -9,11 +9,20 @@ using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Model;
 using System.Collections;
+using System.Text.RegularExpressions;
 
 namespace ViewModel
 {
-    public partial class ContactVM : ObservableObject, ICloneable, IDataErrorInfo
+    /// <summary>
+    /// ViewModel контакта.
+    /// </summary>
+    public partial class ContactVM : ObservableObject, ICloneable, INotifyDataErrorInfo
     {
+        private readonly Dictionary<string, List<string>> _propertyErrors = 
+            new Dictionary<string, List<string>>();
+
+        private readonly int _maxLength = 100;
+
         /// <summary>
         /// Контакт.
         /// </summary>
@@ -25,13 +34,12 @@ namespace ViewModel
         /// Зажигается при изменении данных контакта.
         /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
-        //public event EventHandler<DataErrorsChangedEventArgs>? ErrorsChanged;
+
+        public event EventHandler<DataErrorsChangedEventArgs>? ErrorsChanged;
 
         /// <summary>
         /// Возвращает и задает имя контакта.
         /// </summary>
-        [StringLength(100, ErrorMessage =
-            $"{nameof(Name)} must be no longer than 100 characters.")]
         public string Name
         {
             get
@@ -43,6 +51,15 @@ namespace ViewModel
                 if (value != Contact.Name)
                 {
                     Contact.Name = value;
+                    ClearErrors(nameof(Name));
+
+                    if (Contact.Name.Length > _maxLength)
+                    {
+                        AddError(nameof(Name), $"{nameof(Name)} must be no" +
+                            $" longer than 100 characters.");
+                    }
+
+                    OnPropertyChanged(nameof(HasErrors));
                     OnPropertyChanged(nameof(Name));
                 }
             }
@@ -51,11 +68,6 @@ namespace ViewModel
         /// <summary>
         /// Возвращает и задает номер телефона контакта.
         /// </summary>
-        [StringLength(100, ErrorMessage =
-            $"{nameof(PhoneNumber)} must be no longer than 100 characters.")]
-        [Phone(ErrorMessage =
-            $"{nameof(PhoneNumber)} can only contain numbers or the" +
-            $" characters '+ - ( )'. Example: +7 (999) 111-22-33.")]
         public string PhoneNumber
         {
             get
@@ -67,6 +79,19 @@ namespace ViewModel
                 if (value != Contact.PhoneNumber)
                 {
                     Contact.PhoneNumber = value;
+                    ClearErrors(nameof(PhoneNumber));
+
+                    if (!Regex.IsMatch(Contact.PhoneNumber,
+                        @"^\+?(\d[\d-. ]+)?(\([\d-. ]+\))?[\d-. ]+\d$") ||
+                        Contact.PhoneNumber.Length > _maxLength)
+                    {
+                        AddError(nameof(PhoneNumber),
+                            $"{nameof(PhoneNumber)} can contain only numbers" +
+                            $" or the characters '+ - ( )'. Example:" +
+                            $" +7 (999) 111-22-33.");
+                    }
+
+                    OnPropertyChanged(nameof(HasErrors));
                     OnPropertyChanged(nameof(PhoneNumber));
                 }
             }
@@ -75,10 +100,6 @@ namespace ViewModel
         /// <summary>
         /// Возвращает и задает почту контакта.
         /// </summary>
-        [StringLength(100, ErrorMessage =
-            $"{nameof(Email)} must be no longer than 100 characters.")]
-        [EmailAddress(ErrorMessage =
-            $"{nameof(Email)} must contain the character @.")]
         public string Email
         {
             get
@@ -90,44 +111,24 @@ namespace ViewModel
                 if (value != Contact.Email)
                 {
                     Contact.Email = value;
+                    ClearErrors(nameof(Email));
+
+                    if (!Regex.IsMatch(Contact.Email,
+                        @"^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$") ||
+                            Contact.Email.Length > _maxLength)
+                    {
+                        AddError(nameof(Email), $"{nameof(Email)} must be no" +
+                            $" longer than 100 characters," +
+                            $" and must also contain '@' and '.'.");
+                    }
+
+                    OnPropertyChanged(nameof(HasErrors));
                     OnPropertyChanged(nameof(Email));
                 }
             }
         }
 
-        /// <inheritdoc/>
-        string IDataErrorInfo.this[string propertyName]
-        {
-            get
-            {
-                return Validate(propertyName);
-            }
-        }
-
-        /// <inheritdoc/>
-        public string Error { get; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        //private bool _hasErrors = false;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        //public bool HasErrors
-        //{
-        //    get
-        //    {
-        //        return _hasErrors;
-        //    }
-
-        //    set
-        //    {
-        //        _hasErrors = value;
-        //        OnPropertyChanged(nameof(HasErrors));
-        //    }
-        //}
+        public bool HasErrors => _propertyErrors.Any();
 
         /// <summary>
         /// Создает экземпляр класса <see cref="ContactVM"/>.
@@ -147,45 +148,45 @@ namespace ViewModel
         }
 
         /// <summary>
-        /// Проверяет полученные данные.
-        /// </summary>
-        /// <param name="propertyName">Данные,
-        /// которые нужно проверить.</param>
-        /// <returns></returns>
-        private string Validate(string propertyName)
-        {
-            var value = GetType().GetProperty(propertyName).GetValue(
-                this, null);
-            var results = new List<ValidationResult>();
-
-            var context = new ValidationContext(this, null, null)
-            {
-                MemberName = propertyName
-            };
-
-            if (!Validator.TryValidateProperty(value, context, results))
-            {
-                //HasErrors = true;
-                return results.First().ErrorMessage;
-            }
-
-            //HasErrors = false;
-            return string.Empty;
-        }
-
-        /// <summary>
         /// Зажигает событие.
         /// </summary>
         /// <param name="prop">Название свойства,
         /// для которого зажигается событие.</param>
-        public void OnPropertyChanged([CallerMemberName] string prop = "")
+        public void OnPropertyChanged(
+            [CallerMemberName] string propertyName = "")
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
+            PropertyChanged?.Invoke
+                (this, new PropertyChangedEventArgs(propertyName));
         }
 
-        //public IEnumerable GetErrors(string? propertyName)
-        //{
-        //    throw new NotImplementedException();
-        //}
+        public IEnumerable GetErrors(string? propertyName)
+        {
+            return _propertyErrors.GetValueOrDefault(propertyName, null);
+        }
+
+        public void AddError(string propertyName, string errorMessage)
+        {
+            if (!_propertyErrors.ContainsKey(propertyName))
+            {
+                _propertyErrors.Add(propertyName, new List<string>());
+            }
+
+            _propertyErrors[propertyName].Add(errorMessage);
+            OnErrorsChanged(propertyName);
+        }
+
+        public void ClearErrors(string propertyName)
+        {
+            if (_propertyErrors.Remove(propertyName))
+            {
+                OnErrorsChanged(propertyName);
+            }
+        }
+
+        private void OnErrorsChanged(string propertyName)
+        {
+            ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(propertyName));
+            OnPropertyChanged(nameof(HasErrors));
+        }
     }
 }

@@ -75,6 +75,7 @@ namespace ViewModel
                     IsAvailable = false;
                     RemoveCommand.NotifyCanExecuteChanged();
                     EditCommand.NotifyCanExecuteChanged();
+                    ApplyCommand.NotifyCanExecuteChanged();
                 }
             }
         }
@@ -187,6 +188,16 @@ namespace ViewModel
             }
 
             return false;
+        }
+
+        private bool CheckingCurrentContactErrors()
+        {
+            if (CurrentContact == null)
+            {
+                return false;
+            }
+
+            return !CurrentContact.HasErrors;
         }
     }
 }

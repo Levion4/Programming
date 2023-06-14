@@ -96,7 +96,7 @@
                                     Margin="3,3,3,3" VerticalAlignment="Top"/>
             <Button Content="Apply" Height="25" Width="75" HorizontalAlignment="Left" Margin="109,25,3,3" Grid.Row="1"
                     Visibility="{Binding IsAvailable, Converter={StaticResource BoolConverter}}" Command="{Binding ApplyCommand}"
-                    IsEnabled="{Binding CurrentContact.HasErrors, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    IsEnabled="{Binding CurrentContact.HasErrors, Converter={StaticResource ReverseBoolConverter}}"/>
         </Grid>
     </Grid>
 </Window>

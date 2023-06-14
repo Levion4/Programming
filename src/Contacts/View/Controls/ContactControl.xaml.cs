@@ -42,18 +42,7 @@ namespace View.Controls
         public ContactControl()
         {
             InitializeComponent();
-            //var indei = DataContext as INotifyDataErrorInfo;
-            //if (indei != null)
-            //{
-            //    indei.ErrorsChanged += Indei_ErrorsChanged;
-            //}
         }
-
-        //private void Indei_ErrorsChanged(object? sender, DataErrorsChangedEventArgs e)
-        //{
-        //    var indei = DataContext as INotifyDataErrorInfo;
-        //    IsValidate = !indei.HasErrors;
-        //}
 
         private void PhoneNumberTextBox_PreviewTextInput(
             object sender, TextCompositionEventArgs e)
