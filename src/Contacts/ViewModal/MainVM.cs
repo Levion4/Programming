@@ -25,47 +25,34 @@ namespace ViewModel
         /// Коллекция контактов.
         /// </summary>
         [ObservableProperty]
-        private ObservableCollection<ContactVM> _contacts =
-            new ObservableCollection<ContactVM>();
+        private ObservableCollection<Contact> _contacts =
+            new ObservableCollection<Contact>();
 
         /// <summary>
         /// Текущий контакт.
         /// </summary>
-        private ContactVM _currentContact;
+        private Contact _currentContact;
 
         /// <summary>
         /// Клон контакта.
         /// </summary>
-        private ContactVM _cloneContact;
+        private Contact _cloneContact;
 
         /// <summary>
         /// Изначальный контакт.
         /// </summary>
-        private ContactVM _initialContact;
+        private Contact _initialContact;
 
         /// <summary/>
         /// Отвечает за доступность элементов.
         /// </summary>
+        [ObservableProperty]
         private bool _isAvailable = false;
 
         /// <summary>
-        /// Возвращает и задает доступность элементов. 
-        /// Задается только во время инициализации.
+        /// Возвращает и задает текущий контакт.
         /// </summary>
-        public bool IsAvailable
-        {
-            get
-            {
-                return _isAvailable;
-            }
-            private set
-            {
-                _isAvailable = value;
-                OnPropertyChanged(nameof(IsAvailable));
-            }
-        }
-
-        public ContactVM CurrentContact
+        public Contact CurrentContact
         {
             get => _currentContact;
             set
@@ -87,7 +74,7 @@ namespace ViewModel
         private void Add()
         {
             CurrentContact = null;
-            CurrentContact = new ContactVM(new Contact());
+            CurrentContact = new Contact();
             IsAvailable = true;
         }
 
@@ -149,7 +136,7 @@ namespace ViewModel
         [RelayCommand(CanExecute = nameof(CheckingCurrentContactForNull))]
         private void Edit()
         {
-            _cloneContact = (ContactVM)CurrentContact.Clone();
+            _cloneContact = (Contact)CurrentContact.Clone();
             _initialContact = CurrentContact;
             CurrentContact = _cloneContact;
 
@@ -188,16 +175,6 @@ namespace ViewModel
             }
 
             return false;
-        }
-
-        private bool CheckingCurrentContactErrors()
-        {
-            if (CurrentContact == null)
-            {
-                return false;
-            }
-
-            return !CurrentContact.HasErrors;
         }
     }
 }

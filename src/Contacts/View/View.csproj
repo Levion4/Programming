@@ -10,7 +10,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Icon_MainWindow.png" />
     <None Remove="rectangle_remove_24x24.png" />
     <None Remove="Resources\photo_placeholder_100x100.png" />
   </ItemGroup>
@@ -26,7 +25,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Icon_MainWindow.png" />
     <Resource Include="Resources\Icon_MainWindow.png" />
     <Resource Include="Resources\photo_placeholder_100x100.png" />
   </ItemGroup>

@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using ViewModel;
+using Model;
 
 
 namespace ViewModel.Services
@@ -50,7 +51,7 @@ namespace ViewModel.Services
         /// <param name="contacts">Данные о контактах, которые нужно сохранить.</param>
         /// <exception cref="Exception">Возникает, 
         /// если произошла ошибка при сохранении.</exception>
-        public static void SaveToFile(ObservableCollection<ContactVM> contacts)
+        public static void SaveToFile(ObservableCollection<Contact> contacts)
         {
             CreateDirectory();
             var settings = new JsonSerializerSettings
@@ -70,9 +71,9 @@ namespace ViewModel.Services
         /// Загружает данные из файла и передает их в список.
         /// </summary>
         /// <returns>Возвращает текущий контакт.</returns>
-        public static ObservableCollection<ContactVM> LoadFromFile()
+        public static ObservableCollection<Contact> LoadFromFile()
         {
-            ObservableCollection<ContactVM> contacts = null;
+            ObservableCollection<Contact>? contacts = null;
 
             try
             {
@@ -87,17 +88,17 @@ namespace ViewModel.Services
                 using (JsonReader reader = new JsonTextReader(sr))
                 {
                     contacts = serializer.Deserialize
-                        <ObservableCollection<ContactVM>>(reader);
+                        <ObservableCollection<Contact>>(reader);
 
                     if(contacts == null)
                     {
-                        return new ObservableCollection<ContactVM>();
+                        return new ObservableCollection<Contact>();
                     }
                 }
             }
             catch
             {
-                return new ObservableCollection<ContactVM>();
+                return new ObservableCollection<Contact>();
             }
 
             return contacts;

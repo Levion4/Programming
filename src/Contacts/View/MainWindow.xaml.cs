@@ -21,6 +21,9 @@ namespace View
     /// </summary>
     public partial class MainWindow : Window
     {
+        /// <summary>
+        /// ViewModel главного окна.
+        /// </summary>
         private MainVM _vm;
 
         public MainWindow()
